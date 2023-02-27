@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
+  m_Name: L Spaceship Iron Plates
+  m_EditorClassIdentifier: 
+  Size: 2
+  RecycleType: 4
+  ProductNumber: 3
+  SeparateProducets:
+  - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}
+  - {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}
+  - {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}

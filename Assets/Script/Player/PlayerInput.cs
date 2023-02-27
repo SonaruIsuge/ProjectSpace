@@ -5,11 +5,13 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : MonoBehaviour, IPlayerInput
+public class PlayerInput : IPlayerInput
 {
     public Vector2 Movement { get; private set; }
     public float JetDirection { get; private set; }
-    public bool Interact => interactUnderPerform && playerInputAction.GamePlay.Interact.WasPressedThisFrame();
+    public bool TapInteract => interactUnderPerform && playerInputAction.GamePlay.Interact.WasPressedThisFrame();
+    public bool HoldInteract => interactUnderPerform;
+    public bool ReleaseInteract => playerInputAction.GamePlay.Interact.WasReleasedThisFrame(); 
     public bool SwitchEquipment => switchEquipmentUnderPerform && playerInputAction.GamePlay.SwitchEquip.WasPressedThisFrame();
 
     
@@ -18,13 +20,13 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     private bool switchEquipmentUnderPerform;
 
     
-    private void Awake()
+    public PlayerInput()
     {
         playerInputAction = new PlayerInputAction();
     }
 
 
-    private void OnEnable()
+    public void RegisterInput()
     {
         playerInputAction.GamePlay.Movement.performed += OnMovePerform;
         playerInputAction.GamePlay.Movement.canceled += OnMoveCancel;
@@ -37,7 +39,7 @@ public class PlayerInput : MonoBehaviour, IPlayerInput
     }
 
 
-    private void OnDisable()
+    public void UnregisterInput()
     {
         playerInputAction.GamePlay.Movement.performed -= OnMovePerform;
         playerInputAction.GamePlay.Movement.canceled -= OnMoveCancel;
