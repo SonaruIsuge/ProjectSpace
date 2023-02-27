@@ -384,6 +384,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3789415566625805916, guid: 0eda56b848e71f34d922596c28d750cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a289830085519fc40b25765329c643a4, type: 2}
+    - target: {fileID: -2193851075767950715, guid: 0eda56b848e71f34d922596c28d750cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1910476591730138733, guid: 0eda56b848e71f34d922596c28d750cc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -394,5 +404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: penguin_mod
       objectReference: {fileID: 0}
+    - target: {fileID: 3582595287268314899, guid: 0eda56b848e71f34d922596c28d750cc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f4a668f66f9502c489996ad56209606f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda56b848e71f34d922596c28d750cc, type: 3}
