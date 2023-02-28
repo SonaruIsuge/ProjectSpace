@@ -1,43 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using SonaruUtilities;
 using UnityEngine;
 
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : TSingletonMonoBehaviour<ItemManager>
 {
+    [SerializeField] private ItemContainer itemContainer;
     [SerializeField] private List<Item> allItem;
+
+    [SerializeField] private NormalSeparatorMachine normalSeparatorMachine;
     
     public static event Action<Item, Player> OnItemStartInteract;
     public static event Action<Item, Player> OnItemEndInteract;
+
+
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+        itemContainer.GenerateDictionary();
+    }
 
 
     private void OnEnable()
     {
         foreach (var item in allItem)
         {
-            SetItem(item, false);
             item.OnNewPlayerInteract += ItemStartInteract;
             item.OnRemovePlayerInteract += ItemEndInteract;
         }
+
+        normalSeparatorMachine.OnItemSeparated += ItemSeparate;
+        normalSeparatorMachine.OnNewItemOutput += ItemOutput;
     }
 
 
     private void ItemStartInteract(Item item, Player picker)
     {
-        SetItem(item, true);
+        
         OnItemStartInteract?.Invoke(item, picker);
     }
 
 
     private void ItemEndInteract(Item item, Player dropper)
     {
-        SetItem(item, false);
+        
         OnItemEndInteract?.Invoke(item, dropper);
     }
 
 
-    private void SetItem(Item item, bool isInteract)
+    private void ItemSeparate(Item inputItem)
     {
-        //item.Rb.isKinematic = !isInteract;
+        if(!allItem.Contains(inputItem)) return;
+        allItem.Remove(inputItem);
     }
+    
+    
+    private void ItemOutput(Item outputItem)
+    {
+        allItem.Add(outputItem);
+        outputItem.OnNewPlayerInteract += ItemStartInteract;
+        outputItem.OnRemovePlayerInteract += ItemEndInteract;
+    }
+
+
+    public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
 }

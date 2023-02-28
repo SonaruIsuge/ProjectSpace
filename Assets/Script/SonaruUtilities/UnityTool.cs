@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace SonaruUtilities
 {
@@ -20,6 +21,22 @@ namespace SonaruUtilities
 
             var height = camera.orthographicSize * 2.0f;
             return new Vector2(camera.aspect * height, height);
+        }
+
+
+        public static List<T> GetNoRepeatElement<T>(int requireNum, List<T> fromList)
+        {
+            var copy = new List<T>(fromList);
+            var result = new List<T>();
+            
+            for (var i = 0; i < requireNum; i++)
+            {
+                var choose = Random.Range(0, copy.Count);
+                result.Add(copy[choose]);
+                copy.RemoveAt(choose);
+            }
+
+            return result;
         }
     }
 }

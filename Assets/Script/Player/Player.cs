@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         PlayerMovement.Move(movement, MoveSpeed, JetPackAcceleration, MaxJetPackVelocity);
         
         underGravityInfluence = 
-            PlayerInput.JetDirection == 0 && Vector3.Distance(transform.position, testGravityControlMachine.position) <= 5;
+            PlayerInput.JetDirection == 0 && Vector3.Distance(transform.position, testGravityControlMachine.position) <= 8;
         
         PlayerGravityController.AddGravity(underGravityInfluence, groundCheckPoint.position, gravity, gravityInitialVelocity);
         

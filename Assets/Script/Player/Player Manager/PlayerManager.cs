@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    private void Update()
+    private void LateUpdate()
     {
         foreach (var player in players)
         {

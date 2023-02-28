@@ -1,5 +1,4 @@
 ﻿
-
 using UnityEngine;
 
 public class PlayerRbMovement : IPlayerMove
@@ -35,10 +34,10 @@ public class PlayerRbMovement : IPlayerMove
         
         var moveVelocity = new Vector2(direction.x, direction.z) * speed;
         currentJetVelocity = direction.y;
-        if (currentJetVelocity != 0)
-            currentJetVelocity = Mathf.Min(currentJetVelocity + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity) * speed;
-        rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
-        
+        if (currentJetVelocity != 0) currentJetVelocity = Mathf.Min(currentJetVelocity + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity) * speed;
+        //rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
+        rb.velocity = new Vector3(moveVelocity.x, currentJetVelocity, moveVelocity.y);
+
         if (!useInertia)
         {
             var velocity = rb.velocity;
@@ -47,19 +46,31 @@ public class PlayerRbMovement : IPlayerMove
             if (direction.z == 0) rb.velocity = new Vector3(velocity.x, velocity.y, 0);
         }
 
-        targetPlayer.transform.position = rb.transform.position;
-        rb.transform.localPosition = Vector3.zero;
-
         if (moveVelocity != Vector2.zero)
         {
-            if(targetPlayer.PlayerInteractController.CurrentInteract is Item item) Rotate(item.transform.position - targetPlayer.transform.position); 
+            if (targetPlayer.PlayerInteractController.CurrentInteract is Item item)
+            {
+                targetPlayer.transform.rotation = rb.transform.rotation;
+                rb.transform.localRotation = Quaternion.Euler(Vector3.zero);
+                // Rotate(item.transform.position - targetPlayer.transform.position);
+            }
             else Rotate(moveVelocity);
         }
+        
+        targetPlayer.transform.position = rb.transform.position;
+        rb.transform.localPosition = Vector3.zero;
     }
 
     public void CalcInertia(bool needInertia)
     {
         useInertia = needInertia;
+    }
+
+
+    public void Reset()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
 
@@ -70,35 +81,4 @@ public class PlayerRbMovement : IPlayerMove
         
         targetPlayer.transform.rotation = Quaternion.Euler(0, rotateY, 0);
     }
-    
-    
-    // private void MoveOnGround(Vector2 direction, float speed)
-    // {
-    //     currentMoveVelocity = new Vector3(direction.x * speed, 0, direction.y * speed);
-    //     
-    //     if(useInertia) rb.AddForce(currentMoveVelocity, ForceMode.Acceleration);
-    //     else rb.velocity = currentMoveVelocity + (Vector3.up * rb.velocity.y);
-    //     
-    //     targetPlayer.transform.position = rb.transform.position;
-    //     rb.transform.localPosition = Vector3.zero;
-    // }
-    //
-    //
-    // private void JetInSpace(float jetDirection, float jetPackAcceleration, float maxJetPackVelocity)
-    // {
-    //     if (jetDirection == 0)
-    //     {
-    //         rb.isKinematic = false;
-    //         currentJetVelocity = 0;
-    //         return;
-    //     }
-    //
-    //     rb.isKinematic = false;
-    //     currentJetVelocity = Mathf.Min(currentJetVelocity + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity);
-    //     if(useInertia) rb.AddForce(Vector3.up * (currentJetVelocity * jetDirection), ForceMode.Acceleration);
-    //     else rb.velocity += Vector3.up * (currentJetVelocity * jetDirection);
-    //
-    //     targetPlayer.transform.position = rb.transform.position;
-    //     rb.transform.localPosition = Vector3.zero;
-    // }
 }
