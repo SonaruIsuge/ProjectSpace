@@ -12,18 +12,19 @@ public class ItemSizeMoveCalculator
         if (interactItem is not Item item) return 1;
 
         var itemSize = item.ItemData.Size;
+        var carrierNum = allPlayer.Count;
 
         switch (itemSize)
         {
             case ItemSize.Small:
-                return 1;
+                return carrierNum * 1f;
             
             case ItemSize.Medium:
-                return allPlayer.Count * 0.5f;
+                return carrierNum * 0.75f;
             
             case ItemSize.Large:
                 if (allPlayer.Count == 1) return 0;
-                return allPlayer.Count * 0.5f;
+                return carrierNum * 0.5f;
             
             case ItemSize.ExtraLarge:
                 return 0;
