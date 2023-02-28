@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Item(Rubbish) System/Item")]
 public class ItemData : ScriptableObject
 {
+    public ItemType type;
     public ItemSize Size;
     public RecycleType RecycleType;
     

@@ -25,3 +25,33 @@ public enum RecycleType
     Energy,
     CannotRecycle
 }
+
+
+public enum ItemType
+{
+    // small item
+    Balloon,
+    Energy,
+    MachineParts,
+    SmallMeteorite,
+    RadioactiveSubstances,
+    // medium item 
+    MediumMeteorite,
+    HighTechComponents,
+    WasteBattery,
+    // large item
+    AlienMetal,
+    SpaceshipIronPlate,
+    // extra large item
+    SpaceCrap,
+    EnemyShipCore,
+    AbandonedSatellite
+}
+
+
+public enum MachineStateType
+{
+    Idle,
+    Working,
+    Broken
+}
