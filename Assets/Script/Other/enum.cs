@@ -40,7 +40,7 @@ public enum ItemType
     HighTechComponents,
     WasteBattery,
     // large item
-    AlienMetal,
+    DrinkCan,
     SpaceshipIronPlate,
     // extra large item
     SpaceCrap,

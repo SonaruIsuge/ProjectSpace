@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
-  m_Name: L Alien Metal
+  m_Name: L Drink Can
   m_EditorClassIdentifier: 
   type: 8
   Size: 2
   RecycleType: 4
   ProductNumber: 3
   SeparateProducets:
-  - {fileID: 11400000, guid: ec3268b3551a8ba40bf7847260936bdd, type: 2}
   - {fileID: 11400000, guid: 940366b5005bdf94a94b56c255207fea, type: 2}
-  - {fileID: 11400000, guid: 277c90f5aa5f6d04eb33435ddb6d74a6, type: 2}
+  - {fileID: 11400000, guid: 940366b5005bdf94a94b56c255207fea, type: 2}
+  - {fileID: 11400000, guid: 940366b5005bdf94a94b56c255207fea, type: 2}
