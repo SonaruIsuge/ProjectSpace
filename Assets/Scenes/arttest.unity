@@ -394,6 +394,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ballon_mod
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b9214df72a3ef3646b71701f1614aa28,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9214df72a3ef3646b71701f1614aa28, type: 3}
 --- !u!1001 &843740265
@@ -487,6 +492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DrinkCan_mod
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f4123373c5664a7479dde006570c49b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4123373c5664a7479dde006570c49b5, type: 3}
@@ -661,6 +671,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BatteryFlat_mod
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ca5f234cdf9917445b7be7e30f8f5380,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca5f234cdf9917445b7be7e30f8f5380, type: 3}
 --- !u!1001 &1938932372
@@ -739,6 +754,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FiyingCarpet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a48a4a6123829524da99adab96c01e9f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1383612508840522641, guid: a48a4a6123829524da99adab96c01e9f,
         type: 3}
@@ -854,6 +874,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToxicChemicals_mod
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e29714fabdaa51c4887213671bd04fd9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e29714fabdaa51c4887213671bd04fd9, type: 3}
 --- !u!1001 &2057307918
@@ -957,6 +982,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: penguin_mod
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0eda56b848e71f34d922596c28d750cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3582595287268314899, guid: 0eda56b848e71f34d922596c28d750cc,
         type: 3}
