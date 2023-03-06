@@ -19,6 +19,6 @@ public class PlayerRbGravityController : IPlayerGravityController
     {
         IsGround = Physics.Raycast(groundCheckPoint, Vector3.down, 0.1f);
         
-        rb.useGravity = underGravity;
+        rb.useGravity = underGravity && !IsGround;
     }
 }

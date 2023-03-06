@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 
-public class Item : MonoBehaviour, IInteractable
+public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 {
     public ItemData ItemData;
     [SerializeField] private List<Player> carryPlayers;
@@ -12,18 +13,25 @@ public class Item : MonoBehaviour, IInteractable
     
     public bool isInteract { get; private set; }
     public bool isSelect { get; private set; }
+    public bool UnderGravity { get; set; }
+    public bool IgnoreGravity { get; private set; }
+    private bool canInteract;
 
     public Rigidbody Rb { get; private set; }
     private Collider col;
-
+    
+    
     public event Action<Item, Player> OnNewPlayerInteract;
     public event Action<Item, Player> OnRemovePlayerInteract;
+    public event Action<Item> OnItemRemove;
+    public event Action<Item> OnItemAppear;
     
 
     private void Awake()
     {
         Rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        canInteract = true;
     }
 
 
@@ -31,11 +39,13 @@ public class Item : MonoBehaviour, IInteractable
     {
         isSelect = true;
     }
+
+    public void SetInteractable(bool interactable) => canInteract = interactable;
     
 
-    public void Interact(Player interactPlayer, InteractType interactType)
+    public virtual void Interact(Player interactPlayer, InteractType interactType)
     {
-        if (interactType != InteractType) return;
+        if (interactType != InteractType || !canInteract) return;
         
         // picked up by player
         if(!carryPlayers.Contains(interactPlayer)) PickUp(interactPlayer);
@@ -49,7 +59,7 @@ public class Item : MonoBehaviour, IInteractable
     }
 
 
-    public void PickUp(Player picker)
+    private void PickUp(Player picker)
     {
         if(carryPlayers.Contains(picker)) return;
         
@@ -59,8 +69,6 @@ public class Item : MonoBehaviour, IInteractable
         picker.SwitchToRigidbodyMove(true);
         
         picker.Rb.Sleep();
-        //Rb.velocity = Vector3.zero;
-        //Rb.angularVelocity = Vector3.zero;
         picker.Joint.connectedBody = Rb;
         Rb.Sleep();
         
@@ -69,7 +77,7 @@ public class Item : MonoBehaviour, IInteractable
     }
 
 
-    public void DropDown(Player dropper)
+    private void DropDown(Player dropper)
     {
         if(!carryPlayers.Contains(dropper)) return;
 
@@ -86,9 +94,44 @@ public class Item : MonoBehaviour, IInteractable
     }
 
 
-    public Vector3 GetItemCollisionSize()
+    public void RemoveItem()
     {
-        return col == null ? Vector3.one : col.bounds.size;
+        OnItemRemove?.Invoke(this);
+        gameObject.SetActive(false);
+    }
+
+
+    public void AddItem()
+    {
+        gameObject.SetActive(true);
+        OnItemAppear?.Invoke(this);
+        
+    }
+
+
+    public Vector3 GetItemCollisionSize()=> col == null ? Vector3.one : col.bounds.size;
+    
+    
+    public void ApplyGravity(float gravity)
+    {
+        IgnoreGravity = carryPlayers.Count != 0;
+        if (carryPlayers.Count > 0)
+        {
+            foreach (var player in carryPlayers.Where(player => player.IgnoreGravity)) IgnoreGravity = true;
+        }
+
+        UpdateGravity();
     }
     
+    
+    private void UpdateGravity() => Rb.useGravity = UnderGravity && !IgnoreGravity;
+
+
+    public void ForceDisconnect()
+    {
+        for (var i = carryPlayers.Count -1; i >= 0; i--)
+        {
+            DropDown(carryPlayers[i]);
+        }
+    }
 }

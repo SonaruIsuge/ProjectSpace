@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SonaruUtilities;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
     protected override void Awake()
     {
         base.Awake();
+        allItem = FindObjectsOfType<Item>().ToList();
         itemContainer.GenerateDictionary();
     }
 
@@ -30,9 +32,11 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
         {
             item.OnNewPlayerInteract += ItemStartInteract;
             item.OnRemovePlayerInteract += ItemEndInteract;
+            item.OnItemRemove += ItemSeparate;
+            item.OnItemAppear += ItemOutput;
         }
 
-        normalSeparatorMachine.OnItemSeparated += ItemSeparate;
+        //normalSeparatorMachine.OnItemSeparated += ItemSeparate;
         normalSeparatorMachine.OnNewItemOutput += ItemOutput;
     }
 
@@ -63,6 +67,8 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
         allItem.Add(outputItem);
         outputItem.OnNewPlayerInteract += ItemStartInteract;
         outputItem.OnRemovePlayerInteract += ItemEndInteract;
+        outputItem.OnItemRemove += ItemSeparate;
+        outputItem.OnItemAppear += ItemOutput;
     }
 
 

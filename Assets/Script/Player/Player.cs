@@ -1,15 +1,16 @@
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IGravityAffectable
 {
     [field: Header("Component")]
     [field: SerializeField] public CharacterController Cc { get; private set; }
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] public Joint Joint { get; private set; }
+    [field: SerializeField] public Animator playerAnimator { get; private set; }
     
-    [Header("Movement")]
-    [SerializeField] private bool useFakeInput;
+    [field: Header("Movement")]
     [field: SerializeField] public float MoveSpeed { get; private set; }
     
     [field: Header("Jetpack")]
@@ -18,8 +19,6 @@ public class Player : MonoBehaviour
     
     [Header("Gravity Control")]
     [SerializeField] private Transform groundCheckPoint;
-    [SerializeField] private Transform testGravityControlMachine;
-    [SerializeField] private float gravity;
     [SerializeField] private float gravityInitialVelocity;
 
     [Header("Interact")] 
@@ -33,14 +32,17 @@ public class Player : MonoBehaviour
     private IPlayerMove[] playerMoves;
     private IPlayerGravityController[] playerGravityControllers;
     public IPlayerInput PlayerInput { get; private set; }
-    public IPlayerMove PlayerMovement { get; private set; }
-    public IPlayerGravityController PlayerGravityController { get; private set; }
-    public PlayerInteractController PlayerInteractController { get; private set; }
+    public IPlayerMove PlayerMovement { get; set; }
+    public IPlayerGravityController PlayerGravityController { get; set; }
+    public PlayerInteractController PlayerInteractController { get; set; }
     
-    private bool underGravityInfluence;
-    // private bool needMoveInertia;
-    // private bool needJetInertia;
-
+    public bool UnderGravity { get; set; }
+    public bool IgnoreGravity => PlayerInput.JetDirection != 0;
+     public bool IsActive { get; private set; }
+    
+     public void SetActive(bool active) => IsActive = active;
+     
+     
 
     // For debug use
     private void OnDrawGizmos()
@@ -53,11 +55,12 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         //Joint = null;
+        IsActive = false;
         
         playerMoves = new IPlayerMove[] { new PlayerCCMovement(this), new PlayerRbMovement(this) };
         playerGravityControllers = new IPlayerGravityController[] { new PlayerCCGravityController(this), new PlayerRbGravityController(this) };
         
-        PlayerInput = useFakeInput ? new PlayerTestKeyboardInput() : new PlayerInput();
+        PlayerInput = new PlayerInput(this);
         PlayerMovement = playerMoves[0];
         PlayerGravityController = playerGravityControllers[0];
         PlayerInteractController = new PlayerInteractController(this);
@@ -80,13 +83,10 @@ public class Player : MonoBehaviour
     public void Move(Vector3 movement)
     {
         PlayerMovement.Move(movement, MoveSpeed, JetPackAcceleration, MaxJetPackVelocity);
+        PlayerMovement.CalcInertia(!UnderGravity);
         
-        underGravityInfluence = 
-            PlayerInput.JetDirection == 0 && Vector3.Distance(transform.position, testGravityControlMachine.position) <= 8;
-        
-        PlayerGravityController.AddGravity(underGravityInfluence, groundCheckPoint.position, gravity, gravityInitialVelocity);
-        
-        PlayerMovement.CalcInertia(!underGravityInfluence);
+        playerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
+        playerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && PlayerGravityController.IsGround ? 4 : 2);
     }
 
 
@@ -102,43 +102,31 @@ public class Player : MonoBehaviour
     
     public void SwitchToRigidbodyMove(bool rigidbodyEnable)
     {
-        Cc.enabled = !rigidbodyEnable;
-        playerPhysics.SetActive(rigidbodyEnable);
+        if(Cc) Cc.enabled = !rigidbodyEnable;
+        if(playerPhysics) playerPhysics.SetActive(rigidbodyEnable);
         
         PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
         PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
+        PlayerGravityController.AddGravity(false, groundCheckPoint.position, 0, gravityInitialVelocity);
+        
+        //if (rigidbodyEnable) Joint = playerPhysics.AddComponent<FixedJoint>();
+        //else Destroy(Joint);
     }
 
-
+    
+    public void ApplyGravity(float gravitySize)
+    {
+        var useGravity = UnderGravity && !IgnoreGravity;
+        PlayerGravityController.AddGravity(useGravity, groundCheckPoint.position, gravitySize, gravityInitialVelocity);
+    }
+    
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         var rb = hit.collider.attachedRigidbody;
-        if (rb && !rb.isKinematic)
-        {
+        if(!rb || !rb.TryGetComponent<Item>(out var item)) return;
+        
+        if(item.ItemData.Size != ItemSize.Large && item.ItemData.Size != ItemSize.ExtraLarge) 
             rb.AddForce(hit.moveDirection * pushForce, ForceMode.Impulse);
-        }
     }
-
-
-    // void AddInertia()
-    // {
-    //     if (useIndividualInput)
-    //     {
-    //         // Check if horizontal movement need add inertia.
-    //         if (Vector2.SqrMagnitude(PlayerInput.Movement) != 0) if(!needMoveInertia) needMoveInertia = true;
-    //         if (Vector2.SqrMagnitude(PlayerInput.Movement) == 0 && needMoveInertia)
-    //         {
-    //             if(!underGravityInfluence) PlayerGravityController.AddInertia(PlayerCcMovement.LastMoveVelocity);
-    //             needMoveInertia = false;
-    //         }
-    //     
-    //         // Check if vertical movement need add inertia.
-    //         if (PlayerInput.JetDirection != 0) if(!needJetInertia) needJetInertia = true;
-    //         if (PlayerInput.JetDirection == 0 && needJetInertia)
-    //         {
-    //             if(!underGravityInfluence) PlayerGravityController.AddInertia(Vector3.up * PlayerCcMovement.LastJetVelocity);
-    //             needJetInertia = false;
-    //         }
-    //     }
-    // }
 }
