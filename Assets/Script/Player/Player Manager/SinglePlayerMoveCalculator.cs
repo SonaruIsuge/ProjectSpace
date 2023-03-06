@@ -15,7 +15,7 @@ public class SinglePlayerMoveCalculator : IPlayerMoveCalculator
         movement = allPlayer[0].PlayerInput.Movement;
         jet = allPlayer[0].PlayerInput.JetDirection;
         
-        var runValue = allPlayer[0].PlayerInput.Run && allPlayer[0].PlayerGravityController.IsGround ? 2 : 1;
+        var runValue = allPlayer[0].PlayerInput.Run && allPlayer[0].IsGround ? 2 : 1;
         
         return new Vector3(movement.x * runValue, jet, movement.y * runValue);
     }

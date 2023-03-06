@@ -17,9 +17,10 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: SerializeField] public float JetPackAcceleration { get; private set; }
     [field: SerializeField] public float MaxJetPackVelocity {get; private set; }
     
-    [Header("Gravity Control")]
-    [SerializeField] private Transform groundCheckPoint;
+    [field: Header("Gravity Control")]
+    [field: SerializeField] public Transform GroundCheckPoint { get; private set; }
     [SerializeField] private float gravityInitialVelocity;
+    public bool IsGround => Physics.Raycast(GroundCheckPoint.position, Vector3.down, .01f);
 
     [Header("Interact")] 
     [SerializeField] private GameObject playerPhysics;
@@ -86,7 +87,7 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerMovement.CalcInertia(!UnderGravity);
         
         playerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
-        playerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && PlayerGravityController.IsGround ? 4 : 2);
+        playerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && IsGround ? 4 : 2);
     }
 
 
@@ -107,7 +108,7 @@ public class Player : MonoBehaviour, IGravityAffectable
         
         PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
         PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
-        PlayerGravityController.AddGravity(false, groundCheckPoint.position, 0, gravityInitialVelocity);
+        PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
         
         //if (rigidbodyEnable) Joint = playerPhysics.AddComponent<FixedJoint>();
         //else Destroy(Joint);
@@ -117,7 +118,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     public void ApplyGravity(float gravitySize)
     {
         var useGravity = UnderGravity && !IgnoreGravity;
-        PlayerGravityController.AddGravity(useGravity, groundCheckPoint.position, gravitySize, gravityInitialVelocity);
+        PlayerGravityController.AddGravity(useGravity, GroundCheckPoint.position, gravitySize, gravityInitialVelocity);
     }
     
     

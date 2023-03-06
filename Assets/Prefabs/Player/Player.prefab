@@ -150,11 +150,10 @@ MonoBehaviour:
   <Rb>k__BackingField: {fileID: 3789837215154039288}
   <Joint>k__BackingField: {fileID: 3789837215154039294}
   <playerAnimator>k__BackingField: {fileID: 7346111477526949325}
-  useFakeInput: 0
   <MoveSpeed>k__BackingField: 2
   <JetPackAcceleration>k__BackingField: 10
   <MaxJetPackVelocity>k__BackingField: 10
-  groundCheckPoint: {fileID: 3789837216501760187}
+  <GroundCheckPoint>k__BackingField: {fileID: 3789837216501760187}
   gravityInitialVelocity: 2
   playerPhysics: {fileID: 3789837215154039290}
   interactRange: 0.5
