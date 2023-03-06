@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   Size: 0
-  RecycleType: 1
+  RecycleType: 0
   ProductNumber: 0
   SeparateProducets: []
