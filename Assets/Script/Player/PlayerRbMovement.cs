@@ -35,8 +35,7 @@ public class PlayerRbMovement : IPlayerMove
         var moveVelocity = new Vector2(direction.x, direction.z) * speed;
         currentJetVelocity = direction.y;
         if (currentJetVelocity != 0) currentJetVelocity = Mathf.Min(currentJetVelocity + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity) * speed;
-        //rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
-        rb.velocity = new Vector3(moveVelocity.x, currentJetVelocity, moveVelocity.y);
+        rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
 
         if (!useInertia)
         {
@@ -46,16 +45,14 @@ public class PlayerRbMovement : IPlayerMove
             if (direction.z == 0) rb.velocity = new Vector3(velocity.x, velocity.y, 0);
         }
 
-        if (moveVelocity != Vector2.zero)
+       
+        if (targetPlayer.PlayerInteractController.CurrentInteract is Item item)
         {
-            if (targetPlayer.PlayerInteractController.CurrentInteract is Item item)
-            {
-                targetPlayer.transform.rotation = rb.transform.rotation;
-                rb.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                // Rotate(item.transform.position - targetPlayer.transform.position);
-            }
-            else Rotate(moveVelocity);
+            targetPlayer.transform.rotation = rb.transform.rotation;
+            rb.transform.localRotation = Quaternion.Euler(Vector3.zero);
         }
+        else if(moveVelocity != Vector2.zero) Rotate(moveVelocity);
+        
         
         targetPlayer.transform.position = rb.transform.position;
         rb.transform.localPosition = Vector3.zero;

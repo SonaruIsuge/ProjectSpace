@@ -6,6 +6,7 @@ public interface IPlayerInput
     Vector2 Movement { get; }
     float JetDirection { get; }
     
+    bool Run { get; }
     bool TapInteract { get; }
     bool HoldInteract { get; }
     bool ReleaseInteract { get; }

@@ -29,8 +29,9 @@ public class PlayerInteractController
     public void Interact(Player interactPlayer, InteractType interactType)
     {
         //if(CurrentInteract is Item item && interactType == item.InteractType) item.DropDown(interactPlayer);
-        if (CurrentInteract is Item item) item.Interact(interactPlayer, interactType);
-        else CurrentDetect?.Interact(interactPlayer, interactType);
+        //if (CurrentInteract is Item item) item.Interact(interactPlayer, interactType);
+        CurrentInteract?.Interact(interactPlayer, interactType);
+        CurrentDetect?.Interact(interactPlayer, interactType);
         
     }
 

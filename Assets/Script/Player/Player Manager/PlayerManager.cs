@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.Users;
 
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private List<Player> players;
-
+    private List<InputDevice> allPlayerDevices;
+    
     private SinglePlayerMoveCalculator singlePlayerMoveCalculator;
     private MultiPlayerCarryItemMoveCalculator multiPlayerCarryItemMoveCalculator;
     private ItemSizeMoveCalculator itemSizeMoveCalculator;
@@ -16,6 +20,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake()
     {
+        ++InputUser.listenForUnpairedDeviceActivity;
+        allPlayerDevices = new List<InputDevice>();
+        
         singlePlayerMoveCalculator = new SinglePlayerMoveCalculator();
         multiPlayerCarryItemMoveCalculator = new MultiPlayerCarryItemMoveCalculator();
         itemSizeMoveCalculator = new ItemSizeMoveCalculator();
@@ -26,8 +33,19 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
+        InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
+        
         ItemManager.OnItemStartInteract += NewItemInteractPlayer;
         ItemManager.OnItemEndInteract += RemovePlayerInteractItem;
+    }
+
+
+    private void OnDisable()
+    {
+        InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+        
+        ItemManager.OnItemStartInteract -= NewItemInteractPlayer;
+        ItemManager.OnItemEndInteract -= RemovePlayerInteractItem;
     }
 
 
@@ -35,8 +53,11 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (var player in players)
         {
+            if(!player.IsActive) continue;
+            
             var itemSizeBuff = 1f;
             // check if player is interact with item
+            //Debug.Log(player.PlayerInput.JetDirection);
             if (player.PlayerInteractController.CurrentInteract is Item item)
             {
                 if (!playerInteractItemDict.ContainsKey(item) || !playerInteractItemDict[item].Contains(player))
@@ -71,5 +92,30 @@ public class PlayerManager : MonoBehaviour
     {
         if (playerInteractItemDict[item].Count == 1) playerInteractItemDict.Remove(item);
         else playerInteractItemDict[item].Remove(interactor);
+    }
+
+
+    void OnUnpairedDeviceUsed(InputControl c, InputEventPtr e)
+    {
+        // device not keyboard / gamepad
+        if(c.device.GetType() == Mouse.current.GetType()) return;
+        if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
+            return;
+        
+
+        foreach (var player in players)
+        {
+            if(player.PlayerInput is not PlayerInput playerInput) continue;
+
+            if (!playerInput.inputUser.valid)
+            {
+                playerInput.inputUser = InputUser.PerformPairingWithDevice(c.device);
+                playerInput.inputUser.AssociateActionsWithUser(playerInput.playerInputAction);
+                allPlayerDevices.Add(c.device);
+                player.SetActive(true);
+                Debug.Log($"Pairing {player.name} with {c.device.name}");
+                return;
+            }
+        }
     }
 }

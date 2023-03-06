@@ -37,6 +37,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c6ce294-1f46-4bc4-aa12-a02042f5ed07"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Jet"",
                     ""type"": ""Button"",
                     ""id"": ""d5de5d62-c7db-4444-ad21-e8c2f46b22cf"",
@@ -156,7 +165,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""887d34f5-19d2-48db-bdec-59f2dcbec1c9"",
-                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -240,6 +249,28 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Jet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""985cb739-2917-4db1-9956-0fe29b5efb28"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abb13139-b060-435c-a5c9-374f51dcab2c"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -249,6 +280,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_Movement = m_GamePlay.FindAction("Movement", throwIfNotFound: true);
+        m_GamePlay_Run = m_GamePlay.FindAction("Run", throwIfNotFound: true);
         m_GamePlay_Jet = m_GamePlay.FindAction("Jet", throwIfNotFound: true);
         m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
         m_GamePlay_SwitchEquip = m_GamePlay.FindAction("SwitchEquip", throwIfNotFound: true);
@@ -312,6 +344,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GamePlay;
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
     private readonly InputAction m_GamePlay_Movement;
+    private readonly InputAction m_GamePlay_Run;
     private readonly InputAction m_GamePlay_Jet;
     private readonly InputAction m_GamePlay_Interact;
     private readonly InputAction m_GamePlay_SwitchEquip;
@@ -320,6 +353,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         private @PlayerInputAction m_Wrapper;
         public GamePlayActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_GamePlay_Movement;
+        public InputAction @Run => m_Wrapper.m_GamePlay_Run;
         public InputAction @Jet => m_Wrapper.m_GamePlay_Jet;
         public InputAction @Interact => m_Wrapper.m_GamePlay_Interact;
         public InputAction @SwitchEquip => m_Wrapper.m_GamePlay_SwitchEquip;
@@ -335,6 +369,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
+                @Run.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRun;
                 @Jet.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJet;
                 @Jet.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJet;
                 @Jet.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJet;
@@ -351,6 +388,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
                 @Jet.started += instance.OnJet;
                 @Jet.performed += instance.OnJet;
                 @Jet.canceled += instance.OnJet;
@@ -367,6 +407,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     public interface IGamePlayActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
         void OnJet(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSwitchEquip(InputAction.CallbackContext context);
