@@ -53,5 +53,6 @@ public enum MachineStateType
 {
     Idle,
     Working,
-    Broken
+    Broken,
+    NoPower
 }

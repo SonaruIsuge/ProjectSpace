@@ -16,13 +16,12 @@ public class NS_BrokenState : INormalSeparatorState
     public void Enter()
     {
         Machine.debugTestMaterial.color = Color.red;
-        ;
+        
     }
 
     
     public void Stay()
     {
-        
         if(!Machine.IsBroken) Machine.ChangeState(MachineStateType.Idle);
     }
 

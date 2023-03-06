@@ -22,7 +22,7 @@ public class NS_IdleState : INormalSeparatorState
         DetectItemInput();
         
         if(Machine.IsBroken) Machine.ChangeState(MachineStateType.Broken);
-        if(Machine.IsWorking) Machine.ChangeState(MachineStateType.Working);
+        else if(Machine.IsWorking) Machine.ChangeState(MachineStateType.Working);
     }
 
     public void Exit()
@@ -51,7 +51,7 @@ public class NS_IdleState : INormalSeparatorState
             separateItem = item;
         }
 
-        if (separateItem) Machine.Input(separateItem);
+        if (separateItem != null) Machine.Input(separateItem);
         
     }
 }

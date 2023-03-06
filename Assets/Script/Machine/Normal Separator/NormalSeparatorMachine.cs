@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using SonaruUtilities;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
 {
-    public InteractType InteractType => InteractType.Tap; 
+    public InteractType InteractType => InteractType.Tap;
+    public bool IsActive { get; private set; }
     public bool IsWorking { get; private set; }
     public bool IsBroken { get; private set; }
     public bool isInteract { get; private set; }
     public bool isSelect { get; private set; }
 
     [field: SerializeField] public Transform InputPoint { get; private set; }
-    [field: SerializeField] public Transform[] OutputPoint { get; private set; }
-    
     [field: SerializeField] public float ProgressTime { get; private set;}
     [field: SerializeField] public SimpleTimer ProgressTimer { get; private set; }
 
@@ -24,12 +24,19 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
 
     [field: SerializeField] public Item CurrentProcessingItem { get; private set; }
 
+    [field: Header("UI for Debug")]
+    [field: SerializeField] public RectTransform progressBg { get; private set; }
+    [field: SerializeField] public RectTransform progressContent { get; private set; }
+    public Material debugTestMaterial;
+    
     public event Action<Item> OnItemSeparated;
     public event Action<Item> OnNewItemOutput;
 
-    public Material debugTestMaterial;
 
-    private void Awake()
+    public void SetActive(bool active) => IsActive = active;
+    
+    
+    public void SetUp()
     {
         ProgressTimer = new SimpleTimer(ProgressTime);
         
@@ -48,15 +55,9 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     }
 
 
-    private void Update()
-    {
-        machineStateDict[currentState]?.Stay();
-    }
-    
-    
     public void Work()
     {
-        
+        machineStateDict[currentState]?.Stay();
     }
     
 
@@ -64,10 +65,12 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     {
         IsBroken = true;
 
-        if (CurrentProcessingItem != null)
+        if (IsWorking)
         {
-            CurrentProcessingItem.gameObject.SetActive(true);
-            CurrentProcessingItem.Rb.AddForce(InputPoint.up * 0.5f, ForceMode.Impulse);
+            CurrentProcessingItem.AddItem();
+            CurrentProcessingItem.Rb.AddForce(InputPoint.up, ForceMode.Impulse);
+            CurrentProcessingItem = null;
+            IsWorking = false;
         }
     }
 
@@ -105,21 +108,24 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     {
         CurrentProcessingItem = inputItem;
         IsWorking = true;
-        CurrentProcessingItem.gameObject.SetActive(false);
+        CurrentProcessingItem.RemoveItem();
         
         OnItemSeparated?.Invoke(inputItem);
     }
 
 
-    public void Output(GameObject output, int outputLocation)
+    public void Output(GameObject output)
     {
         var newItemObj = Instantiate(output);
         var outputItem = newItemObj.GetComponent<Item>();
         var itemSize = outputItem.GetItemCollisionSize();
         
-        newItemObj.transform.position = OutputPoint[outputLocation].position + Vector3.Scale(OutputPoint[outputLocation].forward, itemSize);
-        newItemObj.transform.rotation = quaternion.identity;
-        outputItem.Rb.AddForce(OutputPoint[outputLocation].forward * 0.5f, ForceMode.Impulse);
+        outputItem.AddItem();
+        newItemObj.transform.position = InputPoint.position + Vector3.Scale(InputPoint.up, itemSize);
+        newItemObj.transform.rotation = Random.rotation; 
+        var outputVector = Random.onUnitSphere * Random.Range(1, 10);
+        outputVector.y = Mathf.Abs(outputVector.y);
+        outputItem.Rb.AddForce(outputVector, ForceMode.VelocityChange);
         
         CurrentProcessingItem = null;
         IsWorking = false;
