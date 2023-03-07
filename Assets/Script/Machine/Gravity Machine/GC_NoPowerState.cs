@@ -15,6 +15,7 @@ public class GC_NoPowerState : IGravityControlMachineState
     public void Enter()
     {
         Machine.debugTestMaterial.color = new Color(1, 0.57f, 0);
+        Machine.GravityRangeVisual.gameObject.SetActive(false);
     }
 
     public void Stay()

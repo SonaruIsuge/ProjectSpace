@@ -12,8 +12,9 @@ public class GravityControlMachine : MonoBehaviour, IMachine, IInteractable
     public bool IsWorking { get; private set; }
     public bool IsBroken { get; private set; }
 
-    [field: SerializeField] public float GravityRange { get; private set; }
+    [field: SerializeField] public Vector3 GravityRadius { get; private set; }
     [field: SerializeField] public float GravityStrength { get; private set; }
+    [field: SerializeField] public Transform GravityRangeVisual { get; private set; }
 
     private Dictionary<MachineStateType, IGravityControlMachineState> machineStateDict;
     private MachineStateType currentState;

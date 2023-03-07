@@ -19,6 +19,7 @@ public class GC_WorkingState : IGravityControlMachineState
     public void Enter()
     {
         Machine.debugTestMaterial.color = Color.cyan;
+        Machine.GravityRangeVisual.gameObject.SetActive(true);
     }
 
     public void Stay()
@@ -45,12 +46,15 @@ public class GC_WorkingState : IGravityControlMachineState
     private void DetectGravity()
     {
         var results = new RaycastHit[50];
-        var size = Physics.SphereCastNonAlloc(Machine.transform.position - Vector3.up, Machine.GravityRange, Vector3.up, results, 0);
+        var size = Physics.BoxCastNonAlloc(Machine.GravityRangeVisual.position, Machine.GravityRadius, Vector3.up, results, quaternion.identity, 0);
 
         foreach (var result in results)
         {
             if(!result.transform) return;
             
+            // check if inner oval
+            if(!IsInnerOval(result.transform.position, Machine.GravityRangeVisual.position, Machine.GravityRadius)) continue;
+
             var isAffectable = result.transform.TryGetComponent<IGravityAffectable>(out var affectable);
             if (result.transform.GetComponentInParent<IGravityAffectable>() != null) affectable = result.transform.GetComponentInParent<IGravityAffectable>();
             if(!isAffectable && affectable == null) continue;
@@ -70,5 +74,15 @@ public class GC_WorkingState : IGravityControlMachineState
     private void ApplyGravityToAll()
     {
         foreach(var affectable in gravityAffectableRecordList) affectable.ApplyGravity(Machine.GravityStrength);
+    }
+
+
+    private bool IsInnerOval(Vector3 targetPoint, Vector3 ovalPoint, Vector3 ovalSize)
+    {
+        var x = Mathf.Pow(targetPoint.x - ovalPoint.x, 2) / Mathf.Pow(ovalSize.x, 2);
+        var y = Mathf.Pow(targetPoint.y - ovalPoint.y, 2) / Mathf.Pow(ovalSize.y, 2);
+        var z = Mathf.Pow(targetPoint.z - ovalPoint.z, 2) / Mathf.Pow(ovalSize.z, 2);
+
+        return x + y + z <= 1;
     }
 }

@@ -32,12 +32,11 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
         {
             item.OnNewPlayerInteract += ItemStartInteract;
             item.OnRemovePlayerInteract += ItemEndInteract;
-            item.OnItemRemove += ItemSeparate;
-            item.OnItemAppear += ItemOutput;
+            item.OnItemRemove += ItemRemove;
+            item.OnItemAppear += ItemAppear;
         }
-
-        //normalSeparatorMachine.OnItemSeparated += ItemSeparate;
-        normalSeparatorMachine.OnNewItemOutput += ItemOutput;
+        
+        normalSeparatorMachine.OnNewItemOutput += ItemAppear;
     }
 
 
@@ -55,20 +54,20 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
     }
 
 
-    private void ItemSeparate(Item inputItem)
+    private void ItemRemove(Item inputItem)
     {
         if(!allItem.Contains(inputItem)) return;
         allItem.Remove(inputItem);
     }
     
     
-    private void ItemOutput(Item outputItem)
+    private void ItemAppear(Item outputItem)
     {
         allItem.Add(outputItem);
         outputItem.OnNewPlayerInteract += ItemStartInteract;
         outputItem.OnRemovePlayerInteract += ItemEndInteract;
-        outputItem.OnItemRemove += ItemSeparate;
-        outputItem.OnItemAppear += ItemOutput;
+        outputItem.OnItemRemove += ItemRemove;
+        outputItem.OnItemAppear += ItemAppear;
     }
 
 

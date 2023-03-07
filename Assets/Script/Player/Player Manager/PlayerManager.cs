@@ -95,7 +95,7 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    void OnUnpairedDeviceUsed(InputControl c, InputEventPtr e)
+    private void OnUnpairedDeviceUsed(InputControl c, InputEventPtr e)
     {
         // device not keyboard / gamepad
         if(c.device.GetType() == Mouse.current.GetType()) return;
@@ -116,6 +116,16 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log($"Pairing {player.name} with {c.device.name}");
                 return;
             }
+        }
+    }
+    
+    
+    private void UnPairAllDevices()
+    {
+        for (var i = 0; i < players.Count; i++)
+        {
+            if (players[i].PlayerInput is not PlayerInput playerInput) continue;
+            playerInput.inputUser.UnpairDevice(allPlayerDevices[i]);
         }
     }
 }

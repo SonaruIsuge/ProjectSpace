@@ -41,8 +41,8 @@ public class Player : MonoBehaviour, IGravityAffectable
     public bool IgnoreGravity => PlayerInput.JetDirection != 0;
      public bool IsActive { get; private set; }
     
-     public void SetActive(bool active) => IsActive = active;
      
+     public void SetActive(bool active) => IsActive = active;
      
 
     // For debug use
