@@ -40,7 +40,11 @@ public class CatPower : MonoBehaviour, IPowerConsumable
         for (var i = 0; i < energySlots.Count; i++)
         {
             var energy = GetDetectEnergySlot(energySlots[i]);
-            if(energy) energy.SetInteractable(false);
+            if (energy)
+            {
+                energy.SetInteractable(false);
+                energy.RemoveItem(false);
+            }
             energyInUse[i] = energy;
         }
 
@@ -84,6 +88,7 @@ public class CatPower : MonoBehaviour, IPowerConsumable
             energyToCharge.transform.localRotation = Quaternion.Euler(Vector3.right * -90f);
             energyToCharge.transform.localScale = Vector3.one * .5f;
             energyToCharge.SetInteractable(false);
+            energyToCharge.RemoveItem(false);
             energyToCharge.Rb.isKinematic = true;
                 
             RemainPower += MaxPower / energySlots.Count;
@@ -100,8 +105,9 @@ public class CatPower : MonoBehaviour, IPowerConsumable
 
     private Item GetDetectEnergySlot(Transform slot)
     {
-        if (!Physics.Raycast(slot.position, -slot.forward, out var hit)) return null;
-        if (!hit.transform.TryGetComponent<Item>(out var item)) return null;
+        var item = slot.GetComponentInChildren<Item>();
+        if (!item) return null;
+        
         return item.ItemData.type == ItemType.Energy ? item : null;
     }
 

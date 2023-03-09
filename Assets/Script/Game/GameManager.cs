@@ -1,5 +1,6 @@
 
 using System;
+using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
 
@@ -12,12 +13,15 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
     [SerializeField] private ItemManager itemManager;
     [SerializeField] private UIManager uiManager;
 
+    public static event Action OnGameOver;
+    
+    private bool IsGameOver;
     public int RemainRubbish => itemManager.GetItemInStageNum();
     
     protected override void Awake()
     {
         base.Awake();
-        
+        IsGameOver = false;
     }
 
 
@@ -32,6 +36,8 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
 
         uiManager.OnAllReadyUIFinish += GameStart;
         uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
+
+        OnGameOver += GameOver;
     }
 
 
@@ -46,12 +52,16 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
         
         uiManager.OnAllReadyUIFinish -= GameStart;
         uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;
+        
+        OnGameOver -= GameOver;
     }
     
 
     private void Update()
     {
-        uiManager.UpdateItemRemainText(itemManager.GetItemInStageNum());
+        uiManager.UpdateItemRemainText(RemainRubbish);
+        
+        if(RemainRubbish == 0 & !IsGameOver) OnGameOver?.Invoke();
     }
 
 
@@ -59,9 +69,22 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
     {
         playerManager.SetStart(true);
         
-        machineManager.SetStart(true);
-        
         itemManager.SetStart(true);
         itemManager.InitialSetUp();
+        
+        machineManager.SetStart(true);
+        machineManager.InitialSetUp();
+    }
+
+
+    private async void GameOver()
+    {
+        playerManager.SetStart(false);
+        itemManager.SetStart(false);
+        machineManager.SetStart(false);
+        
+        await Task.Delay(1000);
+
+        uiManager.SetGameOverUI();
     }
 }

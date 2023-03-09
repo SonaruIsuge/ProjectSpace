@@ -29,15 +29,20 @@ public class MachineManager : MonoBehaviour
             energyRecycleMachine,
             toxicRecycleMachine
         };
+        
+        isStart = false;
+    }
 
 
+    public void InitialSetUp()
+    {
         foreach (var machine in allMachine)
         {
             machine.SetUp();
             machine.SetActive(true);
         }
 
-        isStart = false;
+        
     }
 
 

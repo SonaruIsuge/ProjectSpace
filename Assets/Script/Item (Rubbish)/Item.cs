@@ -15,7 +15,7 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     public bool isSelect { get; private set; }
     public bool UnderGravity { get; set; }
     public bool IgnoreGravity { get; private set; }
-    private bool canInteract;
+    public bool CanInteract { get; private set; }
 
     public Rigidbody Rb { get; private set; }
     private Collider col;
@@ -31,7 +31,7 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     {
         Rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        canInteract = true;
+        CanInteract = true;
     }
 
 
@@ -40,12 +40,12 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
         isSelect = true;
     }
 
-    public void SetInteractable(bool interactable) => canInteract = interactable;
+    public void SetInteractable(bool interactable) => CanInteract = interactable;
     
 
     public virtual void Interact(Player interactPlayer, InteractType interactType)
     {
-        if (interactType != InteractType || !canInteract) return;
+        if (interactType != InteractType || !CanInteract) return;
         
         // picked up by player
         if(!carryPlayers.Contains(interactPlayer)) PickUp(interactPlayer);
@@ -94,10 +94,10 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     }
 
 
-    public void RemoveItem()
+    public void RemoveItem(bool disappear = true)
     {
         OnItemRemove?.Invoke(this);
-        gameObject.SetActive(false);
+        if(disappear) gameObject.SetActive(false);
     }
 
 

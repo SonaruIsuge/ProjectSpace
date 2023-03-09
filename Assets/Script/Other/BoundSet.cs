@@ -106,7 +106,7 @@ public class BoundSet : MonoBehaviour
         trans.position = new Vector3((maxX + minX) / 2, (maxY + minY) / 2, (maxZ + minZ) / 2);
         //trans.localScale = new Vector3(maxX - minX, maxY - minY, maxZ - minZ);
         trans.rotation = rotation;
-        trans.localScale = new Vector3(60, 60, 1);
+        trans.localScale = new Vector3(80, 80, 1);
     }
     
 }

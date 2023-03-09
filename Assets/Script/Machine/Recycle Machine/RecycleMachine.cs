@@ -35,13 +35,24 @@ public class RecycleMachine : MonoBehaviour, IMachine
 
     private void DetectRecyclable()
     {
-        var hit = Physics.Raycast(InputPoint.position, InputPoint.up, out var hitInfo, 1f);
-        if( !hit || !hitInfo.transform.TryGetComponent<Item>(out var item)) return;
-        if(item.isInteract) return;
-        if(item.ItemData.RecycleType != recycleType) return;
+        var results = new Collider[10];
+        var hit = Physics.OverlapBoxNonAlloc(InputPoint.position, Vector3.one * .5f, results);
+        if(hit == 0) return;
+
+        Item targetItem = null;
+        foreach (var result in results)
+        {
+            if(!result || !result.TryGetComponent<Item>(out var item)) continue;
+            if(item.isInteract) continue;
+            if(item.ItemData.RecycleType != recycleType) continue;
+
+            targetItem = item;
+        }
         
-        recycleItem.Push(hitInfo.transform.gameObject);
-        hitInfo.transform.SetParent(transform);
-        item.RemoveItem();
+        if(!targetItem) return;
+        
+        recycleItem.Push(targetItem.transform.gameObject);
+        targetItem.transform.SetParent(transform);
+        targetItem.RemoveItem();
     }
 }

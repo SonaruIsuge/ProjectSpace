@@ -82,6 +82,13 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
     public int GetItemInStageNum() => allItemInStage.Count;
 
 
+    [ContextMenu("Clear All Item")]
+    public void ClearAllItem()
+    {
+        for(var i = allItemInStage.Count - 1; i >= 0; i--) allItemInStage[i].RemoveItem();
+    }
+
+
     private void ItemStartInteract(Item item, Player picker) => OnItemStartInteract?.Invoke(item, picker);
     private void ItemEndInteract(Item item, Player dropper) => OnItemEndInteract?.Invoke(item, dropper);
 

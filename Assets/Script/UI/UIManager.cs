@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,15 +15,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> playerReadyText;
     [Header("In Game")] 
     [SerializeField] private TMP_Text remainItemNumText;
-    
-    
+    [Header("Game Over")]
+    [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private Button ReplayBtn; 
+
     private int pairPlayerNum;
 
     public event Action OnAllReadyUIFinish;
+    
 
     private void Awake()
     {
         pairPlayerNum = 0;
+        //ReplayBtn.onClick.AddListener();
     }
 
 
@@ -79,4 +84,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateItemRemainText(int remain) => remainItemNumText.text = remain.ToString();
 
+
+    public void SetGameOverUI()
+    {
+        
+    }
 }
