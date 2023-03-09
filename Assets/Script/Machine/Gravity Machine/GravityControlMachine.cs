@@ -25,16 +25,6 @@ public class GravityControlMachine : MonoBehaviour, IMachine, IInteractable
     public Material debugTestMaterial;
 
 
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.red;
-    //     var field = transform.position;
-    //     field.y -= 1;
-    //     
-    //     Gizmos.DrawWireSphere(field, GravityRange);
-    // }
-    
-    
     public void SetActive(bool active) => IsActive = active;
     
     

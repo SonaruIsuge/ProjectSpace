@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.Serialization;
 
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private List<Player> players;
-    private List<InputDevice> allPlayerDevices;
+    [SerializeField] private List<Player> activePlayers;
     
     private SinglePlayerMoveCalculator singlePlayerMoveCalculator;
     private MultiPlayerCarryItemMoveCalculator multiPlayerCarryItemMoveCalculator;
@@ -17,24 +17,25 @@ public class PlayerManager : MonoBehaviour
     
     private Dictionary<Item, List<Player>> playerInteractItemDict;
 
+    private bool isStart;
+    public void SetStart(bool start) => isStart = start;
+
 
     private void Awake()
     {
-        ++InputUser.listenForUnpairedDeviceActivity;
-        allPlayerDevices = new List<InputDevice>();
-        
         singlePlayerMoveCalculator = new SinglePlayerMoveCalculator();
         multiPlayerCarryItemMoveCalculator = new MultiPlayerCarryItemMoveCalculator();
         itemSizeMoveCalculator = new ItemSizeMoveCalculator();
-        
+
+        activePlayers = new List<Player>();
         playerInteractItemDict = new Dictionary<Item, List<Player>>();
+
+        isStart = false;
     }
 
 
     private void OnEnable()
     {
-        InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
-        
         ItemManager.OnItemStartInteract += NewItemInteractPlayer;
         ItemManager.OnItemEndInteract += RemovePlayerInteractItem;
     }
@@ -42,8 +43,6 @@ public class PlayerManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
-        
         ItemManager.OnItemStartInteract -= NewItemInteractPlayer;
         ItemManager.OnItemEndInteract -= RemovePlayerInteractItem;
     }
@@ -51,13 +50,13 @@ public class PlayerManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        foreach (var player in players)
+        if(!isStart) return;
+        
+        foreach (var player in activePlayers)
         {
             if(!player.IsActive) continue;
             
             var itemSizeBuff = 1f;
-            // check if player is interact with item
-            //Debug.Log(player.PlayerInput.JetDirection);
             if (player.PlayerInteractController.CurrentInteract is Item item)
             {
                 if (!playerInteractItemDict.ContainsKey(item) || !playerInteractItemDict[item].Contains(player))
@@ -95,37 +94,10 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    private void OnUnpairedDeviceUsed(InputControl c, InputEventPtr e)
+    public void AddActivePlayer(Player player)
     {
-        // device not keyboard / gamepad
-        if(c.device.GetType() == Mouse.current.GetType()) return;
-        if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
-            return;
-        
-
-        foreach (var player in players)
-        {
-            if(player.PlayerInput is not PlayerInput playerInput) continue;
-
-            if (!playerInput.inputUser.valid)
-            {
-                playerInput.inputUser = InputUser.PerformPairingWithDevice(c.device);
-                playerInput.inputUser.AssociateActionsWithUser(playerInput.playerInputAction);
-                allPlayerDevices.Add(c.device);
-                player.SetActive(true);
-                Debug.Log($"Pairing {player.name} with {c.device.name}");
-                return;
-            }
-        }
+        if(!activePlayers.Contains(player)) activePlayers.Add(player);
     }
+
     
-    
-    private void UnPairAllDevices()
-    {
-        for (var i = 0; i < players.Count; i++)
-        {
-            if (players[i].PlayerInput is not PlayerInput playerInput) continue;
-            playerInput.inputUser.UnpairDevice(allPlayerDevices[i]);
-        }
-    }
 }

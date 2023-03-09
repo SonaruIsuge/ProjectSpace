@@ -22,6 +22,7 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     public float RemainPowerPercent => RemainPower / MaxPower;
     public bool IsRemainPower => RemainPower > 0;
 
+    public event Action<float> OnPowerConsume;
     public event Action OnPowerRunOut;
     public event Action OnPowerCharged;
     
@@ -52,6 +53,7 @@ public class CatPower : MonoBehaviour, IPowerConsumable
         RemainPower -= ConsumptionRate * Time.deltaTime;
         
         if(!IsRemainPower) OnPowerRunOut?.Invoke();
+        else OnPowerConsume?.Invoke(RemainPower);
         
         var oneEnergyPower = 1f / energySlots.Count;
         var remainNum = Mathf.CeilToInt(RemainPowerPercent / oneEnergyPower);
@@ -80,7 +82,7 @@ public class CatPower : MonoBehaviour, IPowerConsumable
             energyToCharge.transform.SetParent(energySlots[i]);
             energyToCharge.transform.localPosition = Vector3.forward * -0.05f;
             energyToCharge.transform.localRotation = Quaternion.Euler(Vector3.right * -90f);
-            energyToCharge.transform.localScale = Vector3.one;
+            energyToCharge.transform.localScale = Vector3.one * .5f;
             energyToCharge.SetInteractable(false);
             energyToCharge.Rb.isKinematic = true;
                 

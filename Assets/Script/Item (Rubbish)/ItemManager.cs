@@ -3,32 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using SonaruUtilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class ItemManager : TSingletonMonoBehaviour<ItemManager>
 {
     [SerializeField] private ItemContainer itemContainer;
-    [SerializeField] private List<Item> allItem;
-
+    [SerializeField] private List<Item> allWaitingItem;
+    [SerializeField] private List<Item> allItemInStage;
+    [SerializeField] private float popItemTime;
     [SerializeField] private NormalSeparatorMachine normalSeparatorMachine;
-    
+
+    private SimpleTimer timer;
+    private Queue<Item> waitingQueue;
+
     public static event Action<Item, Player> OnItemStartInteract;
     public static event Action<Item, Player> OnItemEndInteract;
 
-
-
+    private bool isStart;
+    public void SetStart(bool start) => isStart = start;
+    
 
     protected override void Awake()
     {
         base.Awake();
-        allItem = FindObjectsOfType<Item>().ToList();
+        allItemInStage = FindObjectsOfType<Item>().ToList();
         itemContainer.GenerateDictionary();
+
+        waitingQueue = new Queue<Item>(allWaitingItem);
+        timer = new SimpleTimer(popItemTime);
+        timer.Pause();
+        isStart = false;
     }
 
 
     private void OnEnable()
     {
-        foreach (var item in allItem)
+        foreach (var item in allItemInStage)
         {
             item.OnNewPlayerInteract += ItemStartInteract;
             item.OnRemovePlayerInteract += ItemEndInteract;
@@ -40,36 +51,54 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
     }
 
 
-    private void ItemStartInteract(Item item, Player picker)
+    private void Update()
     {
-        
-        OnItemStartInteract?.Invoke(item, picker);
+        if(!isStart) return;
+
+        if (timer.IsFinish && waitingQueue.Count > 0)
+        {
+            var newItem = Instantiate(waitingQueue.Dequeue());
+            newItem.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(8, 10), Random.Range(0, 10));
+            newItem.transform.rotation = Random.rotation;
+            allWaitingItem.RemoveAt(0);
+            ItemAppear(newItem);
+            newItem.Rb.velocity = Random.onUnitSphere;
+            
+            timer.Reset();
+        }
     }
 
 
-    private void ItemEndInteract(Item item, Player dropper)
+    public void InitialSetUp()
     {
-        
-        OnItemEndInteract?.Invoke(item, dropper);
+        timer.Resume();
+        foreach (var item in allItemInStage) item.Rb.velocity = Random.onUnitSphere;
     }
+
+
+    public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
+
+
+    public int GetItemInStageNum() => allItemInStage.Count;
+
+
+    private void ItemStartInteract(Item item, Player picker) => OnItemStartInteract?.Invoke(item, picker);
+    private void ItemEndInteract(Item item, Player dropper) => OnItemEndInteract?.Invoke(item, dropper);
 
 
     private void ItemRemove(Item inputItem)
     {
-        if(!allItem.Contains(inputItem)) return;
-        allItem.Remove(inputItem);
+        if(!allItemInStage.Contains(inputItem)) return;
+        allItemInStage.Remove(inputItem);
     }
     
     
     private void ItemAppear(Item outputItem)
     {
-        allItem.Add(outputItem);
+        allItemInStage.Add(outputItem);
         outputItem.OnNewPlayerInteract += ItemStartInteract;
         outputItem.OnRemovePlayerInteract += ItemEndInteract;
         outputItem.OnItemRemove += ItemRemove;
         outputItem.OnItemAppear += ItemAppear;
     }
-
-
-    public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
 }

@@ -15,6 +15,8 @@ public class MachineManager : MonoBehaviour
 
     private List<IMachine> allMachine;
 
+    private bool isStart;
+    public void SetStart(bool start) => isStart = start;
 
     private void Awake()
     {
@@ -34,11 +36,15 @@ public class MachineManager : MonoBehaviour
             machine.SetUp();
             machine.SetActive(true);
         }
+
+        isStart = false;
     }
 
 
     private void Update()
     {
+        if(!isStart) return;
+
         foreach (var machine in allMachine)
         {
             if(!machine.IsActive) continue;

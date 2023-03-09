@@ -11,6 +11,7 @@ public interface IPowerConsumable
     bool IsRemainPower { get; }
 
     event Action OnPowerRunOut;
+    event Action<float> OnPowerConsume;
     event Action OnPowerCharged;
 
     void InitialSetup();
