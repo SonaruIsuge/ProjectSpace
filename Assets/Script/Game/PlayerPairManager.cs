@@ -23,7 +23,6 @@ public class PlayerPairManager : MonoBehaviour
 
     private void Awake()
     {
-        InputUser.listenForUnpairedDeviceActivity = 4;
         allPlayerDevices = new List<InputDevice>();
         pairPlayers = new List<Player>();
         playerReady = new List<bool>();
@@ -47,6 +46,12 @@ public class PlayerPairManager : MonoBehaviour
     private void Update()
     {
         if(!allReady) UpdateReady();
+    }
+
+
+    public void InitialSetUp()
+    {
+        InputUser.listenForUnpairedDeviceActivity = 4;
     }
 
 
@@ -87,11 +92,11 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
-    private void UnpairAllDevice()
+    public void UnpairAllDevice()
     {
-        for (var i = 0; i < players.Count; i++)
+        for (var i = 0; i < pairPlayers.Count; i++)
         {
-            if (players[i].PlayerInput is not PlayerInput playerInput) continue;
+            if (pairPlayers[i].PlayerInput is not PlayerInput playerInput) continue;
             
             playerInput.inputUser.UnpairDevice(allPlayerDevices[i]);
         }

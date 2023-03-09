@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class ItemManager : TSingletonMonoBehaviour<ItemManager>
+public class ItemManager : MonoBehaviour
 {
     [SerializeField] private ItemContainer itemContainer;
     [SerializeField] private List<Item> allWaitingItem;
@@ -24,9 +24,8 @@ public class ItemManager : TSingletonMonoBehaviour<ItemManager>
     public void SetStart(bool start) => isStart = start;
     
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         allItemInStage = FindObjectsOfType<Item>().ToList();
         itemContainer.GenerateDictionary();
 

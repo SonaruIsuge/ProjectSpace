@@ -22,12 +22,24 @@ public class UIManager : MonoBehaviour
     private int pairPlayerNum;
 
     public event Action OnAllReadyUIFinish;
-    
+    public event Action OnPressReplay;
 
     private void Awake()
     {
         pairPlayerNum = 0;
-        //ReplayBtn.onClick.AddListener();
+        WaitToStartGamePanel.SetActive(true);
+    }
+
+
+    private void OnEnable()
+    {
+        ReplayBtn.onClick.AddListener(() => OnPressReplay?.Invoke());
+    }
+
+
+    private void OnDisable()
+    {
+        ReplayBtn.onClick.RemoveAllListeners();
     }
 
 
@@ -87,6 +99,6 @@ public class UIManager : MonoBehaviour
 
     public void SetGameOverUI()
     {
-        
+        GameOverPanel.SetActive(true);
     }
 }

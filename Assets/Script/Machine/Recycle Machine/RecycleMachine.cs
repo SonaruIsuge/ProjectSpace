@@ -43,7 +43,6 @@ public class RecycleMachine : MonoBehaviour, IMachine
         foreach (var result in results)
         {
             if(!result || !result.TryGetComponent<Item>(out var item)) continue;
-            if(item.isInteract) continue;
             if(item.ItemData.RecycleType != recycleType) continue;
 
             targetItem = item;
@@ -51,6 +50,7 @@ public class RecycleMachine : MonoBehaviour, IMachine
         
         if(!targetItem) return;
         
+        if(targetItem.isInteract) targetItem.ForceDisconnect();
         recycleItem.Push(targetItem.transform.gameObject);
         targetItem.transform.SetParent(transform);
         targetItem.RemoveItem();

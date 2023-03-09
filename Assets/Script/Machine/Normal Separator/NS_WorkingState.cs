@@ -42,7 +42,7 @@ public class NS_WorkingState : INormalSeparatorState
 
         for (var i = 0; i < produceList.Count; i++)
         {
-            var productObj = ItemManager.Instance.GetItem(produceList[i].type);
+            var productObj = DataManager.Instance.GetItem(produceList[i].type);
             Machine.Output(productObj);
         }
     }

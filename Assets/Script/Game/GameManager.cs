@@ -3,9 +3,10 @@ using System;
 using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
-public class GameManager : TSingletonMonoBehaviour<GameManager>
+public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerPairManager playerPairManager;
     [SerializeField] private PlayerManager playerManager;
@@ -18,14 +19,14 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
     private bool IsGameOver;
     public int RemainRubbish => itemManager.GetItemInStageNum();
     
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         IsGameOver = false;
+        playerPairManager.InitialSetUp();
     }
 
 
-    private void OnEnable()
+    private void BindManager()
     {
         playerPairManager.OnPlayerPair += playerManager.AddActivePlayer;
         playerPairManager.OnPlayerPair += uiManager.PlayerPair;
@@ -36,12 +37,13 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
 
         uiManager.OnAllReadyUIFinish += GameStart;
         uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
-
+        uiManager.OnPressReplay += ReStartGame;
+        
         OnGameOver += GameOver;
     }
 
 
-    private void OnDisable()
+    private void UnbindManager()
     {
         playerPairManager.OnPlayerPair -= playerManager.AddActivePlayer;
         playerPairManager.OnPlayerPair -= uiManager.PlayerPair;
@@ -52,8 +54,15 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
         
         uiManager.OnAllReadyUIFinish -= GameStart;
         uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;
+        uiManager.OnPressReplay -= ReStartGame;
         
         OnGameOver -= GameOver;
+    }
+
+
+    private void Start()
+    {
+        BindManager();
     }
     
 
@@ -82,9 +91,18 @@ public class GameManager : TSingletonMonoBehaviour<GameManager>
         playerManager.SetStart(false);
         itemManager.SetStart(false);
         machineManager.SetStart(false);
-        
+
+        IsGameOver = true;
         await Task.Delay(1000);
 
         uiManager.SetGameOverUI();
+    }
+
+
+    private void ReStartGame()
+    {
+        playerPairManager.UnpairAllDevice();
+        UnbindManager();
+        SceneManager.LoadScene(0);
     }
 }
