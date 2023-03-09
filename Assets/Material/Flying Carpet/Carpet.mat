@@ -355,7 +355,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _HighColor_Power: 0.63
+    - _HighColor_Power: 0.654
     - _HighlightOverridden: 0
     - _HighlightVisible: 1
     - _InvTilingScale: 1
@@ -426,7 +426,7 @@ Material:
     - _RimLightOverridden: 0
     - _RimLightVisible: 1
     - _RimLight_FeatherOff: 1
-    - _RimLight_InsideMask: 0.206
+    - _RimLight_InsideMask: 0.337
     - _RimLight_Power: 0.486
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
