@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class ItemManager : MonoBehaviour
 {
     [SerializeField] private ItemContainer itemContainer;
+    [SerializeField] private List<Transform> initItemPoint;
     [SerializeField] private List<Item> allWaitingItem;
     [SerializeField] private List<Item> allItemInStage;
     [SerializeField] private float popItemTime;
@@ -56,13 +57,7 @@ public class ItemManager : MonoBehaviour
 
         if (timer.IsFinish && waitingQueue.Count > 0)
         {
-            var newItem = Instantiate(waitingQueue.Dequeue());
-            newItem.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(8, 10), Random.Range(0, 10));
-            newItem.transform.rotation = Random.rotation;
-            allWaitingItem.RemoveAt(0);
-            ItemAppear(newItem);
-            newItem.Rb.velocity = Random.onUnitSphere;
-            
+            InitNewItem(waitingQueue.Dequeue());
             timer.Reset();
         }
     }
@@ -106,5 +101,20 @@ public class ItemManager : MonoBehaviour
         outputItem.OnRemovePlayerInteract += ItemEndInteract;
         outputItem.OnItemRemove += ItemRemove;
         outputItem.OnItemAppear += ItemAppear;
+    }
+
+
+    private void InitNewItem(Item item)
+    {
+        var newItem = Instantiate(item);
+        newItem.transform.position = initItemPoint[Random.Range(0, initItemPoint.Count)].position;
+        newItem.transform.rotation = Random.rotation;
+        allWaitingItem.RemoveAt(0);
+        ItemAppear(newItem);
+        var velocity = (Vector3.zero - newItem.transform.position).normalized;
+        velocity.x *= Random.Range(1f, 2f);
+        velocity.y *= Random.Range(1f, 2f);
+        velocity.z *= Random.Range(1f, 2f);
+        newItem.Rb.velocity = velocity;
     }
 }

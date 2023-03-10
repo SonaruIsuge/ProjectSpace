@@ -121,6 +121,10 @@ public class PlayerPairManager : MonoBehaviour
             allReady &= playerReady[i];
         }
 
-        if (allReady) OnAllPlayerReady?.Invoke();
+        if (allReady)
+        {
+            foreach(var player in players) if(!pairPlayers.Contains(player)) player.gameObject.SetActive(false);
+            OnAllPlayerReady?.Invoke();
+        }
     }
 }

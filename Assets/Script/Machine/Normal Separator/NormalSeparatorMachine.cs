@@ -122,7 +122,7 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         outputItem.AddItem();
         newItemObj.transform.position = InputPoint.position + Vector3.Scale(InputPoint.up, itemSize);
         newItemObj.transform.rotation = Random.rotation; 
-        var outputVector = Random.onUnitSphere * Random.Range(1, 10);
+        var outputVector = Random.onUnitSphere * Random.Range(1, 5);
         outputVector.y = Mathf.Abs(outputVector.y);
         outputItem.Rb.AddForce(outputVector, ForceMode.VelocityChange);
         
