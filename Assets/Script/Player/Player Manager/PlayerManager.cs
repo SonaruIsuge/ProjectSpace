@@ -17,6 +17,12 @@ public class PlayerManager : MonoBehaviour
     
     private Dictionary<Item, List<Player>> playerInteractItemDict;
 
+    public event Action<float> OnRotateCameraCall;
+
+    
+    private float worldRotateAngle;
+    public void SetWorldRotate(float angle) => worldRotateAngle = angle;
+    
     private bool isStart;
     public void SetStart(bool start) => isStart = start;
 
@@ -30,6 +36,7 @@ public class PlayerManager : MonoBehaviour
         activePlayers = new List<Player>();
         playerInteractItemDict = new Dictionary<Item, List<Player>>();
 
+        worldRotateAngle = 0;
         isStart = false;
     }
 
@@ -71,11 +78,15 @@ public class PlayerManager : MonoBehaviour
             
             var playerMoveVelocity = singlePlayerMoveCalculator.GetMovement(new List<Player> { player }, null);
             playerMoveVelocity *= itemSizeBuff;
+            playerMoveVelocity = Quaternion.Euler(0, worldRotateAngle, 0) * playerMoveVelocity;
             
             // player update
             player.Move(playerMoveVelocity);
             
             player.DetectInteract();
+            
+            // World turns in the opposite direction of the camera
+            if(player.PlayerInput.RotateCam != 0) OnRotateCameraCall?.Invoke(-player.PlayerInput.RotateCam);    
         }
     }
     

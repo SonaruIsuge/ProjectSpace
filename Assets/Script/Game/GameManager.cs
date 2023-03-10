@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MachineManager machineManager;
     [SerializeField] private ItemManager itemManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private CameraController cameraController;
 
     public static event Action OnGameOver;
     
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
         
         playerPairManager.OnAllPlayerReady += uiManager.AllPlayerReady;
 
+        playerManager.OnRotateCameraCall += cameraController.RotateCam;
+
         uiManager.OnAllReadyUIFinish += GameStart;
         uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
         uiManager.OnPressReplay += ReStartGame;
@@ -52,6 +55,8 @@ public class GameManager : MonoBehaviour
         
         playerPairManager.OnAllPlayerReady -= uiManager.AllPlayerReady;
         
+        playerManager.OnRotateCameraCall -= cameraController.RotateCam;
+        
         uiManager.OnAllReadyUIFinish -= GameStart;
         uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;
         uiManager.OnPressReplay -= ReStartGame;
@@ -68,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
         uiManager.UpdateItemRemainText(RemainRubbish);
         
         if(RemainRubbish == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
