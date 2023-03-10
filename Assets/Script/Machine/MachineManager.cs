@@ -15,6 +15,8 @@ public class MachineManager : MonoBehaviour
 
     private List<IMachine> allMachine;
 
+    public bool SeparatorWorking => normalSeparatorMachine.IsWorking;
+    
     private bool isStart;
     public void SetStart(bool start) => isStart = start;
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4720933420922682594}
   - component: {fileID: 4720933420922682593}
   - component: {fileID: 4720933420922682592}
+  - component: {fileID: 2331750245922990137}
   m_Layer: 0
   m_Name: Test Recycle Machine (Energy)
   m_TagString: Untagged
@@ -46,8 +47,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.9, z: 1}
-  m_Center: {x: 0, y: 0.95, z: 0}
+  m_Size: {x: 1, y: 0.8, z: 1}
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &4720933420922682592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +63,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recycleType: 3
   <InputPoint>k__BackingField: {fileID: 4720933421388922383}
+--- !u!65 &2331750245922990137
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720933420922682527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.25}
+  m_Center: {x: 0, y: 1.3, z: -0.375}
 --- !u!1 &4720933421388922382
 GameObject:
   m_ObjectHideFlags: 0

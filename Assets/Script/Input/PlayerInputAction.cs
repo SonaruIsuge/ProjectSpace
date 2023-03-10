@@ -71,6 +71,15 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateCam"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a405e97-4eae-4725-a022-65ad8a1a7160"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,7 +163,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8cb90946-b68b-4497-a6cf-783da018d516"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -176,7 +185,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b49896c-9997-4a96-bf86-e32b5043bc63"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -271,6 +280,72 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""79d4c6b1-c4fa-4552-8129-dd42eaa9d2d9"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""044ac6cf-19ad-49f3-8d77-91015030b99f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""d17fac9f-a889-4692-b9e6-953e89922e3b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""c633e00f-0f3b-4049-91be-075b04113e10"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c753ef73-1172-403f-b750-e0ddb2027632"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6048a51e-d3d4-43c6-a54e-9dff3b9f7fef"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -284,6 +359,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_GamePlay_Jet = m_GamePlay.FindAction("Jet", throwIfNotFound: true);
         m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
         m_GamePlay_SwitchEquip = m_GamePlay.FindAction("SwitchEquip", throwIfNotFound: true);
+        m_GamePlay_RotateCam = m_GamePlay.FindAction("RotateCam", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -348,6 +424,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
     private readonly InputAction m_GamePlay_Jet;
     private readonly InputAction m_GamePlay_Interact;
     private readonly InputAction m_GamePlay_SwitchEquip;
+    private readonly InputAction m_GamePlay_RotateCam;
     public struct GamePlayActions
     {
         private @PlayerInputAction m_Wrapper;
@@ -357,6 +434,7 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         public InputAction @Jet => m_Wrapper.m_GamePlay_Jet;
         public InputAction @Interact => m_Wrapper.m_GamePlay_Interact;
         public InputAction @SwitchEquip => m_Wrapper.m_GamePlay_SwitchEquip;
+        public InputAction @RotateCam => m_Wrapper.m_GamePlay_RotateCam;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -381,6 +459,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @SwitchEquip.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnSwitchEquip;
                 @SwitchEquip.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnSwitchEquip;
                 @SwitchEquip.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnSwitchEquip;
+                @RotateCam.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRotateCam;
+                @RotateCam.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRotateCam;
+                @RotateCam.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnRotateCam;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -400,6 +481,9 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                 @SwitchEquip.started += instance.OnSwitchEquip;
                 @SwitchEquip.performed += instance.OnSwitchEquip;
                 @SwitchEquip.canceled += instance.OnSwitchEquip;
+                @RotateCam.started += instance.OnRotateCam;
+                @RotateCam.performed += instance.OnRotateCam;
+                @RotateCam.canceled += instance.OnRotateCam;
             }
         }
     }
@@ -411,5 +495,6 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnJet(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSwitchEquip(InputAction.CallbackContext context);
+        void OnRotateCam(InputAction.CallbackContext context);
     }
 }

@@ -18,6 +18,7 @@ public class PlayerInput : IPlayerInput
     public bool HoldInteract => interactUnderPerform;
     public bool ReleaseInteract => playerInputAction.GamePlay.Interact.WasReleasedThisFrame(); 
     public bool SwitchEquipment => switchEquipmentUnderPerform && playerInputAction.GamePlay.SwitchEquip.WasPressedThisFrame();
+    public float RotateCam { get; private set; }
 
     
     
@@ -44,6 +45,8 @@ public class PlayerInput : IPlayerInput
         playerInputAction.GamePlay.Interact.canceled += OnInteractCancel;
         playerInputAction.GamePlay.SwitchEquip.performed += OnSwitchEquipmentPerform;
         playerInputAction.GamePlay.SwitchEquip.canceled += OnSwitchEquipmentCancel;
+        playerInputAction.GamePlay.RotateCam.performed += OnRotateCamPerform;
+        playerInputAction.GamePlay.RotateCam.canceled += OnRotateCamCancel;
     }
 
 
@@ -59,6 +62,8 @@ public class PlayerInput : IPlayerInput
         playerInputAction.GamePlay.Interact.canceled -= OnInteractCancel;
         playerInputAction.GamePlay.SwitchEquip.performed -= OnSwitchEquipmentPerform;
         playerInputAction.GamePlay.SwitchEquip.canceled -= OnSwitchEquipmentCancel;
+        playerInputAction.GamePlay.RotateCam.performed -= OnRotateCamPerform;
+        playerInputAction.GamePlay.RotateCam.canceled -= OnRotateCamCancel;
     }
 
 
@@ -71,7 +76,7 @@ public class PlayerInput : IPlayerInput
     
     private void OnMovePerform(InputAction.CallbackContext ctx) => Movement = ctx.ReadValue<Vector2>();
     private void OnMoveCancel(InputAction.CallbackContext ctx) => Movement = Vector2.zero;
-    private void OnJetDirectionPerform(InputAction.CallbackContext ctx) => JetDirection = FixJetValue(ctx.ReadValue<float>());
+    private void OnJetDirectionPerform(InputAction.CallbackContext ctx) => JetDirection = FixFloatValueToInt(ctx.ReadValue<float>());
     private void OnJetDirectionCancel(InputAction.CallbackContext ctx) => JetDirection = 0;
     private void OnRunPerform(InputAction.CallbackContext ctx) => Run = true;
     private void OnRunCancel(InputAction.CallbackContext ctx) => Run = false;
@@ -79,9 +84,11 @@ public class PlayerInput : IPlayerInput
     private void OnInteractCancel(InputAction.CallbackContext ctx) => interactUnderPerform = false;
     private void OnSwitchEquipmentPerform(InputAction.CallbackContext ctx) => switchEquipmentUnderPerform = true;
     private void OnSwitchEquipmentCancel(InputAction.CallbackContext ctx) => switchEquipmentUnderPerform = false;
+    private void OnRotateCamPerform(InputAction.CallbackContext ctx) => RotateCam = FixFloatValueToInt(ctx.ReadValue<float>());
+    private void OnRotateCamCancel(InputAction.CallbackContext ctx) => RotateCam = 0;
 
 
-    private int FixJetValue(float direction)
+    private int FixFloatValueToInt(float direction)
     {
         if (direction > 0) return 1;
         if (direction < 0) return -1;

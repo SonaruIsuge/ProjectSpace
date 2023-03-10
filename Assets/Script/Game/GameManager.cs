@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         uiManager.UpdateItemRemainText(RemainRubbish);
         
-        if(RemainRubbish == 0 & !IsGameOver) OnGameOver?.Invoke();
+        if(RemainRubbish == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
     }
 
 

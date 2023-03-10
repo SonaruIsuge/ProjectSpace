@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     
     [field: Header("Movement")]
     [field: SerializeField] public float MoveSpeed { get; private set; }
+    [field: SerializeField] public float RotateSpeed { get; private set; }
     
     [field: Header("Jetpack")]
     [field: SerializeField] public float JetPackAcceleration { get; private set; }

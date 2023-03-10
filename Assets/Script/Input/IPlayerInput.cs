@@ -12,6 +12,7 @@ public interface IPlayerInput
     bool ReleaseInteract { get; }
     
     bool SwitchEquipment { get; }
+    float RotateCam { get; }
 
 
 
