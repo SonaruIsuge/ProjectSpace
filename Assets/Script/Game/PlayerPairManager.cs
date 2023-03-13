@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -10,10 +11,9 @@ using UnityEngine.InputSystem.Users;
 public class PlayerPairManager : MonoBehaviour
 {
     [SerializeField] private List<Player> players;
-    private List<InputDevice> allPlayerDevices;
-    private List<Player> pairPlayers;
-    private List<bool> playerReady;
-
+    private List<PlayerPairingUnit> allPlayerPairUnit;
+    private int pairedPlayerNum;
+    
     [SerializeField] private bool allReady;
 
     public event Action<Player> OnPlayerPair;
@@ -23,9 +23,10 @@ public class PlayerPairManager : MonoBehaviour
 
     private void Awake()
     {
-        allPlayerDevices = new List<InputDevice>();
-        pairPlayers = new List<Player>();
-        playerReady = new List<bool>();
+
+        allPlayerPairUnit = new List<PlayerPairingUnit>();
+        foreach (var player in players) allPlayerPairUnit.Add(new PlayerPairingUnit(player));
+        pairedPlayerNum = 0;
 
         allReady = false;
     }
@@ -34,12 +35,22 @@ public class PlayerPairManager : MonoBehaviour
     private void OnEnable()
     {
         InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
+
+        foreach (var pairUnit in allPlayerPairUnit)
+        {
+            pairUnit.OnChangeReady += PairedPlayerChangeReady;
+        }
     }
 
 
     private void OnDisable()
     {
         InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+        
+        foreach (var pairUnit in allPlayerPairUnit)
+        {
+            pairUnit.OnChangeReady -= PairedPlayerChangeReady;
+        }
     }
 
 
@@ -67,64 +78,54 @@ public class PlayerPairManager : MonoBehaviour
         if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
             return;
         
-
-        foreach (var player in players)
+        foreach (var pairUnit in allPlayerPairUnit)
         {
-            if(player.PlayerInput is not PlayerInput playerInput) continue;
-
-            if (!playerInput.inputUser.valid)
-            {
-                playerInput.inputUser = InputUser.PerformPairingWithDevice(c.device);
-                playerInput.inputUser.AssociateActionsWithUser(playerInput.playerInputAction);
-                
-                allPlayerDevices.Add(c.device);
-                pairPlayers.Add(player);
-                playerReady.Add(false);
-                player.SetActive(true);
-                
-                Debug.Log($"Pairing {player.name} with {c.device.name}");
-                
-                OnPlayerPair?.Invoke(player);
-                
-                return;
-            }
+            var pairSuccess = pairUnit.TryPairPlayerWithDevice(c, e);
+            
+            if(!pairSuccess) continue;
+            
+            pairUnit.Player.SetActive(true);
+            pairedPlayerNum++;
+            OnPlayerPair?.Invoke(pairUnit.Player);
+            return;
         }
     }
 
 
     public void UnpairAllDevice()
     {
-        for (var i = 0; i < pairPlayers.Count; i++)
+        foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired))
         {
-            if (pairPlayers[i].PlayerInput is not PlayerInput playerInput) continue;
-            
-            playerInput.inputUser.UnpairDevice(allPlayerDevices[i]);
+            pairUnit.UnpairDevice();
         }
-        
-        pairPlayers.Clear();
-        allPlayerDevices.Clear();
     }
 
 
     private void UpdateReady()
     {
-        if(pairPlayers.Count  == 0) return;
+        if(pairedPlayerNum == 0) return;
 
-        allReady = true;
-        for (var i = 0; i < pairPlayers.Count; i++)
+        foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired))
         {
-            if (pairPlayers[i].PlayerInput.TapInteract)
-            {
-                playerReady[i] = !playerReady[i];
-                OnPlayerChangeReadyState?.Invoke(pairPlayers[i], i, playerReady[i]);
-            }
-            allReady &= playerReady[i];
+            pairUnit.UpdateReady();
         }
 
         if (allReady)
         {
-            foreach(var player in players) if(!pairPlayers.Contains(player)) player.gameObject.SetActive(false);
+            foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => !pairUnit.IsPaired))
+            {
+                pairUnit.Player.gameObject.SetActive(false);
+            }
             OnAllPlayerReady?.Invoke();
         }
+    }
+
+
+    private void PairedPlayerChangeReady(PlayerPairingUnit unit, bool isReady)
+    {
+        OnPlayerChangeReadyState?.Invoke(unit.Player, allPlayerPairUnit.IndexOf(unit), isReady);
+        
+        allReady = true;
+        foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired)) allReady &= pairUnit.IsReady;
     }
 }
