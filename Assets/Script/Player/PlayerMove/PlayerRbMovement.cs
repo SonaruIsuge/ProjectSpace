@@ -33,21 +33,21 @@ public class PlayerRbMovement : IPlayerMove
         if(!IsActive) return;
         
         var moveVelocity = new Vector2(direction.x, direction.z) * speed;
-        currentJetVelocity = direction.y;
-        if (currentJetVelocity != 0) currentJetVelocity = Mathf.Min(currentJetVelocity + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity) * speed;
+
+        if (direction.y == 0)
+        {
+            currentJetVelocity = 0;
+        }
+        else
+        {
+            var jetDir = direction.y > 0 ? 1 : -1;
+            currentJetVelocity = Mathf.Min(Mathf.Abs(currentJetVelocity) + jetPackAcceleration * Time.deltaTime, maxJetPackVelocity) * jetDir;
+        }
         
         if (useInertia) rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
         else rb.velocity = new Vector3(moveVelocity.x, currentJetVelocity == 0 ? rb.velocity.y : currentJetVelocity, moveVelocity.y);
-        
-        // if (!useInertia)
-        // {
-        //     var velocity = rb.velocity;
-        //     if (direction.x == 0) rb.velocity = new Vector3(0, velocity.y, velocity.z);
-        //     //if (direction.y == 0) rb.velocity = new Vector3(velocity.x, 0, velocity.z);
-        //     if (direction.z == 0) rb.velocity = new Vector3(velocity.x, velocity.y, 0);
-        // }
 
-       
+
         if (targetPlayer.PlayerInteractController.CurrentInteract is Item item)
         {
             targetPlayer.transform.rotation = rb.transform.rotation;
