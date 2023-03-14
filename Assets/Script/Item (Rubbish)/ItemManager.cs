@@ -13,7 +13,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private List<Item> allWaitingItem;
     [SerializeField] private List<Item> allItemInStage;
     [SerializeField] private float popItemTime;
-    [SerializeField] private NormalSeparatorMachine normalSeparatorMachine;
+    [SerializeField] private float maxItemSpeed;
 
     private SimpleTimer timer;
     private Queue<Item> waitingQueue;
@@ -45,8 +45,6 @@ public class ItemManager : MonoBehaviour
             item.OnItemRemove += ItemRemove;
             item.OnItemAppear += ItemAppear;
         }
-        
-        normalSeparatorMachine.OnNewItemOutput += ItemAppear;
     }
 
 
@@ -58,6 +56,12 @@ public class ItemManager : MonoBehaviour
         {
             InitNewItem(waitingQueue.Dequeue());
             timer.Reset();
+        }
+
+        foreach (var item in allItemInStage)
+        {
+            if (item.Rb.velocity.magnitude > maxItemSpeed)
+                item.Rb.velocity = item.Rb.velocity.normalized * maxItemSpeed;
         }
     }
 
@@ -74,7 +78,17 @@ public class ItemManager : MonoBehaviour
 
     public int GetItemInStageNum() => allItemInStage.Count;
 
-
+    
+    public void ItemAppear(Item outputItem)
+    {
+        allItemInStage.Add(outputItem);
+        outputItem.OnNewPlayerInteract += ItemStartInteract;
+        outputItem.OnRemovePlayerInteract += ItemEndInteract;
+        outputItem.OnItemRemove += ItemRemove;
+        outputItem.OnItemAppear += ItemAppear;
+    }
+    
+    
     [ContextMenu("Clear All Item")]
     public void ClearAllItem()
     {
@@ -90,16 +104,6 @@ public class ItemManager : MonoBehaviour
     {
         if(!allItemInStage.Contains(inputItem)) return;
         allItemInStage.Remove(inputItem);
-    }
-    
-    
-    private void ItemAppear(Item outputItem)
-    {
-        allItemInStage.Add(outputItem);
-        outputItem.OnNewPlayerInteract += ItemStartInteract;
-        outputItem.OnRemovePlayerInteract += ItemEndInteract;
-        outputItem.OnItemRemove += ItemRemove;
-        outputItem.OnItemAppear += ItemAppear;
     }
 
 

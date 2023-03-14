@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
 
+        machineManager.OnItemProducedByMachine += itemManager.ItemAppear;
+
         uiManager.OnAllReadyUIFinish += GameStart;
         uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
         uiManager.OnPressReplay += ReStartGame;
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
         playerPairManager.OnAllPlayerReady -= uiManager.AllPlayerReady;
         
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
+        
+        machineManager.OnItemProducedByMachine -= itemManager.ItemAppear;
         
         uiManager.OnAllReadyUIFinish -= GameStart;
         uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;

@@ -143,4 +143,16 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
             DropDown(carryPlayers[i]);
         }
     }
+    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if(!other.transform.CompareTag("Blocking")) return;
+        
+        var contacts = new ContactPoint[10];
+        other.GetContacts(contacts);
+        var allNormal = contacts.Aggregate(Vector3.zero, (current, contact) => current + contact.normal);
+        
+        Rb.velocity = Vector3.Reflect(Rb.velocity.normalized, allNormal.normalized) * 2f;
+    }
 }

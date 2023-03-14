@@ -16,6 +16,8 @@ public class MachineManager : MonoBehaviour
     private List<IMachine> allMachine;
 
     public bool SeparatorWorking => normalSeparatorMachine.IsWorking;
+
+    public event Action<Item> OnItemProducedByMachine;
     
     private bool isStart;
     public void SetStart(bool start) => isStart = start;
@@ -33,6 +35,12 @@ public class MachineManager : MonoBehaviour
         };
     }
 
+
+    private void OnEnable()
+    {
+        normalSeparatorMachine.OnNewItemOutput += ItemProduced;
+    }
+    
 
     public void InitialSetUp()
     {
@@ -56,5 +64,11 @@ public class MachineManager : MonoBehaviour
             
             machine.Work();
         }
+    }
+
+
+    private void ItemProduced(Item item)
+    {
+        OnItemProducedByMachine?.Invoke(item);
     }
 }
