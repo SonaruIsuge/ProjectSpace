@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,8 +20,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 
     public Rigidbody Rb { get; private set; }
     private Collider col;
-    
-    
+    private MeshRenderer meshRenderer;
+    private Color defaultColor;
+
     public event Action<Item, Player> OnNewPlayerInteract;
     public event Action<Item, Player> OnRemovePlayerInteract;
     public event Action<Item> OnItemRemove;
@@ -31,6 +33,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     {
         Rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        defaultColor = meshRenderer.material.GetColor("_Outline_Color");
+        
         CanInteract = true;
     }
 
@@ -38,6 +43,8 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     public void OnSelect()
     {
         isSelect = true;
+
+        meshRenderer.material.SetColor("_Outline_Color", Color.red);
     }
 
     public void SetInteractable(bool interactable) => CanInteract = interactable;
@@ -56,6 +63,8 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     public void OnDeselect()
     {
         isSelect = false;
+        
+        meshRenderer.material.SetColor("_Outline_Color", defaultColor);
     }
 
 

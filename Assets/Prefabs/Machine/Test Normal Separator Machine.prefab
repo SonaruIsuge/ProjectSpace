@@ -429,11 +429,31 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5020859167026227142, guid: 9248e7937f270164abeb2528428e3897,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 146fe76c141b3ae418acfad1781d2d2f, type: 2}
     - target: {fileID: 919132149155446097, guid: 9248e7937f270164abeb2528428e3897,
         type: 3}
       propertyPath: m_Name
       value: Separate machine
       objectReference: {fileID: 0}
+    - target: {fileID: 2197927417314003191, guid: 9248e7937f270164abeb2528428e3897,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 708a825e702329e4fab6a7bfde008514, type: 2}
+    - target: {fileID: 3315895427441651426, guid: 9248e7937f270164abeb2528428e3897,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dcf871803abe5e44994278a51f2aa569, type: 2}
+    - target: {fileID: 4352737110729538829, guid: 9248e7937f270164abeb2528428e3897,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a09f69dcfc7a01949bdcd7fd66b86154, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9248e7937f270164abeb2528428e3897, type: 3}
 --- !u!4 &6458046714007309069 stripped

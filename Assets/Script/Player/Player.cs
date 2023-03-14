@@ -10,7 +10,8 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: SerializeField] public Joint Joint { get; private set; }
     [field: SerializeField] public Animator playerAnimator { get; private set; }
     
-    [field: Header("Movement")]
+    [Header("Movement")]
+    [SerializeField] private GameObject playerPhysics;
     [field: SerializeField] public float MoveSpeed { get; private set; }
     [field: SerializeField] public float RotateSpeed { get; private set; }
     
@@ -23,9 +24,10 @@ public class Player : MonoBehaviour, IGravityAffectable
     [SerializeField] private float gravityInitialVelocity;
     public bool IsGround => Physics.Raycast(GroundCheckPoint.position, Vector3.down, .01f);
 
-    [Header("Interact")] 
-    [SerializeField] private GameObject playerPhysics;
-    [SerializeField] private float interactRange;
+    [field: Header("Interact")] 
+    
+    [field: SerializeField] public Transform ClawTransform { get; private set; }
+    [field: SerializeField] public float InteractRange { get; private set; }
     [SerializeField] private float pushForce;
     [field: SerializeField] public Transform InteractPoint { get; private set; }
     
@@ -36,7 +38,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     public IPlayerInput PlayerInput { get; private set; }
     public IPlayerMove PlayerMovement { get; set; }
     public IPlayerGravityController PlayerGravityController { get; set; }
-    public PlayerInteractController PlayerInteractController { get; set; }
+    public IPlayerInteract PlayerInteractController { get; set; }
     
     public bool UnderGravity { get; set; }
     public bool IgnoreGravity => PlayerInput.JetDirection != 0;
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(InteractPoint.position, interactRange);
+        Gizmos.DrawWireSphere(InteractPoint.position, InteractRange);
     }
     
 
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerInput = new PlayerInput(this);
         PlayerMovement = playerMoves[0];
         PlayerGravityController = playerGravityControllers[0];
-        PlayerInteractController = new PlayerInteractController(this);
+        PlayerInteractController = new PlayerGrabInteractController(this);
     }
 
 
@@ -94,7 +96,7 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void DetectInteract()
     {
-        PlayerInteractController.UpdateInteract(InteractPoint.position, interactRange);
+        PlayerInteractController.UpdateInteract();
         
         if(PlayerInput.TapInteract) PlayerInteractController.Interact(this, InteractType.Tap);
         if(PlayerInput.HoldInteract) PlayerInteractController.Interact(this, InteractType.Hold);
@@ -110,9 +112,13 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
         PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
         PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
-        
-        //if (rigidbodyEnable) Joint = playerPhysics.AddComponent<FixedJoint>();
-        //else Destroy(Joint);
+    }
+
+
+    public void ToggleSpawnJoint(bool enable)
+    {
+        if (enable) Joint = playerPhysics.AddComponent<FixedJoint>();
+        else Destroy(Joint);
     }
 
     

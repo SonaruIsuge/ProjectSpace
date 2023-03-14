@@ -2,12 +2,15 @@
 using UnityEngine;
 
 
-public class PlayerInteractController
+public class PlayerInteractController : IPlayerInteract
 {
     private Player targetPlayer;
     
     public IInteractable CurrentDetect { get; private set; }
     public IInteractable CurrentInteract { get; private set; }
+
+    private Transform interactPoint => targetPlayer.InteractPoint;
+    private float interactRange => targetPlayer.InteractRange;
 
 
     public PlayerInteractController(Player player)
@@ -18,21 +21,18 @@ public class PlayerInteractController
     }
 
 
-    public void UpdateInteract(Vector3 interactCenter, float interactRange)
+    public void UpdateInteract()
     {
         CurrentDetect?.OnDeselect();
-        DetectInteractable(interactCenter, interactRange);
+        DetectInteractable(interactPoint.position, interactRange);
         CurrentDetect?.OnSelect();
     }
     
     
     public void Interact(Player interactPlayer, InteractType interactType)
     {
-        //if(CurrentInteract is Item item && interactType == item.InteractType) item.DropDown(interactPlayer);
-        //if (CurrentInteract is Item item) item.Interact(interactPlayer, interactType);
         CurrentInteract?.Interact(interactPlayer, interactType);
         CurrentDetect?.Interact(interactPlayer, interactType);
-        
     }
 
 
@@ -42,11 +42,11 @@ public class PlayerInteractController
     }
     
     
-    private void DetectInteractable(Vector3 interactCenter, float interactRange)
+    public void DetectInteractable(Vector3 interactCenter, float range)
     {
         CurrentDetect = null;
         var detectResults = new Collider[10];
-        Physics.OverlapSphereNonAlloc(interactCenter, interactRange, detectResults);
+        Physics.OverlapSphereNonAlloc(interactCenter, range, detectResults);
         
         var minDistance = Mathf.Infinity;
         foreach (var item in detectResults)
