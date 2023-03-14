@@ -33,7 +33,6 @@ public class ItemManager : MonoBehaviour
         waitingQueue = new Queue<Item>(allWaitingItem);
         timer = new SimpleTimer(popItemTime);
         timer.Pause();
-        isStart = false;
     }
 
 

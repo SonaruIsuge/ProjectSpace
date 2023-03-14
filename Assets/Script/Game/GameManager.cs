@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver = false;
         playerPairManager.InitialSetUp();
+        
+        playerManager.SetStart(false);
+        itemManager.SetStart(false);
+        machineManager.SetStart(false);
     }
 
 

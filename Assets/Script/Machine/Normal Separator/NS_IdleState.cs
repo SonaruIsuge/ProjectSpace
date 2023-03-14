@@ -41,7 +41,6 @@ public class NS_IdleState : INormalSeparatorState
         foreach (var obj in objects)
         {
             if(!obj || !obj.TryGetComponent<Item>(out var item)) continue;
-            if(item.isInteract ) continue;
             if(item.ItemData.Size is ItemSize.Small or ItemSize.ExtraLarge) continue;
             
             var distance = Vector3.Distance(Machine.transform.position, item.transform.position);
@@ -51,7 +50,11 @@ public class NS_IdleState : INormalSeparatorState
             separateItem = item;
         }
 
-        if (separateItem != null) Machine.Input(separateItem);
+        if (separateItem != null)
+        {
+            if(separateItem.isInteract) separateItem.ForceDisconnect();
+            Machine.Input(separateItem);
+        }
         
     }
 }

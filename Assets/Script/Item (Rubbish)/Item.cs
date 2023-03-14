@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-
+[RequireComponent(typeof(Collider))]
 public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 {
     public ItemData ItemData;

@@ -37,7 +37,6 @@ public class PlayerManager : MonoBehaviour
         playerInteractItemDict = new Dictionary<Item, List<Player>>();
 
         worldRotateAngle = 0;
-        isStart = false;
     }
 
 

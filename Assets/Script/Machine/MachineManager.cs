@@ -31,8 +31,6 @@ public class MachineManager : MonoBehaviour
             energyRecycleMachine,
             toxicRecycleMachine
         };
-        
-        isStart = false;
     }
 
 
