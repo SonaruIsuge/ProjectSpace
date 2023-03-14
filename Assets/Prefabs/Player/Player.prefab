@@ -193,6 +193,7 @@ MonoBehaviour:
   <InteractRange>k__BackingField: 1
   pushForce: 0.1
   <InteractPoint>k__BackingField: {fileID: 3789837215927788695}
+  <ClawSpeed>k__BackingField: 0
 --- !u!1 &3789837215927788688
 GameObject:
   m_ObjectHideFlags: 0

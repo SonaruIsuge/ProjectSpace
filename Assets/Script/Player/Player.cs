@@ -24,12 +24,12 @@ public class Player : MonoBehaviour, IGravityAffectable
     [SerializeField] private float gravityInitialVelocity;
     public bool IsGround => Physics.Raycast(GroundCheckPoint.position, Vector3.down, .01f);
 
-    [field: Header("Interact")] 
-    
+    [field: Header("Interact")]
     [field: SerializeField] public Transform ClawTransform { get; private set; }
     [field: SerializeField] public float InteractRange { get; private set; }
     [SerializeField] private float pushForce;
     [field: SerializeField] public Transform InteractPoint { get; private set; }
+    [field: SerializeField] public float ClawSpeed { get; private set; }
     
 
     // Player Components
