@@ -14,7 +14,7 @@ public class GC_BrokenState : IGravityControlMachineState
 
     public void Enter()
     {
-        Machine.debugTestMaterial.color = Color.red;
+        
     }
 
     public void Stay()

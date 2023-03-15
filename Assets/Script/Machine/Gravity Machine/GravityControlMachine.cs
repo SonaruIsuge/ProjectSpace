@@ -21,9 +21,6 @@ public class GravityControlMachine : MonoBehaviour, IMachine, IInteractable
 
     public IPowerConsumable PowerConsumable { get; private set; }
 
-    [field: Header("UI for Debug")]
-    public Material debugTestMaterial;
-
 
     public void SetActive(bool active) => IsActive = active;
     

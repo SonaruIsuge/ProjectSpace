@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2406549343811913638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7737211349153170697}
+  m_Layer: 0
+  m_Name: Output
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7737211349153170697
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2406549343811913638}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: -0.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133838122839108171}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &6133838122839108160
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +64,7 @@ Transform:
   - {fileID: 6458046714007309069}
   - {fileID: 8095898408314722340}
   - {fileID: 6133838123407235396}
+  - {fileID: 7737211349153170697}
   - {fileID: 6133838123111902609}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -64,11 +96,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InputPoint>k__BackingField: {fileID: 6133838123407235396}
+  <InputDetectRange>k__BackingField: 1.4
+  <OutputPoint>k__BackingField: {fileID: 7737211349153170697}
   <ProgressTime>k__BackingField: 2
   <CurrentProcessingItem>k__BackingField: {fileID: 0}
   <progressBg>k__BackingField: {fileID: 6133838124029598276}
   <progressContent>k__BackingField: {fileID: 6133838123521602288}
-  debugTestMaterial: {fileID: 2100000, guid: 5c52a7ea291f53e42914b25a60295293, type: 2}
 --- !u!1 &6133838123111902610
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +135,7 @@ RectTransform:
   m_Children:
   - {fileID: 6133838124029598276}
   m_Father: {fileID: 6133838122839108171}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

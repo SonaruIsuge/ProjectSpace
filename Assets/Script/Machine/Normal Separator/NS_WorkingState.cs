@@ -15,7 +15,6 @@ public class NS_WorkingState : INormalSeparatorState
     public void Enter()
     {
         Machine.ProgressTimer.Reset(Machine.ProgressTime);
-        Machine.debugTestMaterial.color = Color.yellow;
         
         Machine.progressBg.gameObject.SetActive(true);
     }

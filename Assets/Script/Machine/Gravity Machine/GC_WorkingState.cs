@@ -18,7 +18,6 @@ public class GC_WorkingState : IGravityControlMachineState
 
     public void Enter()
     {
-        Machine.debugTestMaterial.color = Color.cyan;
         Machine.GravityRangeVisual.gameObject.SetActive(true);
     }
 

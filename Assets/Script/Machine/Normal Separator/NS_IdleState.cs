@@ -14,7 +14,7 @@ public class NS_IdleState : INormalSeparatorState
     
     public void Enter()
     {
-        Machine.debugTestMaterial.color = Color.green;
+        
     }
 
     public void Stay()
@@ -34,7 +34,7 @@ public class NS_IdleState : INormalSeparatorState
     private void DetectItemInput()
     {
         var objects = new Collider[5];
-        Physics.OverlapSphereNonAlloc(Machine.InputPoint.position, 1f, objects);
+        Physics.OverlapSphereNonAlloc(Machine.InputPoint.position, Machine.InputDetectRange, objects);
         
         var minDistance = Mathf.Infinity;
         Item separateItem = null;

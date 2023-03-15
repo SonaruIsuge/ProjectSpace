@@ -15,6 +15,8 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     public bool isSelect { get; private set; }
 
     [field: SerializeField] public Transform InputPoint { get; private set; }
+    [field: SerializeField] public float InputDetectRange { get; private set; }
+    [field: SerializeField] public Transform OutputPoint { get; private set; }
     [field: SerializeField] public float ProgressTime { get; private set;}
     [field: SerializeField] public SimpleTimer ProgressTimer { get; private set; }
 
@@ -26,7 +28,6 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     [field: Header("UI for Debug")]
     [field: SerializeField] public RectTransform progressBg { get; private set; }
     [field: SerializeField] public RectTransform progressContent { get; private set; }
-    public Material debugTestMaterial;
     
     public event Action<Item> OnItemSeparated;
     public event Action<Item> OnNewItemOutput;
@@ -120,9 +121,11 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         var itemSize = outputItem.GetItemCollisionSize();
         
         outputItem.AddItem();
-        newItemObj.transform.position = InputPoint.position + Vector3.Scale(InputPoint.up, itemSize);
-        newItemObj.transform.rotation = Random.rotation; 
-        var outputVector = Random.onUnitSphere * Random.Range(1, 5);
+        newItemObj.transform.position = OutputPoint.position + Vector3.Scale(OutputPoint.forward, itemSize);
+        newItemObj.transform.rotation = Random.rotation;
+        var outputVector =
+            (OutputPoint.forward * Random.Range(1, 10) + OutputPoint.right * Random.Range(0, 5) +
+             OutputPoint.up * Random.Range(0, 5));
         outputVector.y = Mathf.Abs(outputVector.y);
         outputItem.Rb.AddForce(outputVector, ForceMode.VelocityChange);
         
