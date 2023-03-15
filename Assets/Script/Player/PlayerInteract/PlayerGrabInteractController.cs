@@ -20,7 +20,7 @@ public class PlayerGrabInteractController : IPlayerInteract
     private Transform ClawTransform => targetPlayer.ClawTransform;
     private Vector3 clawLocalOriginPos;
     private Vector3 ClawWorldOriginPos =>
-        targetPlayer.transform.position + targetPlayer.transform.rotation * clawLocalOriginPos;
+        targetPlayer.transform.position + Vector3.Scale(targetPlayer.transform.rotation * clawLocalOriginPos, targetPlayer.transform.localScale);
 
     public PlayerGrabInteractController(Player player)
     {

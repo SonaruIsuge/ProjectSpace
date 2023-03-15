@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <InputPoint>k__BackingField: {fileID: 6133838123407235396}
-  <InputDetectRange>k__BackingField: 1.4
+  <InputDetectRange>k__BackingField: 1.5
   <OutputPoint>k__BackingField: {fileID: 7737211349153170697}
   <ProgressTime>k__BackingField: 2
   <CurrentProcessingItem>k__BackingField: {fileID: 0}
