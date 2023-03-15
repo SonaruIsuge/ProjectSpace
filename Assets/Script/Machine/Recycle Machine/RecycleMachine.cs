@@ -6,6 +6,7 @@ public class RecycleMachine : MonoBehaviour, IMachine
 {
     [SerializeField] private RecycleType recycleType;
     [field: SerializeField] public Transform InputPoint { get; private set; }
+    [field: SerializeField] public Vector3 InputRange { get; private set; }
     private Stack<GameObject> recycleItem;
     public bool IsActive { get; private set; }
     public bool IsWorking { get; }
@@ -36,7 +37,7 @@ public class RecycleMachine : MonoBehaviour, IMachine
     private void DetectRecyclable()
     {
         var results = new Collider[10];
-        var hit = Physics.OverlapBoxNonAlloc(InputPoint.position, Vector3.one * .5f, results);
+        var hit = Physics.OverlapBoxNonAlloc(InputPoint.position, InputRange / 2f, results);
         if(hit == 0) return;
 
         Item targetItem = null;
@@ -54,5 +55,12 @@ public class RecycleMachine : MonoBehaviour, IMachine
         recycleItem.Push(targetItem.transform.gameObject);
         targetItem.transform.SetParent(transform);
         targetItem.RemoveItem();
+    }
+    
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(InputPoint.position, InputRange);
     }
 }

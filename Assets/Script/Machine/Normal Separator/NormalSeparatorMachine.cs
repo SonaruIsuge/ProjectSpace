@@ -139,4 +139,11 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     {
         IsBroken = false;
     }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(InputPoint.position, InputDetectRange);
+    }
 }
