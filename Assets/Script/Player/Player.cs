@@ -108,6 +108,15 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         if(Cc) Cc.enabled = !rigidbodyEnable;
         if(playerPhysics) playerPhysics.SetActive(rigidbodyEnable);
+
+        if (GetComponent<RbOnly>() != null)
+        {  
+           if(playerPhysics) playerPhysics.SetActive(true);
+           ToggleSpawnJoint(rigidbodyEnable);
+           PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
+           Debug.Log("Rb Only");
+           return;
+        }
         
         PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
         PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
@@ -119,6 +128,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         if (enable) Joint = playerPhysics.AddComponent<FixedJoint>();
         else Destroy(Joint);
+        Rb.angularVelocity = Vector3.zero;
     }
 
     
