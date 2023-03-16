@@ -56,3 +56,9 @@ public enum MachineStateType
     Broken,
     NoPower
 }
+
+
+public enum VFXType
+{
+    Recycle,
+}

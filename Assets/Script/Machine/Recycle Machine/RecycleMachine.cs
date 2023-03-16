@@ -51,10 +51,13 @@ public class RecycleMachine : MonoBehaviour, IMachine
         
         if(!targetItem) return;
         
+        // Recycle success
         if(targetItem.isInteract) targetItem.ForceDisconnect();
         recycleItem.Push(targetItem.transform.gameObject);
         targetItem.transform.SetParent(transform);
         targetItem.RemoveItem();
+
+        FXController.Instance.InitVFX(VFXType.Recycle, InputPoint.position);
     }
     
     
