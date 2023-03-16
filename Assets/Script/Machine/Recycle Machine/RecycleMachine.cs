@@ -44,7 +44,7 @@ public class RecycleMachine : MonoBehaviour, IMachine
         foreach (var result in results)
         {
             if(!result || !result.TryGetComponent<Item>(out var item)) continue;
-            if(item.ItemData.RecycleType != recycleType) continue;
+            if(!DataManager.Instance.CheckRecyclable(item.ItemData.type, recycleType)) continue;
 
             targetItem = item;
         }
