@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recycleType: 0
   <InputPoint>k__BackingField: {fileID: 6168694970975915729}
-  <InputRange>k__BackingField: {x: 1.5, y: 2.75, z: 1.5}
+  <InputRange>k__BackingField: {x: 1.6, y: 2.75, z: 1.6}
 --- !u!1001 &8525294014173848618
 PrefabInstance:
   m_ObjectHideFlags: 0

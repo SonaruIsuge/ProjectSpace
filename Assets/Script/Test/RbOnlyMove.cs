@@ -61,6 +61,7 @@ public class RbOnlyMove : IPlayerMove
 
     private void Rotate(Vector2 direction)
     {
+        rb.angularVelocity = Vector3.zero;
         var targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
         var rotateY = Mathf.SmoothDampAngle(targetPlayer.transform.eulerAngles.y, targetAngle, ref currentRotate, 0.1f);
         
