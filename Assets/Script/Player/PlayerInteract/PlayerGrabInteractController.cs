@@ -178,7 +178,6 @@ public class PlayerGrabInteractController : IPlayerInteract
                 Vector3.MoveTowards(clawPos, currentItemPoint, targetPlayer.ClawSpeed * Time.deltaTime);
             targetPlayer.transform.position = Vector3.MoveTowards(playerPos, currentItemPoint + clawPlayerWorldDiff,
                 targetPlayer.ClawSpeed * Time.deltaTime);
-            Debug.Log(currentItemPoint + clawPlayerWorldDiff);
 
             getItem = Vector3.Distance(playerPos, clawPos) <= clawPlayerWorldDiff.magnitude;
             await Task.Yield();

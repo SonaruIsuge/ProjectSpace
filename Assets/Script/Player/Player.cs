@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour, IGravityAffectable
 {
     [field: Header("Component")]
-    [field: SerializeField] public CharacterController Cc { get; private set; }
+    [field: SerializeField] public CharacterController Cc { get; private set; } // Will remove this after rigidbody only test finish.
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] public Joint Joint { get; private set; }
     [field: SerializeField] public Animator playerAnimator { get; private set; }
@@ -34,12 +34,10 @@ public class Player : MonoBehaviour, IGravityAffectable
     
 
     // Player Components
-    private IPlayerMove[] playerMoves;
-    private IPlayerGravityController[] playerGravityControllers;
     public IPlayerInput PlayerInput { get; private set; }
-    public IPlayerMove PlayerMovement { get; set; }
-    public IPlayerGravityController PlayerGravityController { get; set; }
-    public IPlayerInteract PlayerInteractController { get; set; }
+    public IPlayerMove PlayerMovement { get; private set; }
+    public IPlayerGravityController PlayerGravityController { get; private set; }
+    public IPlayerInteract PlayerInteractController { get; private set; }
     
     public bool UnderGravity { get; set; }
     public bool IgnoreGravity => PlayerInput.JetDirection != 0;
@@ -61,13 +59,10 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         //Joint = null;
         IsActive = false;
-        
-        playerMoves = new IPlayerMove[] { new PlayerCCMovement(this), new RbOnlyMove(this) };
-        playerGravityControllers = new IPlayerGravityController[] { new PlayerCCGravityController(this), new RbOnlyGravity(this) };
-        
+
         PlayerInput = new PlayerInput(this);
-        PlayerMovement = playerMoves[1];
-        PlayerGravityController = playerGravityControllers[1];
+        PlayerMovement = new RbOnlyMove(this);
+        PlayerGravityController = new RbOnlyGravity(this);
         PlayerInteractController = new PlayerGrabInteractController(this);
     }
 
@@ -107,33 +102,14 @@ public class Player : MonoBehaviour, IGravityAffectable
     
     public void SwitchToRigidbodyMove(bool rigidbodyEnable)
     {
-        if(Cc) Cc.enabled = !rigidbodyEnable;
-        //if(playerPhysics) playerPhysics.SetActive(rigidbodyEnable);
-        
-        
-        //if (GetComponent<RbOnly>() != null)
-        //{  
-            //if(playerPhysics) playerPhysics.SetActive(true);
-            ToggleSpawnJoint(rigidbodyEnable);
-            PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
-            Debug.Log("Rb Only");
-            //return;
-        //}
-        
-        //PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
-        //PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
-        //PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
-    }
-
-
-    public void ToggleSpawnJoint(bool enable)
-    {
-        if (enable) Joint = playerPhysics.AddComponent<FixedJoint>();
+        if (rigidbodyEnable) Joint = playerPhysics.AddComponent<FixedJoint>();
         else Destroy(Joint);
         Rb.angularVelocity = Vector3.zero;
+        
+        PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
     }
 
-    
+
     public void ApplyGravity(float gravitySize)
     {
         var useGravity = UnderGravity && !IgnoreGravity;
