@@ -1,4 +1,5 @@
 
+using Script.Other;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -61,12 +62,12 @@ public class Player : MonoBehaviour, IGravityAffectable
         //Joint = null;
         IsActive = false;
         
-        playerMoves = new IPlayerMove[] { new PlayerCCMovement(this), new PlayerRbMovement(this) };
-        playerGravityControllers = new IPlayerGravityController[] { new PlayerCCGravityController(this), new PlayerRbGravityController(this) };
+        playerMoves = new IPlayerMove[] { new PlayerCCMovement(this), new RbOnlyMove(this) };
+        playerGravityControllers = new IPlayerGravityController[] { new PlayerCCGravityController(this), new RbOnlyGravity(this) };
         
         PlayerInput = new PlayerInput(this);
-        PlayerMovement = playerMoves[0];
-        PlayerGravityController = playerGravityControllers[0];
+        PlayerMovement = playerMoves[1];
+        PlayerGravityController = playerGravityControllers[1];
         PlayerInteractController = new PlayerGrabInteractController(this);
     }
 
@@ -107,11 +108,21 @@ public class Player : MonoBehaviour, IGravityAffectable
     public void SwitchToRigidbodyMove(bool rigidbodyEnable)
     {
         if(Cc) Cc.enabled = !rigidbodyEnable;
-        if(playerPhysics) playerPhysics.SetActive(rigidbodyEnable);
+        //if(playerPhysics) playerPhysics.SetActive(rigidbodyEnable);
         
-        PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
-        PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
-        PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
+        
+        //if (GetComponent<RbOnly>() != null)
+        //{  
+            //if(playerPhysics) playerPhysics.SetActive(true);
+            ToggleSpawnJoint(rigidbodyEnable);
+            PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
+            Debug.Log("Rb Only");
+            //return;
+        //}
+        
+        //PlayerMovement = rigidbodyEnable ? playerMoves[1] : playerMoves[0];
+        //PlayerGravityController = rigidbodyEnable ? playerGravityControllers[1] : playerGravityControllers[0];
+        //PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
     }
 
 
@@ -119,6 +130,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         if (enable) Joint = playerPhysics.AddComponent<FixedJoint>();
         else Destroy(Joint);
+        Rb.angularVelocity = Vector3.zero;
     }
 
     

@@ -77,9 +77,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
         picker.PlayerInteractController.SetCurrentInteract(this);
         picker.SwitchToRigidbodyMove(true);
         
-        picker.Rb.Sleep();
+        //picker.Rb.Sleep();
         picker.Joint.connectedBody = Rb;
-        Rb.Sleep();
+        //Rb.Sleep();
         
         OnNewPlayerInteract?.Invoke(this, picker);
 
@@ -94,9 +94,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
         if(carryPlayers.Count == 0) isInteract = false;
         dropper.PlayerInteractController.SetCurrentInteract(null);
         
-        Rb.WakeUp();
+        //Rb.WakeUp();
         dropper.Joint.connectedBody = null;
-        dropper.Rb.WakeUp();
+        //dropper.Rb.WakeUp();
         dropper.SwitchToRigidbodyMove(false);
         
         OnRemovePlayerInteract?.Invoke(this, dropper);
