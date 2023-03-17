@@ -21,6 +21,7 @@ public class PlayerGrabInteractController : IPlayerInteract
     private Vector3 clawLocalOriginPos;
     private Vector3 ClawWorldOriginPos =>
         targetPlayer.transform.position + Vector3.Scale(targetPlayer.transform.rotation * clawLocalOriginPos, targetPlayer.transform.localScale);
+    private Vector3 ClawPos => ClawTransform.position;
 
     
     public PlayerGrabInteractController(Player player)
@@ -30,7 +31,6 @@ public class PlayerGrabInteractController : IPlayerInteract
         CurrentInteract = null;
         
         clawLocalOriginPos = ClawTransform.localPosition;
-        
         clawLineRenderer = ClawTransform.GetComponent<LineRenderer>();
     }
     
@@ -42,7 +42,7 @@ public class PlayerGrabInteractController : IPlayerInteract
         CurrentDetect?.OnSelect();
         
         clawLineRenderer.SetPosition(0, ClawWorldOriginPos);
-        clawLineRenderer.SetPosition(1, ClawTransform.position);
+        clawLineRenderer.SetPosition(1, ClawPos);
     }
     
     
@@ -69,10 +69,9 @@ public class PlayerGrabInteractController : IPlayerInteract
             if(!result || !result.transform.TryGetComponent<IInteractable>(out var interactable)) continue;
             
             if(interactable == CurrentInteract) continue;
-
-            var clawPos = ClawTransform.position;
-            var closePoint = result.ClosestPoint(clawPos);
-            var distance = Vector3.Distance(closePoint, clawPos);
+            
+            var closePoint = result.ClosestPoint(ClawPos);
+            var distance = Vector3.Distance(closePoint, ClawPos);
 
             if (distance >= minDistance) continue;
             
@@ -86,7 +85,7 @@ public class PlayerGrabInteractController : IPlayerInteract
             currentDetectCollider = result;
         }
         if(currentDetectCollider)
-            Debug.DrawLine(ClawWorldOriginPos, currentDetectCollider.ClosestPoint(ClawTransform.position), Color.red);
+            Debug.DrawLine(ClawWorldOriginPos, currentDetectCollider.ClosestPoint(ClawPos), Color.red);
     }
 
     
@@ -98,7 +97,6 @@ public class PlayerGrabInteractController : IPlayerInteract
             CurrentInteract.Interact(interactPlayer, interactType);
             return;
         }
-        CurrentInteract?.Interact(interactPlayer, interactType);
         
         // Nothing in hand -> can interact with other interactable
         if(CurrentDetect is Item item)
@@ -111,43 +109,61 @@ public class PlayerGrabInteractController : IPlayerInteract
 
     private async void CatchItem(Item item, Player interactPlayer, InteractType interactType)
     {
-        await AttachItem();
+        var successAttach = await AttachItem();
+        
+        if (!successAttach)
+        {
+            await ForceClawReturn();
+            return;
+        }
 
-        if(item.ItemData.Size is ItemSize.Large or ItemSize.ExtraLarge) await PushPlayer();
-        else await CatchItem(item);
+        bool successCatchItem;
+        if(item.ItemData.Size is ItemSize.Large or ItemSize.ExtraLarge) successCatchItem = await PushPlayer();
+        else successCatchItem = await CatchItem(item);
+        
+        if (!successCatchItem)
+        {
+            await ForceClawReturn();
+            return;
+        }
 
         item.Interact(interactPlayer, interactType);
     }
 
 
-    private async Task AttachItem()
+    private async Task<bool> AttachItem()
     {
         var isAttach = false;
         while (!isAttach)
         {
-            var clawPos = ClawTransform.position;
-            var targetPoint = currentDetectCollider.ClosestPoint(clawPos);
+            if(!currentDetectCollider) return false;
+            
+            var targetPoint = currentDetectCollider.ClosestPoint(ClawPos);
             ClawTransform.LookAt(targetPoint);
-            ClawTransform.position = Vector3.MoveTowards(clawPos, targetPoint, targetPlayer.ClawSpeed * Time.deltaTime);
+            ClawTransform.position = Vector3.MoveTowards(ClawPos, targetPoint, targetPlayer.ClawSpeed * Time.deltaTime);
 
-            isAttach = Vector3.Distance(targetPoint, clawPos) < 0.01f;
+            isAttach = Vector3.Distance(targetPoint, ClawPos) < 0.01f;
             await Task.Yield();
         }
+
+        return true;
     }
     
     
-    private async Task CatchItem(Item item)
+    private async Task<bool> CatchItem(Item item)
     {
         var getItem = false;
         while (!getItem)
         {
-            var clawPos = ClawTransform.position;
-            var itemHitPos = currentDetectCollider.ClosestPoint(clawPos);
+            if(!currentDetectCollider) return false;
+            
+            var itemHitPos = currentDetectCollider.ClosestPoint(ClawPos);
             var itemCenterHitDiff = itemHitPos - currentDetectCollider.transform.position;
 
-            ClawTransform.LookAt(clawPos - ClawWorldOriginPos);
+            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
             ClawTransform.position =
-                Vector3.MoveTowards(clawPos, ClawWorldOriginPos, targetPlayer.ClawSpeed * Time.deltaTime);
+                Vector3.MoveTowards(ClawPos, ClawWorldOriginPos, targetPlayer.ClawSpeed * Time.deltaTime);
+            
             item.transform.position = Vector3.MoveTowards(item.transform.position,
                 ClawWorldOriginPos - itemCenterHitDiff, targetPlayer.ClawSpeed * Time.deltaTime);
 
@@ -156,33 +172,50 @@ public class PlayerGrabInteractController : IPlayerInteract
         }
         
         item.Rb.velocity = Vector3.zero;
+        return true;
     }
 
 
-    private async Task PushPlayer()
+    private async Task<bool> PushPlayer()
     {
         var getItem = false;
-        var currentItemPoint = currentDetectCollider.ClosestPoint(ClawTransform.position);
+        
+        if(!currentDetectCollider) return false;
+        
+        var currentItemPoint = currentDetectCollider.ClosestPoint(ClawPos);
 
         if (targetPlayer.Cc) targetPlayer.Cc.enabled = false;
 
         while (!getItem)
         {
             var playerPos = targetPlayer.transform.position;
-            var clawPos = ClawTransform.position;
-            var itemHitPos = currentDetectCollider.ClosestPoint(clawPos);
             var clawPlayerWorldDiff = playerPos - ClawWorldOriginPos;
 
-            ClawTransform.LookAt(clawPos - ClawWorldOriginPos);
+            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
             ClawTransform.position =
-                Vector3.MoveTowards(clawPos, currentItemPoint, targetPlayer.ClawSpeed * Time.deltaTime);
+                Vector3.MoveTowards(ClawPos, currentItemPoint, targetPlayer.ClawSpeed * Time.deltaTime);
             targetPlayer.transform.position = Vector3.MoveTowards(playerPos, currentItemPoint + clawPlayerWorldDiff,
                 targetPlayer.ClawSpeed * Time.deltaTime);
 
-            getItem = Vector3.Distance(playerPos, clawPos) <= clawPlayerWorldDiff.magnitude;
+            getItem = Vector3.Distance(playerPos, ClawPos) <= clawPlayerWorldDiff.magnitude;
             await Task.Yield();
         }
 
         if (targetPlayer.Cc) targetPlayer.Cc.enabled = true;
+        return true;
+    }
+
+
+    private async Task ForceClawReturn()
+    {
+        var clawReturn = false;
+        while (!clawReturn)
+        {
+            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
+            ClawTransform.position = Vector3.MoveTowards(ClawPos, ClawWorldOriginPos, targetPlayer.ClawSpeed * Time.deltaTime);
+            
+            clawReturn = Vector3.Distance(ClawWorldOriginPos, ClawPos) < 0.01f;
+            await Task.Yield();
+        }
     }
 }
