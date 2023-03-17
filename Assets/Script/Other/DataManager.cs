@@ -7,8 +7,9 @@ using UnityEngine;
 public class DataManager : TSingletonMonoBehaviour<DataManager>
 {
     [SerializeField] private ItemContainer itemContainer;
-    
     [SerializeField] private RecycleRule recycleRule;
+
+    private Dictionary<ItemType, GameObject> itemContainerDict;
     private Dictionary<RecycleType, ItemTypeCollection> recycleRuleDict;
 
     public Material SelectItemMat;
@@ -16,12 +17,16 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
     protected override void Awake()
     {
         base.Awake();
-        itemContainer.GenerateDictionary();
+        itemContainerDict = itemContainer.GenerateDictionary();
         recycleRuleDict = recycleRule.GenerateDictionary();
     }
 
 
-    public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
+    public GameObject GetItem(ItemType type)
+    {
+        if (itemContainerDict == null || !itemContainerDict.ContainsKey(type)) return null;
+        return itemContainerDict[type];
+    }
 
 
     public bool CheckRecyclable(ItemType itemType, RecycleType recycleType) =>

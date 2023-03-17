@@ -8,7 +8,6 @@ public class ItemData : ScriptableObject
 {
     public ItemType type;
     public ItemSize Size;
-    public RecycleType RecycleType;
     
     // Random Choose the number of products list
     public int ProductNumber;

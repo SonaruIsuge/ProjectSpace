@@ -114,9 +114,9 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     }
 
 
-    public void Output(GameObject output)
+    public void Output(GameObject outputPrefab)
     {
-        var newItemObj = Instantiate(output);
+        var newItemObj = Instantiate(outputPrefab);
         var outputItem = newItemObj.GetComponent<Item>();
         var itemSize = outputItem.GetItemCollisionSize();
         

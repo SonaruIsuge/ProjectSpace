@@ -73,7 +73,7 @@ public class ItemManager : MonoBehaviour
     }
 
 
-    public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
+    //public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
 
 
     public int GetItemInStageNum() => allItemInStage.Count;

@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3002b277f7e6442fbe714cb9ae62351f, type: 3}
   m_Name: Item Container
   m_EditorClassIdentifier: 
-  AllItem:
+  keys: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
+  values:
   - {fileID: 6361874875558958193, guid: 24e463f242097ea4b91df6f5b7dd3ef1, type: 3}
   - {fileID: 2409702401408018248, guid: 3527bb2797e73394dbb7651a874ff05a, type: 3}
   - {fileID: 915714569762472110, guid: bb29d6f049ba2c6459aa9169f750ceb5, type: 3}
   - {fileID: 7956847660536004417, guid: 65915692ee11911429f1b72d0fb60bd1, type: 3}
   - {fileID: 5360202476792271002, guid: cdd3f1e6e945f0440981e8be56aee061, type: 3}
   - {fileID: 6945429875257657514, guid: de406408dbbbabf4199d42d9180acb65, type: 3}
+  - {fileID: 0}
   - {fileID: 2409702401408018248, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
   - {fileID: 1409622558667570402, guid: bd898ea699017bb44a65b9810b448e8a, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2444218697962449252, guid: 60d5d71384d337d40a1d90f552bb06d2, type: 3}

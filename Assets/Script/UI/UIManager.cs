@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
         {
             targetText.gameObject.SetActive(true);
             targetText.rectTransform.position = 
-                playerCameras[playerIndex].WorldToScreenPoint(player.transform.position + new Vector3(0, 2.5f, 0));
+                playerCameras[playerIndex].WorldToScreenPoint(player.transform.position + new Vector3(0, 3f, 0));
         }
         else targetText.gameObject.SetActive(false);
     }
