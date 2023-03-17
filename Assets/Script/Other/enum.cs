@@ -62,3 +62,17 @@ public enum VFXType
 {
     Recycle,
 }
+
+
+public enum SFXType
+{
+    PlayerMove,
+    
+}
+
+
+public enum BGMType
+{
+    MainGamePlay,
+    
+}
