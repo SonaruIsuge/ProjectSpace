@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6890d2a695c4435b8ed1fec486d5f7e5, type: 3}
   m_Name: BGM Container
   m_EditorClassIdentifier: 
-  keys: 00000000
+  keys: 0000000001000000
   values:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: e47777c613ff51540b34dabdd4f175ca, type: 3}
+  - {fileID: 8300000, guid: 08dfbc4cd6ea23f4c83e03a1f609afb7, type: 3}

@@ -49,7 +49,7 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     }
 
 
-    public AudioClip ChangeBGM(BGMType type, float fadeTime = 0.5f)
+    public AudioClip ChangeBGM(BGMType type, float fadeTime = 0f)
     {
         if (bgmDict == null || !bgmDict.ContainsKey(type)) return null;
         var bgm = bgmDict[type];

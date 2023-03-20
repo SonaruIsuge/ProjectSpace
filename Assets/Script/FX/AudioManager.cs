@@ -37,6 +37,8 @@ public class AudioManager : MonoBehaviour
         }
 
         bgmAudioSource.clip = clip;
+        bgmAudioSource.Play();
+        
         timer = 0f;
 
         while (timer < fadeTime)

@@ -97,6 +97,8 @@ public class GameManager : MonoBehaviour
         
         machineManager.SetStart(true);
         machineManager.InitialSetUp();
+        
+        FXController.Instance.ChangeBGM(BGMType.MainGamePlay);
     }
 
 

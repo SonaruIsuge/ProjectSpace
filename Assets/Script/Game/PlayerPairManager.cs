@@ -40,6 +40,8 @@ public class PlayerPairManager : MonoBehaviour
         {
             pairUnit.OnChangeReady += PairedPlayerChangeReady;
         }
+
+        FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
     }
 
 
