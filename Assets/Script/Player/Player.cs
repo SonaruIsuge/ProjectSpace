@@ -19,11 +19,12 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: Header("Jetpack")]
     [field: SerializeField] public float JetPackAcceleration { get; private set; }
     [field: SerializeField] public float MaxJetPackVelocity {get; private set; }
+    [field: SerializeField] public GameObject JetVFX {get; private set; }
     
     [field: Header("Gravity Control")]
     [field: SerializeField] public Transform GroundCheckPoint { get; private set; }
     [SerializeField] private float gravityInitialVelocity;
-    public bool IsGround => Physics.Raycast(GroundCheckPoint.position, Vector3.down, .01f);
+    public bool IsGround => Physics.Raycast(GroundCheckPoint.position, Vector3.down, .05f);
 
     [field: Header("Interact")]
     [field: SerializeField] public Transform ClawTransform { get; private set; }

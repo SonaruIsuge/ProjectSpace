@@ -57,7 +57,7 @@ public class RecycleMachine : MonoBehaviour, IMachine
         targetItem.transform.SetParent(transform);
         targetItem.RemoveItem();
 
-        FXController.Instance.InitVFX(VFXType.Recycle, InputPoint.position);
+        FXController.Instance.InitVFX(VFXType.Recycle, InputPoint.position + Vector3.up * .5f);
     }
     
     

@@ -48,6 +48,8 @@ public class RbOnlyMove : IPlayerMove
         
         if (useInertia) rb.AddForce(moveVelocity.x, currentJetVelocity, moveVelocity.y, ForceMode.Acceleration);
         else rb.velocity = new Vector3(moveVelocity.x, currentJetVelocity == 0 ? rb.velocity.y : currentJetVelocity, moveVelocity.y);
+        
+        targetPlayer.JetVFX.SetActive(rb.velocity.y >= -0.1f && !targetPlayer.IsGround);
 
         if (moveVelocity != Vector2.zero && targetPlayer.PlayerInteractController.CurrentInteract is not Item) 
             Rotate(moveVelocity);
