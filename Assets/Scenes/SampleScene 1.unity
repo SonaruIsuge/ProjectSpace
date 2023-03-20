@@ -5928,7 +5928,7 @@ PrefabInstance:
     - target: {fileID: 2409702401408018103, guid: cf736cbf98fa7ec4c9b97f6566b95062,
         type: 3}
       propertyPath: m_RootOrder
-      value: 37
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 2409702401408018103, guid: cf736cbf98fa7ec4c9b97f6566b95062,
         type: 3}
@@ -5983,7 +5983,7 @@ PrefabInstance:
     - target: {fileID: 2409702401408018248, guid: cf736cbf98fa7ec4c9b97f6566b95062,
         type: 3}
       propertyPath: m_Name
-      value: (M) Test Waste Battery
+      value: (M) Test Canned Apple
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
@@ -7581,6 +7581,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -2.354}
+--- !u!1001 &1722001720
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1409622558667570402, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_Name
+      value: (L) Test Spaceship iron plate
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e032fae65b04aa04d8079c47e36b5669, type: 3}
 --- !u!1001 &1774980801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8192,7 +8261,7 @@ PrefabInstance:
     - target: {fileID: 4720933420922682527, guid: 4c5d54c91fc9cfb498362634fb18db8e,
         type: 3}
       propertyPath: m_Name
-      value: Test Recycle Machine (Energy) (1)
+      value: Test Recycle Machine (Recyclable) (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4720933420922682594, guid: 4c5d54c91fc9cfb498362634fb18db8e,
         type: 3}
@@ -10595,12 +10664,12 @@ MonoBehaviour:
   - {fileID: 809286631}
   - {fileID: 2073119473}
   allWaitingItem:
-  - {fileID: 6945429875257657515, guid: de406408dbbbabf4199d42d9180acb65, type: 3}
+  - {fileID: 2409702401408018251, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
   - {fileID: 6361874875558958194, guid: 24e463f242097ea4b91df6f5b7dd3ef1, type: 3}
   - {fileID: 2409702401408018251, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
   - {fileID: 5360202476792271001, guid: cdd3f1e6e945f0440981e8be56aee061, type: 3}
-  - {fileID: 1409622558667570405, guid: bd898ea699017bb44a65b9810b448e8a, type: 3}
-  - {fileID: 915714569762472109, guid: bb29d6f049ba2c6459aa9169f750ceb5, type: 3}
+  - {fileID: 1409622558667570405, guid: e032fae65b04aa04d8079c47e36b5669, type: 3}
+  - {fileID: 7956847660536004418, guid: 65915692ee11911429f1b72d0fb60bd1, type: 3}
   allItemInStage: []
   popItemTime: 3
   maxItemSpeed: 5
@@ -10727,12 +10796,12 @@ PrefabInstance:
     - target: {fileID: 1409622558667570402, guid: bd898ea699017bb44a65b9810b448e8a,
         type: 3}
       propertyPath: m_Name
-      value: (L) Test Drink Can
+      value: (S) Test Drink Can
       objectReference: {fileID: 0}
     - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
         type: 3}
@@ -11156,75 +11225,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1449afaa7d9742e418f5c57afa9b81d7, type: 3}
---- !u!1001 &6945429874984544502
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 38
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 6.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657494, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945429875257657514, guid: de406408dbbbabf4199d42d9180acb65,
-        type: 3}
-      propertyPath: m_Name
-      value: (M) Test Medium Meteorite
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: de406408dbbbabf4199d42d9180acb65, type: 3}
 --- !u!114 &7942521159940884565
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
   m_Name: L Spaceship Iron Plates
   m_EditorClassIdentifier: 
-  type: 9
+  type: 10
   Size: 2
-  RecycleType: 4
   ProductNumber: 3
   SeparateProducets:
   - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}
-  - {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}
-  - {fileID: 11400000, guid: ec3268b3551a8ba40bf7847260936bdd, type: 2}
+  - {fileID: 11400000, guid: b8c6304baff1eb249ba66b506c56c5e6, type: 2}
+  - {fileID: 11400000, guid: 277c90f5aa5f6d04eb33435ddb6d74a6, type: 2}

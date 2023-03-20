@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7956847660536004287}
   - component: {fileID: 7956847660536004418}
   m_Layer: 0
-  m_Name: (S) Test Small Meteorite
+  m_Name: (S) Test Apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c488ea357c74965bcfce6d0d4b916ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemData: {fileID: 11400000, guid: ec3268b3551a8ba40bf7847260936bdd, type: 2}
+  ItemData: {fileID: 11400000, guid: d6e2f5cce8bb8f447b75955145f18426, type: 2}
   carryPlayers: []
 --- !u!1001 &8790216805000441264
 PrefabInstance:

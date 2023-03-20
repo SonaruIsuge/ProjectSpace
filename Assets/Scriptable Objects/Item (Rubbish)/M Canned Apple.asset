@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
-  m_Name: S Small meteorite
+  m_Name: M Canned Apple
   m_EditorClassIdentifier: 
-  type: 3
-  Size: 0
-  RecycleType: 0
-  ProductNumber: 0
-  SeparateProducets: []
+  type: 9
+  Size: 1
+  ProductNumber: 2
+  SeparateProducets:
+  - {fileID: 11400000, guid: d6e2f5cce8bb8f447b75955145f18426, type: 2}
+  - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}

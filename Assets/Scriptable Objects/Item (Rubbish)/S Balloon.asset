@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
   m_Name: S Balloon
   m_EditorClassIdentifier: 
+  type: 2
+  Size: 0
+  ProductNumber: 0
+  SeparateProducets: []

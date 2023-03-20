@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
   m_Name: EL Abandoned Satellite
   m_EditorClassIdentifier: 
-  type: 12
+  type: 13
   Size: 3
-  RecycleType: 4
   ProductNumber: 3
   SeparateProducets:
   - {fileID: 11400000, guid: 8e13fe57f11776f49b4c1598d11b7f05, type: 2}
-  - {fileID: 11400000, guid: 677d3af4773c1fe4db3282080c27bed1, type: 2}
+  - {fileID: 11400000, guid: 8e13fe57f11776f49b4c1598d11b7f05, type: 2}
   - {fileID: 11400000, guid: 2d930a698479959499f811c5d965df3d, type: 2}

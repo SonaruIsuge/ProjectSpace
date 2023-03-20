@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
-  m_Name: M Waste Battery
+  m_Name: S Drink Can
   m_EditorClassIdentifier: 
-  type: 7
-  Size: 1
-  RecycleType: 4
-  ProductNumber: 2
-  SeparateProducets:
-  - {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}
-  - {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}
+  type: 6
+  Size: 0
+  ProductNumber: 0
+  SeparateProducets: []

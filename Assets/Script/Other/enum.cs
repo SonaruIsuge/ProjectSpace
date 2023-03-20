@@ -22,6 +22,7 @@ public enum RecycleType
     Combustible,
     NonCombustible,
     ToxicSubstances,
+    Recyclable,
     Energy,
     CannotRecycle
 }
@@ -30,17 +31,18 @@ public enum RecycleType
 public enum ItemType
 {
     // small item
+    Apple,
+    PaperBall,
     Balloon,
     Energy,
+    GlassBottle,
     MachineParts,
-    SmallMeteorite,
+    DrinkCan,
     RadioactiveSubstances,
     // medium item 
-    MediumMeteorite,
     HighTechComponents,
-    WasteBattery,
+    CannedApple,
     // large item
-    DrinkCan,
     SpaceshipIronPlate,
     // extra large item
     SpaceCrap,
