@@ -118,6 +118,8 @@ public class PlayerPairManager : MonoBehaviour
             {
                 pairUnit.Player.gameObject.SetActive(false);
             }
+
+            StopListenUnpairDevice();
             OnAllPlayerReady?.Invoke();
         }
     }

@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
 
         uiManager.OnAllReadyUIFinish += GameStart;
-        uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
+        
         uiManager.OnPressReplay += ReStartGame;
         
         OnGameOver += GameOver;
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour
         playerPairManager.OnPlayerPair -= uiManager.PlayerPair;
         
         playerPairManager.OnPlayerChangeReadyState -= uiManager.PlayerReady;
-        
         playerPairManager.OnAllPlayerReady -= uiManager.AllPlayerReady;
         
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
@@ -65,7 +64,7 @@ public class GameManager : MonoBehaviour
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
         
         uiManager.OnAllReadyUIFinish -= GameStart;
-        uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;
+        
         uiManager.OnPressReplay -= ReStartGame;
         
         OnGameOver -= GameOver;
