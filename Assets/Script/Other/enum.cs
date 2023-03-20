@@ -37,13 +37,13 @@ public enum ItemType
     Energy,
     GlassBottle,
     MachineParts,
-    DrinkCan,
     RadioactiveSubstances,
     // medium item 
     HighTechComponents,
     CannedApple,
     // large item
     SpaceshipIronPlate,
+    DrinkCan,
     // extra large item
     SpaceCrap,
     EnemyShipCore,

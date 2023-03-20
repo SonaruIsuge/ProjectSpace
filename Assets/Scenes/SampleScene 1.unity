@@ -5136,7 +5136,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 43
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &857435149
 MonoBehaviour:
@@ -5928,7 +5928,7 @@ PrefabInstance:
     - target: {fileID: 2409702401408018103, guid: cf736cbf98fa7ec4c9b97f6566b95062,
         type: 3}
       propertyPath: m_RootOrder
-      value: 38
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 2409702401408018103, guid: cf736cbf98fa7ec4c9b97f6566b95062,
         type: 3}
@@ -6471,7 +6471,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1359926388
 GameObject:
@@ -7591,12 +7591,12 @@ PrefabInstance:
     - target: {fileID: 1409622558667570402, guid: e032fae65b04aa04d8079c47e36b5669,
         type: 3}
       propertyPath: m_Name
-      value: (L) Test Spaceship iron plate
+      value: (L) Test Drink Can
       objectReference: {fileID: 0}
     - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
         type: 3}
       propertyPath: m_RootOrder
-      value: 39
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 1409622558667570406, guid: e032fae65b04aa04d8079c47e36b5669,
         type: 3}
@@ -8218,7 +8218,7 @@ RectTransform:
   - {fileID: 457260802}
   - {fileID: 1298914140}
   m_Father: {fileID: 0}
-  m_RootOrder: 42
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8530,7 +8530,7 @@ Transform:
   - {fileID: 672416832}
   - {fileID: 170581054}
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2062394285
 GameObject:
@@ -10786,55 +10786,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb8e7eb32b05753428227c9978a51451, type: 3}
---- !u!1001 &1409622560080119929
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1409622558667570402, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_Name
-      value: (S) Test Drink Can
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 15.14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.93
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 1409622558667570406, guid: bd898ea699017bb44a65b9810b448e8a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bd898ea699017bb44a65b9810b448e8a, type: 3}
 --- !u!1001 &1861976705333856054
 PrefabInstance:
   m_ObjectHideFlags: 0

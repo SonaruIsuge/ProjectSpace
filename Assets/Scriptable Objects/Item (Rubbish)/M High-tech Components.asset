@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
   m_Name: M High-tech Components
   m_EditorClassIdentifier: 
-  type: 8
+  type: 7
   Size: 1
   ProductNumber: 2
   SeparateProducets:
-  - {fileID: 11400000, guid: b8c6304baff1eb249ba66b506c56c5e6, type: 2}
+  - {fileID: 11400000, guid: 277c90f5aa5f6d04eb33435ddb6d74a6, type: 2}
   - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}

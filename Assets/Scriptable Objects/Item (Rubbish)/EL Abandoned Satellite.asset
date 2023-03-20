@@ -17,5 +17,5 @@ MonoBehaviour:
   ProductNumber: 3
   SeparateProducets:
   - {fileID: 11400000, guid: 8e13fe57f11776f49b4c1598d11b7f05, type: 2}
-  - {fileID: 11400000, guid: 8e13fe57f11776f49b4c1598d11b7f05, type: 2}
+  - {fileID: 11400000, guid: b8c6304baff1eb249ba66b506c56c5e6, type: 2}
   - {fileID: 11400000, guid: 2d930a698479959499f811c5d965df3d, type: 2}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1409622558667570404}
   - component: {fileID: 1409622558667570405}
   m_Layer: 0
-  m_Name: (L) Test Spaceship iron plate
+  m_Name: (L) Test Drink Can
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c488ea357c74965bcfce6d0d4b916ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemData: {fileID: 11400000, guid: 677d3af4773c1fe4db3282080c27bed1, type: 2}
+  ItemData: {fileID: 11400000, guid: b8c6304baff1eb249ba66b506c56c5e6, type: 2}
   carryPlayers: []
 --- !u!1001 &1361352601824062300
 PrefabInstance:
