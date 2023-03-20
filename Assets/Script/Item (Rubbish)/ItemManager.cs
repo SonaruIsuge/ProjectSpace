@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
     private SimpleTimer timer;
     private Queue<Item> waitingQueue;
 
+    public int ItemInStageNum => allItemInStage.Count;
     public static event Action<Item, Player> OnItemStartInteract;
     public static event Action<Item, Player> OnItemEndInteract;
 
@@ -27,7 +28,7 @@ public class ItemManager : MonoBehaviour
 
     private void Awake()
     {
-        allItemInStage = FindObjectsOfType<Item>().ToList();
+        allItemInStage = FindObjectsOfType<Item>().Where(i => i.ItemData.type != ItemType.Energy).ToList();
         itemContainer.GenerateDictionary();
 
         waitingQueue = new Queue<Item>(allWaitingItem);
@@ -40,10 +41,7 @@ public class ItemManager : MonoBehaviour
     {
         foreach (var item in allItemInStage)
         {
-            item.OnNewPlayerInteract += ItemStartInteract;
-            item.OnRemovePlayerInteract += ItemEndInteract;
-            item.OnItemRemove += ItemRemove;
-            item.OnItemAppear += ItemAppear;
+            RegisterItemEvent(item);
         }
     }
 
@@ -54,14 +52,13 @@ public class ItemManager : MonoBehaviour
 
         if (timer.IsFinish && waitingQueue.Count > 0)
         {
-            InitNewItem(waitingQueue.Dequeue());
+            SpawnNewItem(waitingQueue.Dequeue());
             timer.Reset();
         }
 
-        foreach (var item in allItemInStage)
+        foreach (var item in allItemInStage.Where(item => item.Rb.velocity.magnitude > maxItemSpeed))
         {
-            if (item.Rb.velocity.magnitude > maxItemSpeed)
-                item.Rb.velocity = item.Rb.velocity.normalized * maxItemSpeed;
+            item.Rb.velocity = item.Rb.velocity.normalized * maxItemSpeed;
         }
     }
 
@@ -72,23 +69,16 @@ public class ItemManager : MonoBehaviour
         foreach (var item in allItemInStage) item.Rb.velocity = Random.onUnitSphere;
     }
 
-
-    //public GameObject GetItem(ItemType type) => itemContainer.GetItemByType(type);
-
-
-    public int GetItemInStageNum() => allItemInStage.Count;
-
     
-    public void ItemAppear(Item outputItem)
+    public void RegisterItemEvent(Item newItem)
     {
-        allItemInStage.Add(outputItem);
-        outputItem.OnNewPlayerInteract += ItemStartInteract;
-        outputItem.OnRemovePlayerInteract += ItemEndInteract;
-        outputItem.OnItemRemove += ItemRemove;
-        outputItem.OnItemAppear += ItemAppear;
+        newItem.OnNewPlayerInteract += ItemStartInteract;
+        newItem.OnRemovePlayerInteract += ItemEndInteract;
+        newItem.OnItemRemove += ItemRemove;
+        newItem.OnItemAppear += ItemAppear;
     }
-    
-    
+
+
     [ContextMenu("Clear All Item")]
     public void ClearAllItem()
     {
@@ -100,21 +90,30 @@ public class ItemManager : MonoBehaviour
     private void ItemEndInteract(Item item, Player dropper) => OnItemEndInteract?.Invoke(item, dropper);
 
 
-    private void ItemRemove(Item inputItem)
+    private void ItemRemove(Item item)
     {
-        if(!allItemInStage.Contains(inputItem)) return;
-        allItemInStage.Remove(inputItem);
+        if(!allItemInStage.Contains(item)) return;
+        allItemInStage.Remove(item);
     }
 
 
-    private void InitNewItem(Item item)
+    private void ItemAppear(Item newItem)
+    {
+        allItemInStage.Add(newItem);
+    }
+
+
+    private void SpawnNewItem(Item item)
     {
         var newItem = Instantiate(item);
-        newItem.transform.position = initItemPoint[Random.Range(0, initItemPoint.Count)].position;
-        newItem.transform.rotation = Random.rotation;
         allWaitingItem.RemoveAt(0);
-        ItemAppear(newItem);
-        var velocity = (Vector3.zero - newItem.transform.position).normalized;
+        if(newItem.ItemData.type != ItemType.Energy) RegisterItemEvent(newItem);
+        newItem.AddItem();
+
+        var newItemTrans = newItem.transform;
+        newItemTrans.position = initItemPoint[Random.Range(0, initItemPoint.Count)].position;
+        newItemTrans.rotation = Random.rotation;
+        var velocity = (Vector3.zero - newItemTrans.position).normalized;
         velocity.x *= Random.Range(1f, 2f);
         velocity.y *= Random.Range(1f, 2f);
         velocity.z *= Random.Range(1f, 2f);

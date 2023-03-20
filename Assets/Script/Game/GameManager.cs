@@ -18,8 +18,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnGameOver;
     
     private bool IsGameOver;
-    public int RemainRubbish => itemManager.GetItemInStageNum();
-    
+
     private void Awake()
     {
         IsGameOver = false;
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
 
-        machineManager.OnItemProducedByMachine += itemManager.ItemAppear;
+        machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
 
         uiManager.OnAllReadyUIFinish += GameStart;
         uiManager.OnAllReadyUIFinish += playerPairManager.StopListenUnpairDevice;
@@ -63,7 +62,7 @@ public class GameManager : MonoBehaviour
         
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
         
-        machineManager.OnItemProducedByMachine -= itemManager.ItemAppear;
+        machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
         
         uiManager.OnAllReadyUIFinish -= GameStart;
         uiManager.OnAllReadyUIFinish -= playerPairManager.StopListenUnpairDevice;
@@ -82,9 +81,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
-        uiManager.UpdateItemRemainText(RemainRubbish);
+        uiManager.UpdateItemRemainText(itemManager.ItemInStageNum);
         
-        if(RemainRubbish == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
+        if(itemManager.ItemInStageNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
     }
 
 
