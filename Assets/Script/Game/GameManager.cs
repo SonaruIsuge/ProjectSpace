@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
-        uiManager.UpdateItemRemainText(itemManager.ItemInStageNum);
+        uiManager.UpdateItemRemainText(itemManager.RemainItemNum);
         
         if(itemManager.ItemInStageNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
     }

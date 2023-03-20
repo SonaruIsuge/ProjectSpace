@@ -19,6 +19,7 @@ public class ItemManager : MonoBehaviour
     private Queue<Item> waitingQueue;
 
     public int ItemInStageNum => allItemInStage.Count;
+    public int RemainItemNum => allItemInStage.Count(i => i.ItemData.type != ItemType.Energy);
     public static event Action<Item, Player> OnItemStartInteract;
     public static event Action<Item, Player> OnItemEndInteract;
 
@@ -28,7 +29,7 @@ public class ItemManager : MonoBehaviour
 
     private void Awake()
     {
-        allItemInStage = FindObjectsOfType<Item>().Where(i => i.ItemData.type != ItemType.Energy).ToList();
+        allItemInStage = FindObjectsOfType<Item>().ToList();
         itemContainer.GenerateDictionary();
 
         waitingQueue = new Queue<Item>(allWaitingItem);
@@ -107,7 +108,7 @@ public class ItemManager : MonoBehaviour
     {
         var newItem = Instantiate(item);
         allWaitingItem.RemoveAt(0);
-        if(newItem.ItemData.type != ItemType.Energy) RegisterItemEvent(newItem);
+        RegisterItemEvent(newItem);
         newItem.AddItem();
 
         var newItemTrans = newItem.transform;
