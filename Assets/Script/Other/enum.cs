@@ -63,6 +63,7 @@ public enum MachineStateType
 public enum VFXType
 {
     Recycle,
+    PlayerLanding,
 }
 
 
@@ -77,4 +78,14 @@ public enum BGMType
 {
     ChooseCharacter,
     MainGamePlay,
+}
+
+
+public enum UIPanel
+{
+    PlayerPair,
+    MainGame,
+    PauseMenu,
+    GameOver,
+    Debug
 }

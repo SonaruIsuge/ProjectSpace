@@ -15,6 +15,7 @@ public class RbOnlyMove : IPlayerMove
     private float currentRotate;
 
     private float lastX, lastY, lastZ;
+    private bool needLandVFX;
 
     public RbOnlyMove(Player player)
     {
@@ -24,6 +25,8 @@ public class RbOnlyMove : IPlayerMove
 
         currentMoveVelocity = Vector3.zero;
         currentJetVelocity = 0;
+
+        needLandVFX = false;
     }
 
 
@@ -50,7 +53,15 @@ public class RbOnlyMove : IPlayerMove
         else rb.velocity = new Vector3(moveVelocity.x, currentJetVelocity == 0 ? rb.velocity.y : currentJetVelocity, moveVelocity.y);
         
         targetPlayer.JetVFX.SetActive(rb.velocity.y >= -0.1f && !targetPlayer.IsGround);
-
+        targetPlayer.MoveVFX.SetActive(targetPlayer.IsGround && moveVelocity.sqrMagnitude > 0);
+        
+        if(!targetPlayer.IsGround) needLandVFX = true;
+        if (targetPlayer.IsGround && needLandVFX)
+        {
+            FXController.Instance.InitVFX(VFXType.PlayerLanding, targetPlayer.transform.position);
+            needLandVFX = false;
+        }
+        
         if (moveVelocity != Vector2.zero && targetPlayer.PlayerInteractController.CurrentInteract is not Item) 
             Rotate(moveVelocity);
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c193bfe2a84e0a82027f5d3b207a11, type: 3}
   m_Name: VFX Container
   m_EditorClassIdentifier: 
-  keys: 00000000
+  keys: 0000000001000000
   values:
   - {fileID: 4003802577698230954, guid: ab41d02f4b68d7340874cccdf9682a1d, type: 3}
+  - {fileID: 1094739606178349245, guid: 495324954ada14b429c0f34c128b606e, type: 3}
