@@ -31,6 +31,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     [SerializeField] private float pushForce;
     [field: SerializeField] public Transform InteractPoint { get; private set; }
     [field: SerializeField] public float ClawSpeed { get; private set; }
+    [field: SerializeField] public Transform HeadPoint { get; private set; }
     
     [field: Header("VFX")]
     [field: SerializeField] public GameObject JetVFX {get; private set; }

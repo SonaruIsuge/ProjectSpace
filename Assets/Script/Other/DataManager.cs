@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 using Script.Item__Rubbish_;
 using SonaruUtilities;
 using UnityEngine;
@@ -8,9 +9,11 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
 {
     [SerializeField] private ItemContainer itemContainer;
     [SerializeField] private RecycleRule recycleRule;
+    [SerializeField] private RecycleHintContainer recycleHint;
 
     private Dictionary<ItemType, GameObject> itemContainerDict;
     private Dictionary<RecycleType, ItemTypeCollection> recycleRuleDict;
+    private Dictionary<RecycleType, Sprite> recycleHintDict;
 
     public Material SelectItemMat;
 
@@ -19,6 +22,7 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
         base.Awake();
         itemContainerDict = itemContainer.GenerateDictionary();
         recycleRuleDict = recycleRule.GenerateDictionary();
+        recycleHintDict = recycleHint.GenerateDictionary();
     }
 
 
@@ -31,4 +35,17 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
 
     public bool CheckRecyclable(ItemType itemType, RecycleType recycleType) =>
         recycleRuleDict[recycleType].ItemTypes.Contains(itemType);
+
+
+    public RecycleType GetRecycleType(ItemType itemType)
+    {
+        return recycleRuleDict.Keys.FirstOrDefault(recycleType => recycleRuleDict[recycleType].ItemTypes.Contains(itemType));
+    }
+    
+
+    public Sprite GetRecycleHint(RecycleType recycleType)
+    {
+        if (recycleHintDict == null || !recycleHintDict.ContainsKey(recycleType)) return null;
+        return recycleHintDict[recycleType];
+    }
 }

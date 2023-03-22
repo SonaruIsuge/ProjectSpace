@@ -1,20 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
+using SonaruUtilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    private List<PanelModel> allPanel;
+    private Dictionary<Player, RecycleHintUI> playerHintUIDict;
+
     [Header("Before Game Play")]
     [SerializeField] private GameObject WaitToStartGamePanel;
     [SerializeField] private List<Camera> playerCameras;
     [SerializeField] private List<TMP_Text> playerReadyText;
     [Header("In Game")] 
     [SerializeField] private TMP_Text remainItemNumText;
+    [SerializeField] private RecycleHintUI recycleHintUI;
     [Header("Game Over")]
     [SerializeField] private GameObject GameOverPanel;
     [SerializeField] private Button ReplayBtn; 
@@ -26,26 +32,37 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        allPanel = GetComponentsInChildren<PanelModel>().ToList();
+
         pairPlayerNum = 0;
         WaitToStartGamePanel.SetActive(true);
+
+        playerHintUIDict = new Dictionary<Player, RecycleHintUI>();
     }
 
 
     private void OnEnable()
     {
         ReplayBtn.onClick.AddListener(() => OnPressReplay?.Invoke());
+
+        ItemManager.OnItemStartInteract += ShowItemHint;
     }
 
 
     private void OnDisable()
     {
         ReplayBtn.onClick.RemoveAllListeners();
+        ItemManager.OnItemStartInteract -= ShowItemHint;
     }
 
 
     public void PlayerPair(Player player)
     {
         pairPlayerNum++;
+        
+        var hintUI = Instantiate(recycleHintUI, transform);
+        playerHintUIDict.Add(player, hintUI);
+        hintUI.BindPlayer(player);
         
         WaitToStartGamePanel.SetActive(false);
         
@@ -61,7 +78,7 @@ public class UIManager : MonoBehaviour
         {
             targetText.gameObject.SetActive(true);
             targetText.rectTransform.position = 
-                playerCameras[playerIndex].WorldToScreenPoint(player.transform.position + new Vector3(0, 3f, 0));
+                playerCameras[playerIndex].WorldToScreenPoint(player.HeadPoint.position);
         }
         else targetText.gameObject.SetActive(false);
     }
@@ -100,5 +117,13 @@ public class UIManager : MonoBehaviour
     public void SetGameOverUI()
     {
         GameOverPanel.SetActive(true);
+    }
+
+
+    private void ShowItemHint(Item item, Player player)
+    {
+        var hintUI = playerHintUIDict[player];
+        hintUI.SetHintItem(item);
+        hintUI.Show();
     }
 }

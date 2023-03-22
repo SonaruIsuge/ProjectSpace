@@ -172,6 +172,9 @@ public class PlayerGrabInteractController : IPlayerInteract
         }
         
         item.Rb.velocity = Vector3.zero;
+        item.Rb.angularVelocity = Vector3.zero;
+        targetPlayer.Rb.velocity = Vector3.zero;
+        targetPlayer.Rb.angularVelocity = Vector3.zero;
         return true;
     }
 
