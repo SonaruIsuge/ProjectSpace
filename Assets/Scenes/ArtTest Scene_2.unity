@@ -6900,6 +6900,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.6958483
       objectReference: {fileID: 0}
+    - target: {fileID: 5901029940015444431, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5446c0ac9aaf48b4faddbfed66d4e907, type: 2}
     - target: {fileID: 6245914769007938883, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -21525,6 +21530,7 @@ MonoBehaviour:
   pushForce: 0.1
   <InteractPoint>k__BackingField: {fileID: 3789837215319565468}
   <ClawSpeed>k__BackingField: 0
+  <HeadPoint>k__BackingField: {fileID: 0}
   <JetVFX>k__BackingField: {fileID: 0}
   <MoveVFX>k__BackingField: {fileID: 0}
 --- !u!143 &3789837215986625834
