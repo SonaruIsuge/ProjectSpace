@@ -16,7 +16,7 @@ public class NS_WorkingState : INormalSeparatorState
     {
         Machine.ProgressTimer.Reset(Machine.ProgressTime);
         
-        Machine.progressBg.gameObject.SetActive(true);
+        Machine.ProgressBg.gameObject.SetActive(true);
     }
 
     public void Stay()
@@ -30,7 +30,7 @@ public class NS_WorkingState : INormalSeparatorState
 
     public void Exit()
     {
-        Machine.progressBg.gameObject.SetActive(false);
+        Machine.ProgressBg.gameObject.SetActive(false);
     }
 
 
@@ -49,8 +49,6 @@ public class NS_WorkingState : INormalSeparatorState
 
     private void SetProgressUI()
     {
-        var progress = 1f - Machine.ProgressTimer.Remain01;
-        var width = Machine.progressBg.rect.width * progress;
-        Machine.progressContent.sizeDelta = new Vector2(width, Machine.progressBg.rect.height);
+        Machine.Progress.fillAmount = 1f - Machine.ProgressTimer.Remain01;
     }
 }

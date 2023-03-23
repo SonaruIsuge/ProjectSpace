@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 public class CatPower : MonoBehaviour, IPowerConsumable
@@ -24,9 +25,8 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     public event Action<float> OnPowerConsume;
     public event Action OnPowerCharged;
     
-    [field: Header("UI for Debug")]
-    [field: SerializeField] public RectTransform PowerBg { get; private set; }
-    [field: SerializeField] public RectTransform RemainPowerBar { get; private set; }
+    [field: Header("UI")] 
+    [SerializeField] private Image remainPowerBar;
     
     
     public void InitialSetup()
@@ -71,7 +71,6 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     
     private void UpdateUI()
     {
-        var percentWidth = RemainPowerPercent * PowerBg.rect.width;
-        RemainPowerBar.sizeDelta = new Vector2(percentWidth, RemainPowerBar.rect.height);
+        remainPowerBar.fillAmount = RemainPower / MaxPower;
     }
 }

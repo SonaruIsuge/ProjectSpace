@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
     {
         pairPlayerNum++;
         
-        var hintUI = Instantiate(recycleHintUI, transform);
+        var hintUI = Instantiate(recycleHintUI, mainGameView.transform);
         playerHintUIDict.Add(player, hintUI);
         hintUI.BindPlayer(player);
         

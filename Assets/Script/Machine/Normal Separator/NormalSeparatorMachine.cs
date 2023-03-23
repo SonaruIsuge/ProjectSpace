@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SonaruUtilities;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
@@ -26,8 +27,8 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     [field: SerializeField] public Item CurrentProcessingItem { get; private set; }
 
     [field: Header("UI for Debug")]
-    [field: SerializeField] public RectTransform progressBg { get; private set; }
-    [field: SerializeField] public RectTransform progressContent { get; private set; }
+    [field: SerializeField] public RectTransform ProgressBg { get; private set; }
+    [field: SerializeField] public Image Progress { get; private set; }
     
     public event Action<Item> OnItemSeparated;
     public event Action<Item> OnNewItemOutput;
