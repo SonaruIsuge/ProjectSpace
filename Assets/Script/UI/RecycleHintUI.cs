@@ -13,7 +13,7 @@ public class RecycleHintUI : MonoBehaviour
     private SimpleTimer existTimer;
     private Player bindPlayer;
     private Item hintItem;
-    private Camera mainCam => Camera.main;
+    private Camera MainCam => Camera.main;
 
 
     private void Awake()
@@ -28,7 +28,7 @@ public class RecycleHintUI : MonoBehaviour
     {
         if(existTimer.IsFinish) Hide();
         
-        transform.position = mainCam.WorldToScreenPoint(bindPlayer.HeadPoint.position);
+        transform.position = MainCam.WorldToScreenPoint(bindPlayer.HeadPoint.position);
     }
 
 
@@ -51,7 +51,7 @@ public class RecycleHintUI : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
-        transform.position = mainCam.WorldToScreenPoint(bindPlayer.transform.position);
+        transform.position = MainCam.WorldToScreenPoint(bindPlayer.transform.position);
         hintShowAni.Play("ItemHint");
         existTimer.Reset();
     }

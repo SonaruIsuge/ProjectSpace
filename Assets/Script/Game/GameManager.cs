@@ -8,6 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Game Data")] 
+    [SerializeField] private float gameTimeLimit;
+    
+    [Header("Other Managers")]
     [SerializeField] private PlayerPairManager playerPairManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private MachineManager machineManager;
@@ -15,7 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraController cameraController;
 
-    public static event Action OnGameOver;
+    private SimpleTimer gameTimer;
+    
+    public static event Action<bool> OnGameOver;
     
     private bool IsGameOver;
 
@@ -27,6 +33,9 @@ public class GameManager : MonoBehaviour
         playerManager.SetStart(false);
         itemManager.SetStart(false);
         machineManager.SetStart(false);
+        
+        gameTimer = new SimpleTimer(gameTimeLimit);
+        gameTimer.Pause();
     }
 
 
@@ -82,7 +91,8 @@ public class GameManager : MonoBehaviour
         playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
         uiManager.UpdateItemRemainText(itemManager.RemainItemNum);
         
-        if(itemManager.RemainItemNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke();
+        if(gameTimer.IsFinish) OnGameOver?.Invoke(false);
+        else if(itemManager.RemainItemNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke(true);
     }
 
 
@@ -95,12 +105,14 @@ public class GameManager : MonoBehaviour
         
         machineManager.SetStart(true);
         machineManager.InitialSetUp();
+
+        gameTimer.Resume();
         
         FXController.Instance.ChangeBGM(BGMType.MainGamePlay);
     }
 
 
-    private async void GameOver()
+    private async void GameOver(bool isWin)
     {
         playerManager.SetStart(false);
         itemManager.SetStart(false);

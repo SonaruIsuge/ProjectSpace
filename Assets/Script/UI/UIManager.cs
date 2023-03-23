@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private List<PanelModel> allPanel;
     private Dictionary<Player, RecycleHintUI> playerHintUIDict;
 
     [Header("Before Game Play")]
@@ -32,8 +31,6 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        allPanel = GetComponentsInChildren<PanelModel>().ToList();
-
         pairPlayerNum = 0;
         WaitToStartGamePanel.SetActive(true);
 

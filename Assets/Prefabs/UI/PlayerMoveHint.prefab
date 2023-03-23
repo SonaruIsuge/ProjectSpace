@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4398243759070616738}
   - component: {fileID: 4055376909475304558}
   - component: {fileID: 532956850256093402}
-  - component: {fileID: 1565809701320014758}
   m_Layer: 5
   m_Name: PlayerMoveHint
   m_TagString: Untagged
@@ -115,18 +114,6 @@ MonoBehaviour:
   ExistTime: 3
   hintImage: {fileID: 4050779130252660127}
   hintShowAni: {fileID: 4055376909475304558}
---- !u!114 &1565809701320014758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4149427660834133393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b5f286b8e9417faea72eeeccb1f65c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6083634802702362812
 GameObject:
   m_ObjectHideFlags: 0
