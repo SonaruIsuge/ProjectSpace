@@ -21,8 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text remainItemNumText;
     [SerializeField] private RecycleHintUI recycleHintUI;
     [Header("Game Over")]
-    [SerializeField] private GameObject GameOverPanel;
-    [SerializeField] private Button ReplayBtn; 
+    [SerializeField] private GameOverView gameOverView;
 
     private int pairPlayerNum;
 
@@ -33,22 +32,20 @@ public class UIManager : MonoBehaviour
     {
         pairPlayerNum = 0;
         WaitToStartGamePanel.SetActive(true);
-
+        gameOverView.gameObject.SetActive(false);
+        
         playerHintUIDict = new Dictionary<Player, RecycleHintUI>();
     }
 
 
     private void OnEnable()
     {
-        ReplayBtn.onClick.AddListener(() => OnPressReplay?.Invoke());
-
         ItemManager.OnItemStartInteract += ShowItemHint;
     }
 
 
     private void OnDisable()
     {
-        ReplayBtn.onClick.RemoveAllListeners();
         ItemManager.OnItemStartInteract -= ShowItemHint;
     }
 
@@ -111,9 +108,11 @@ public class UIManager : MonoBehaviour
     public void UpdateItemRemainText(int remain) => remainItemNumText.text = remain.ToString();
 
 
-    public void SetGameOverUI()
+    public void SetGameOverUI(bool isWin, float useTime)
     {
-        GameOverPanel.SetActive(true);
+        //GameOverPanel.SetActive(true);
+        gameOverView.gameObject.SetActive(true);
+        gameOverView.SetGameOverData(isWin, useTime);
     }
 
 

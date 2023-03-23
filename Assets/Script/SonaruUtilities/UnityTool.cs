@@ -38,5 +38,21 @@ namespace SonaruUtilities
 
             return result;
         }
+
+
+        public static void ChangeSecToHMS(float inSec, out int hour, out int minute, out float second)
+        {
+            hour = 0;
+            minute = 0;
+            second = 0;
+            if(inSec < 0) return;
+            
+            second = inSec % 60;
+            minute = (int)inSec / 60;
+            if(minute < 60) return;
+
+            hour = minute / 60;
+            minute %= 60;
+        }
     }
 }

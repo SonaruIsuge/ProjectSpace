@@ -119,9 +119,10 @@ public class GameManager : MonoBehaviour
         machineManager.SetStart(false);
 
         IsGameOver = true;
+        gameTimer.Pause();
         await Task.Delay(1000);
 
-        uiManager.SetGameOverUI();
+        uiManager.SetGameOverUI(isWin, gameTimeLimit - gameTimer.Remain);
     }
 
 
