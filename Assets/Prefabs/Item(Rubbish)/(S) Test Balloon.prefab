@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1533181233461469329}
   - component: {fileID: 6361874875558958479}
   - component: {fileID: 6361874875558958194}
+  - component: {fileID: 4534349453613819595}
   m_Layer: 0
   m_Name: (S) Test Balloon
   m_TagString: Untagged
@@ -78,6 +79,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 940366b5005bdf94a94b56c255207fea, type: 2}
   carryPlayers: []
+--- !u!114 &4534349453613819595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361874875558958193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d503d4030442cd9718d26e3171b62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomBalloonColorSeeds:
+  - {fileID: 2100000, guid: d43826e742160064db9008ba5e7a7c8c, type: 2}
+  - {fileID: 2100000, guid: 0276bbd0bac582447803658e092c9066, type: 2}
+  - {fileID: 2100000, guid: db7f01d9c09b2444991ebeb15cd4149e, type: 2}
 --- !u!1001 &1613782231893371175
 PrefabInstance:
   m_ObjectHideFlags: 0

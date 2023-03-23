@@ -22,6 +22,7 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     private Collider col;
     private MeshRenderer meshRenderer;
     private Color defaultColor;
+    private IItemInitSetting itemInitSetting;
 
     public event Action<Item, Player> OnNewPlayerInteract;
     public event Action<Item, Player> OnRemovePlayerInteract;
@@ -35,6 +36,7 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
         col = GetComponent<Collider>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         defaultColor = meshRenderer.material.GetColor("_Outline_Color");
+        itemInitSetting = GetComponent<IItemInitSetting>();
         
         CanInteract = true;
     }
@@ -113,8 +115,8 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     public void AddItem()
     {
         gameObject.SetActive(true);
+        itemInitSetting?.InitSetting();
         OnItemAppear?.Invoke(this);
-        
     }
 
 
