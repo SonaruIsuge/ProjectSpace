@@ -89,7 +89,9 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
-        uiManager.UpdateItemRemainText(itemManager.RemainItemNum);
+        
+        uiManager.UpdateItemRemain(itemManager.RemainItemNum);
+        uiManager.UpdateTimeRemain(gameTimer.Remain, gameTimer.Remain01);
         
         if(gameTimer.IsFinish) OnGameOver?.Invoke(false);
         else if(itemManager.RemainItemNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke(true);

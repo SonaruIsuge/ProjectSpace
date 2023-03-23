@@ -120,7 +120,7 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         var outputItem = newItemObj.GetComponent<Item>();
         var itemSize = outputItem.GetItemCollisionSize();
         
-        outputItem.AddItem();
+        
         newItemObj.transform.position = OutputPoint.position + Vector3.Scale(OutputPoint.forward, itemSize);
         newItemObj.transform.rotation = Random.rotation;
         var outputVector =
@@ -132,6 +132,7 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         CurrentProcessingItem = null;
         IsWorking = false;
         OnNewItemOutput?.Invoke(outputItem); 
+        outputItem.AddItem();
     }
 
 

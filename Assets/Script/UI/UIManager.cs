@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<Camera> playerCameras;
     [SerializeField] private List<TMP_Text> playerReadyText;
     [Header("In Game")] 
-    [SerializeField] private TMP_Text remainItemNumText;
+    [SerializeField] private MainGameView mainGameView;
     [SerializeField] private RecycleHintUI recycleHintUI;
     [Header("Game Over")]
     [SerializeField] private GameOverView gameOverView;
@@ -31,7 +31,9 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         pairPlayerNum = 0;
+        
         WaitToStartGamePanel.SetActive(true);
+        mainGameView.gameObject.SetActive(false);
         gameOverView.gameObject.SetActive(false);
         
         playerHintUIDict = new Dictionary<Player, RecycleHintUI>();
@@ -86,7 +88,7 @@ public class UIManager : MonoBehaviour
         foreach(var cam in playerCameras) cam.gameObject.SetActive(false);
         foreach(var text in playerReadyText) if(text != null) text.gameObject.SetActive(false);
         
-        remainItemNumText.gameObject.SetActive(true);
+        mainGameView.gameObject.SetActive(true);
         
         // game start
         OnAllReadyUIFinish?.Invoke();
@@ -104,8 +106,18 @@ public class UIManager : MonoBehaviour
             playerCameras[i].DORect(rect, .2f);
         }
     }
+    
 
-    public void UpdateItemRemainText(int remain) => remainItemNumText.text = remain.ToString();
+    public void UpdateItemRemain(int remain)
+    {
+        mainGameView.SetRemainRubbish(remain);   
+    }
+
+
+    public void UpdateTimeRemain(float remain, float remain01)
+    {
+        mainGameView.SetRemainTime(remain, remain01);
+    }
 
 
     public void SetGameOverUI(bool isWin, float useTime)
