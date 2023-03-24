@@ -15,7 +15,7 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     private Dictionary<SFXType, AudioClip> sfxDict;
     private Dictionary<BGMType, AudioClip> bgmDict;
 
-    private AudioManager audioManager;
+    private AudioManager AudioManager => FindObjectOfType<AudioManager>();
     
     protected override void Awake()
     {
@@ -25,7 +25,6 @@ public class FXController : TSingletonMonoBehaviour<FXController>
         sfxDict = sfxContainer.GenerateDictionary();
         bgmDict = bgmContainer.GenerateDictionary();
 
-        audioManager = FindObjectOfType<AudioManager>();
     }
 
 
@@ -43,7 +42,7 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     {
         if (sfxDict == null || !sfxDict.ContainsKey(type)) return null;
         var sfx = sfxDict[type];
-        audioManager.SpawnSFX(sfx);
+        AudioManager.SpawnSFX(sfx);
         
         return sfx;
     }
@@ -53,7 +52,7 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     {
         if (bgmDict == null || !bgmDict.ContainsKey(type)) return null;
         var bgm = bgmDict[type];
-        audioManager.PlayBGM(bgm, fadeTime);
+        AudioManager.PlayBGM(bgm, fadeTime);
 
         return bgm;
     }

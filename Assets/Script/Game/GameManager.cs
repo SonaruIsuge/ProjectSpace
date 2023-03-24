@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
@@ -10,9 +11,9 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Data")] 
     [SerializeField] private float gameTimeLimit;
+    [SerializeField] private List<Player> players;
     
     [Header("Other Managers")]
-    [SerializeField] private PlayerPairManager playerPairManager;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private MachineManager machineManager;
     [SerializeField] private ItemManager itemManager;
@@ -20,7 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
 
     private SimpleTimer gameTimer;
-    
+    private List<PlayerPairingUnit> pairedPlayerUnit;
+
+    private event Action<Player> OnPlayerPaired;
+    public static event Action OnGameStart;
     public static event Action<bool> OnGameOver;
     
     private bool IsGameOver;
@@ -28,7 +32,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         IsGameOver = false;
-        playerPairManager.InitialSetUp();
+        pairedPlayerUnit = new List<PlayerPairingUnit>();
         
         playerManager.SetStart(false);
         itemManager.SetStart(false);
@@ -41,48 +45,35 @@ public class GameManager : MonoBehaviour
 
     private void BindManager()
     {
-        playerPairManager.OnPlayerPair += playerManager.AddActivePlayer;
-        playerPairManager.OnPlayerPair += uiManager.PlayerPair;
-        
-        playerPairManager.OnPlayerChangeReadyState += uiManager.PlayerReady;
-        
-        playerPairManager.OnAllPlayerReady += uiManager.AllPlayerReady;
-
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
-
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
 
-        uiManager.OnAllReadyUIFinish += GameStart;
-        
-        uiManager.OnPressReplay += ReStartGame;
-        
+        OnPlayerPaired += uiManager.PlayerPair;
         OnGameOver += GameOver;
+
+        uiManager.OnPressReplay += ReStartGame;
     }
 
 
     private void UnbindManager()
     {
-        playerPairManager.OnPlayerPair -= playerManager.AddActivePlayer;
-        playerPairManager.OnPlayerPair -= uiManager.PlayerPair;
-        
-        playerPairManager.OnPlayerChangeReadyState -= uiManager.PlayerReady;
-        playerPairManager.OnAllPlayerReady -= uiManager.AllPlayerReady;
-        
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
-        
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
-        
-        uiManager.OnAllReadyUIFinish -= GameStart;
+
+        OnPlayerPaired -= uiManager.PlayerPair;
+        OnGameOver -= GameOver;
         
         uiManager.OnPressReplay -= ReStartGame;
-        
-        OnGameOver -= GameOver;
     }
 
 
     private void Start()
     {
         BindManager();
+        
+        LoadPairedPlayer();
+
+        GameStart();
     }
     
 
@@ -98,6 +89,22 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private void LoadPairedPlayer()
+    {
+        var pairedDevices = DataManager.Instance.AllPairedDevices;
+        for (var i = 0; i < pairedDevices.Count; i++)
+        {
+            var unit = new PlayerPairingUnit(i);
+            unit.TryPairPlayerWithDevice(players[i], pairedDevices[i]);
+            pairedPlayerUnit.Add(unit);
+            
+            unit.Player.SetActive(true);
+            playerManager.AddActivePlayer(unit.Player);
+            OnPlayerPaired?.Invoke(unit.Player);
+        }
+    }
+
+
     private void GameStart()
     {
         playerManager.SetStart(true);
@@ -107,8 +114,12 @@ public class GameManager : MonoBehaviour
         
         machineManager.SetStart(true);
         machineManager.InitialSetUp();
+        
+        uiManager.SetGameStartUI();
 
         gameTimer.Resume();
+        
+        OnGameStart?.Invoke();
         
         FXController.Instance.ChangeBGM(BGMType.MainGamePlay);
     }
@@ -119,7 +130,8 @@ public class GameManager : MonoBehaviour
         playerManager.SetStart(false);
         itemManager.SetStart(false);
         machineManager.SetStart(false);
-
+        foreach(var unit in pairedPlayerUnit) unit.UnpairDevice();
+        
         IsGameOver = true;
         gameTimer.Pause();
         await Task.Delay(1000);
@@ -130,8 +142,11 @@ public class GameManager : MonoBehaviour
 
     private void ReStartGame()
     {
-        playerPairManager.UnpairAllDevice();
+        
+        DataManager.Instance.AllPairedDevices.Clear();
+        
         UnbindManager();
+        
         SceneManager.LoadScene(0);
     }
 }

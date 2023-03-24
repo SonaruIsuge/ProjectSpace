@@ -13,10 +13,6 @@ public class UIManager : MonoBehaviour
 {
     private Dictionary<Player, RecycleHintUI> playerHintUIDict;
 
-    [Header("Before Game Play")]
-    [SerializeField] private GameObject WaitToStartGamePanel;
-    [SerializeField] private List<Camera> playerCameras;
-    [SerializeField] private List<TMP_Text> playerReadyText;
     [Header("In Game")] 
     [SerializeField] private MainGameView mainGameView;
     [SerializeField] private RecycleHintUI recycleHintUI;
@@ -25,14 +21,12 @@ public class UIManager : MonoBehaviour
 
     private int pairPlayerNum;
 
-    public event Action OnAllReadyUIFinish;
     public event Action OnPressReplay;
 
     private void Awake()
     {
         pairPlayerNum = 0;
         
-        WaitToStartGamePanel.SetActive(true);
         mainGameView.gameObject.SetActive(false);
         gameOverView.gameObject.SetActive(false);
         
@@ -43,6 +37,8 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         ItemManager.OnItemStartInteract += ShowItemHint;
+
+        gameOverView.BindReplayButton(() => OnPressReplay?.Invoke() );
     }
 
 
@@ -55,58 +51,11 @@ public class UIManager : MonoBehaviour
     public void PlayerPair(Player player)
     {
         pairPlayerNum++;
-        
         var hintUI = Instantiate(recycleHintUI, mainGameView.transform);
         playerHintUIDict.Add(player, hintUI);
         hintUI.BindPlayer(player);
-        
-        WaitToStartGamePanel.SetActive(false);
-        
-        playerCameras[pairPlayerNum - 1].gameObject.SetActive(true);
-        UpdateAllCameraRect(pairPlayerNum);
     }
 
-
-    public void PlayerReady(Player player, int playerIndex, bool isReady)
-    {
-        var targetText = playerReadyText[playerIndex];
-        if (isReady)
-        {
-            targetText.gameObject.SetActive(true);
-            targetText.rectTransform.position = 
-                playerCameras[playerIndex].WorldToScreenPoint(player.HeadPoint.position);
-        }
-        else targetText.gameObject.SetActive(false);
-    }
-
-
-    public async void AllPlayerReady()
-    {
-        // Transition animation
-        await Task.Delay(2000);
-        
-        foreach(var cam in playerCameras) cam.gameObject.SetActive(false);
-        foreach(var text in playerReadyText) if(text != null) text.gameObject.SetActive(false);
-        
-        mainGameView.gameObject.SetActive(true);
-        
-        // game start
-        OnAllReadyUIFinish?.Invoke();
-    }
-    
-
-    private void UpdateAllCameraRect(int activeCamNum)
-    {
-        for (var i = 0; i < activeCamNum; i++)
-        {
-            var rect = playerCameras[i].rect;
-
-            rect.x = i * (1f / activeCamNum);
-            rect.width = 1f / activeCamNum;
-            playerCameras[i].DORect(rect, .2f);
-        }
-    }
-    
 
     public void UpdateItemRemain(int remain)
     {
@@ -120,9 +69,15 @@ public class UIManager : MonoBehaviour
     }
 
 
+    public void SetGameStartUI()
+    {
+        mainGameView.gameObject.SetActive(true);
+        gameOverView.gameObject.SetActive(false);
+    }
+
+
     public void SetGameOverUI(bool isWin, float useTime)
     {
-        //GameOverPanel.SetActive(true);
         gameOverView.gameObject.SetActive(true);
         gameOverView.SetGameOverData(isWin, useTime);
     }

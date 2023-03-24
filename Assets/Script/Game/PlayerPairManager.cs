@@ -6,63 +6,36 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.Serialization;
 
 
 public class PlayerPairManager : MonoBehaviour
 {
-    [SerializeField] private List<Player> players;
-    private List<PlayerPairingUnit> allPlayerPairUnit;
+    [field: SerializeField] public List<Player> Players { get; private set; }
+    public List<PlayerPairingUnit> allPlayerPairUnit { get; private set; }
     private int pairedPlayerNum;
-    
-    [SerializeField] private bool allReady;
 
-    public event Action<Player> OnPlayerPair;
-    public event Action<Player, int, bool> OnPlayerChangeReadyState;
-    public event Action OnAllPlayerReady;
-    
-
-    private void Awake()
-    {
-
-        allPlayerPairUnit = new List<PlayerPairingUnit>();
-        foreach (var player in players) allPlayerPairUnit.Add(new PlayerPairingUnit(player));
-        pairedPlayerNum = 0;
-
-        allReady = false;
-    }
-
-
-    private void OnEnable()
-    {
-        InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
-
-        foreach (var pairUnit in allPlayerPairUnit)
-        {
-            pairUnit.OnChangeReady += PairedPlayerChangeReady;
-        }
-
-        FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
-    }
+    public event Action<PlayerPairingUnit> OnPlayerPair;
 
 
     private void OnDisable()
     {
-        InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
-        
-        foreach (var pairUnit in allPlayerPairUnit)
-        {
-            pairUnit.OnChangeReady -= PairedPlayerChangeReady;
-        }
+        UnregisterEvent();
     }
 
 
-    private void Update()
+    public void InitSetup()
     {
-        if(!allReady) UpdateReady();
+        allPlayerPairUnit = new List<PlayerPairingUnit>();
+        for (var i = 0; i < Players.Count; i++) allPlayerPairUnit.Add(new PlayerPairingUnit(i));
+
+        pairedPlayerNum = 0;
+
+        RegisterEvent();
     }
 
 
-    public void InitialSetUp()
+    public void StartListenUnpairDevice()
     {
         InputUser.listenForUnpairedDeviceActivity = 4;
     }
@@ -74,21 +47,34 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
+    private void RegisterEvent()
+    {
+        InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
+    }
+
+
+    private void UnregisterEvent()
+    {
+        InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+    }
+
+
     private void OnUnpairedDeviceUsed(InputControl c, InputEventPtr e)
     {
         if(c.device.GetType() == Mouse.current.GetType()) return;
         if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
             return;
-        
-        foreach (var pairUnit in allPlayerPairUnit)
+        Debug.Log("pair");
+        for (var i = 0; i < allPlayerPairUnit.Count; i++)
         {
-            var pairSuccess = pairUnit.TryPairPlayerWithDevice(c, e);
-            
-            if(!pairSuccess) continue;
-            
+            var pairUnit = allPlayerPairUnit[i];
+            var pairSuccess = pairUnit.TryPairPlayerWithDevice(Players[i], c.device);
+
+            if (!pairSuccess) continue;
+
             pairUnit.Player.SetActive(true);
             pairedPlayerNum++;
-            OnPlayerPair?.Invoke(pairUnit.Player);
+            OnPlayerPair?.Invoke(pairUnit);
             return;
         }
     }
@@ -96,40 +82,11 @@ public class PlayerPairManager : MonoBehaviour
 
     public void UnpairAllDevice()
     {
+        if(allPlayerPairUnit.Count == 0) return;
+        
         foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired))
         {
             pairUnit.UnpairDevice();
         }
-    }
-
-
-    private void UpdateReady()
-    {
-        if(pairedPlayerNum == 0) return;
-
-        foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired))
-        {
-            pairUnit.UpdateReady();
-        }
-
-        if (allReady)
-        {
-            foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => !pairUnit.IsPaired))
-            {
-                pairUnit.Player.gameObject.SetActive(false);
-            }
-
-            StopListenUnpairDevice();
-            OnAllPlayerReady?.Invoke();
-        }
-    }
-
-
-    private void PairedPlayerChangeReady(PlayerPairingUnit unit, bool isReady)
-    {
-        OnPlayerChangeReadyState?.Invoke(unit.Player, allPlayerPairUnit.IndexOf(unit), isReady);
-        
-        allReady = true;
-        foreach (var pairUnit in allPlayerPairUnit.Where(pairUnit => pairUnit.IsPaired)) allReady &= pairUnit.IsReady;
     }
 }

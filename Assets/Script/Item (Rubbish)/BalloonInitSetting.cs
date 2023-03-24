@@ -7,16 +7,16 @@ using Random = UnityEngine.Random;
 public class BalloonInitSetting : MonoBehaviour, IItemInitSetting
 {
     [SerializeField] private List<Material> randomBalloonColorSeeds;
-    private Renderer renderer;
+    private Renderer balloonRenderer;
 
     public void Awake()
     {
-        renderer = GetComponentInChildren<Renderer>();
+        balloonRenderer = GetComponentInChildren<Renderer>();
     }
 
     public void InitSetting()
     {
         var randomMat = Random.Range(0, randomBalloonColorSeeds.Count);
-        renderer.material = Instantiate(randomBalloonColorSeeds[randomMat]);
+        balloonRenderer.material = Instantiate(randomBalloonColorSeeds[randomMat]);
     }
 }

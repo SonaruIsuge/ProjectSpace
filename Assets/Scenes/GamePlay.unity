@@ -7456,8 +7456,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856f57dcc0967c6408e1bfab01f781ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeLimit: 300
-  playerPairManager: {fileID: 1885581549}
+  gameTimeLimit: 5
+  players:
+  - {fileID: 660228954}
+  - {fileID: 99419272}
+  - {fileID: 1198737171}
+  - {fileID: 107295771}
   playerManager: {fileID: 805709847}
   machineManager: {fileID: 794795004}
   itemManager: {fileID: 2132360308}
@@ -10727,12 +10731,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d4826750496bc4ba5eb5bad3278e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
+  <Players>k__BackingField:
   - {fileID: 660228954}
   - {fileID: 99419272}
   - {fileID: 1198737171}
   - {fileID: 107295771}
-  allReady: 0
 --- !u!1 &1915958132
 GameObject:
   m_ObjectHideFlags: 0

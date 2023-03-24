@@ -4,6 +4,7 @@ using System.Linq;
 using Script.Item__Rubbish_;
 using SonaruUtilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DataManager : TSingletonMonoBehaviour<DataManager>
 {
@@ -15,6 +16,8 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
     private Dictionary<RecycleType, ItemTypeCollection> recycleRuleDict;
     private Dictionary<RecycleType, Sprite> recycleHintDict;
 
+    public List<InputDevice> AllPairedDevices { get; private set; } 
+
     public Material SelectItemMat;
 
     protected override void Awake()
@@ -23,6 +26,8 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
         itemContainerDict = itemContainer.GenerateDictionary();
         recycleRuleDict = recycleRule.GenerateDictionary();
         recycleHintDict = recycleHint.GenerateDictionary();
+
+        AllPairedDevices = new List<InputDevice>();
     }
 
 
@@ -47,5 +52,11 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
     {
         if (recycleHintDict == null || !recycleHintDict.ContainsKey(recycleType)) return null;
         return recycleHintDict[recycleType];
+    }
+
+
+    public void SavePairedPlayer(List<PlayerPairingUnit> allPairedUnits)
+    {
+        foreach(var unit in allPairedUnits) AllPairedDevices.Add(unit.InputDevice);
     }
 }

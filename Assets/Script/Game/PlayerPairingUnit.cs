@@ -1,5 +1,4 @@
 ﻿
-
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,13 +6,16 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
 
 
+[Serializable]
 public class PlayerPairingUnit
 {
-    public Player Player { get; }
-    public PlayerInput PlayerInput { get; }
+    public int PlayerIndex { get; }
+    public Player Player { get; private set; }
+    public PlayerInput PlayerInput => Player ? Player.PlayerInput as PlayerInput : null;
     public InputUser InputUser { get; private set; }
 
-    private InputDevice inputDevice;
+    public InputDevice InputDevice { get; private set; }
+    public int DeviceId => InputDevice?.deviceId ?? -1;
 
     public bool IsPaired { get; private set; }
     public bool IsReady { get; private set; }
@@ -23,12 +25,11 @@ public class PlayerPairingUnit
     public event Action<PlayerPairingUnit, bool> OnChangeReady;
 
 
-    public PlayerPairingUnit(Player player)
+    public PlayerPairingUnit(int playerIndex)
     {
-           Player = player;
-           PlayerInput = player.PlayerInput as PlayerInput;
-           InputUser = PlayerInput?.inputUser ?? default;
-           inputDevice = null;
+           PlayerIndex = playerIndex;
+           Player = null;
+           InputDevice = null;
 
            IsPaired = false;
            IsReady = false;
@@ -36,17 +37,19 @@ public class PlayerPairingUnit
     }
 
 
-    public bool TryPairPlayerWithDevice(InputControl c, InputEventPtr e)
+    public bool TryPairPlayerWithDevice(Player player, InputDevice device)
     {
-           if (PlayerInput == null) return false;
+           if (player.PlayerInput == null) return false;
            if (InputUser.valid) return false;
 
-           inputDevice = c.device;
-           InputUser = InputUser.PerformPairingWithDevice(inputDevice);
+           Player = player;
+           InputDevice = device;
+           
+           InputUser = InputUser.PerformPairingWithDevice(InputDevice);
            InputUser.AssociateActionsWithUser(PlayerInput.playerInputAction);
 
            IsPaired = true;
-           Debug.Log($"Pairing {Player.name} with {inputDevice.name}");
+           Debug.Log($"Pairing {Player.name} with {InputDevice.name}");
 
            return true;
     }
@@ -55,8 +58,9 @@ public class PlayerPairingUnit
     public void UnpairDevice()
     {
            if (PlayerInput == null) return;
-
-           InputUser.UnpairDevice(inputDevice);
+           
+           InputUser.UnpairDevicesAndRemoveUser();
+           
            IsPaired = false;
     }
 
