@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
-using UnityEngine.Serialization;
 
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private List<Player> AllPlayers;
     [SerializeField] private List<Player> activePlayers;
     
     private SinglePlayerMoveCalculator singlePlayerMoveCalculator;
@@ -16,15 +16,24 @@ public class PlayerManager : MonoBehaviour
     private ItemSizeMoveCalculator itemSizeMoveCalculator;
     
     private Dictionary<Item, List<Player>> playerInteractItemDict;
-
-    public event Action<float> OnRotateCameraCall;
-
     
     private float worldRotateAngle;
-    public void SetWorldRotate(float angle) => worldRotateAngle = angle;
-    
     private bool isStart;
-    public void SetStart(bool start) => isStart = start;
+
+    public event Action<Player> OnPlayerActive;
+    public event Action<float> OnRotateCameraCall;
+    
+    
+    public void SetWorldRotate(float angle)
+    {
+        worldRotateAngle = angle;
+    }
+    
+    
+    public void SetStart(bool start)
+    {
+        isStart = start;
+    }
 
 
     private void Awake()
@@ -103,6 +112,31 @@ public class PlayerManager : MonoBehaviour
         else playerInteractItemDict[item].Remove(interactor);
     }
 
+
+    public void BindPlayerWithDevice(InputDevice[] pairedDevices)
+    {
+        for (var i = 0; i < AllPlayers.Count; i++)
+        {
+            var player = AllPlayers[i];
+            if (i >= pairedDevices.Length)
+            {
+                player.SetActive(false);
+                player.gameObject.SetActive(false);
+                continue;
+            }
+            
+            if (player.PlayerInput is not PlayerInput playerInput)
+            {
+                Debug.LogError($"Player{i} cannot pair with device");
+                continue;
+            }
+            
+            playerInput.PairWithDevice(pairedDevices[i]);
+            ActivePlayer(player);
+            OnPlayerActive?.Invoke(player);
+        }
+    }
+    
 
     public void ActivePlayer(Player player)
     {

@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Data")] 
     [SerializeField] private float gameTimeLimit;
-    [SerializeField] private List<Player> players;
     
     [Header("Other Managers")]
     [SerializeField] private PlayerManager playerManager;
@@ -23,7 +22,6 @@ public class GameManager : MonoBehaviour
 
     private SimpleTimer gameTimer;
 
-    private event Action<Player> OnPlayerPaired;
     public static event Action OnGameStart;
     public static event Action<bool> OnGameOver;
     
@@ -45,24 +43,24 @@ public class GameManager : MonoBehaviour
     private void BindManager()
     {
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
+        playerManager.OnPlayerActive += uiManager.BindActivePlayerUI;
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
-
-        OnPlayerPaired += uiManager.PlayerPair;
-        OnGameOver += GameOver;
-
+        
         uiManager.OnPressReplay += ReStartGame;
+        
+        OnGameOver += GameOver;
     }
 
 
     private void UnbindManager()
     {
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
+        playerManager.OnPlayerActive -= uiManager.BindActivePlayerUI;
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
-
-        OnPlayerPaired -= uiManager.PlayerPair;
-        OnGameOver -= GameOver;
         
         uiManager.OnPressReplay -= ReStartGame;
+        
+        OnGameOver -= GameOver;
     }
 
 
@@ -97,18 +95,7 @@ public class GameManager : MonoBehaviour
         }
         
         var pairedDevices = pairingData.PairingPlayers;
-        for (var i = 0; i < pairedDevices.Length; i++)
-        {
-            if (players[i].PlayerInput is not PlayerInput playerInput)
-            {
-                Debug.LogError($"Player{i} cannot pair with device");
-                continue;
-            }
-            
-            playerInput.PairWithDevice(pairedDevices[i]);
-            playerManager.ActivePlayer(players[i]);
-            OnPlayerPaired?.Invoke(players[i]);
-        }
+        playerManager.BindPlayerWithDevice(pairedDevices);
     }
 
 

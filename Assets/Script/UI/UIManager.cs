@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void PlayerPair(Player player)
+    public void BindActivePlayerUI(Player player)
     {
         pairPlayerNum++;
         var hintUI = Instantiate(recycleHintUI, mainGameView.transform);
