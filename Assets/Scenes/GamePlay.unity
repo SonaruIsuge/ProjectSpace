@@ -8482,6 +8482,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8402091010096100826, guid: f327c00193f48924a9cff70abaa4fb26,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8550787566185180182, guid: f327c00193f48924a9cff70abaa4fb26,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
