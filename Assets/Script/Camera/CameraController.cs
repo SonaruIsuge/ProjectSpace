@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
     }
 
 
-    public async void RotateCam(float clockwise)
+    public async void RotateCam(Player player, float clockwise)
     {
         if(clockwise == 0) return;
         if(isRotating) return;

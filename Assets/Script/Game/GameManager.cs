@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     private void BindManager()
     {
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
+        playerManager.OnRotateCameraCall += uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive += uiManager.BindActivePlayerUI;
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
         
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
     private void UnbindManager()
     {
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
+        playerManager.OnRotateCameraCall -= uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive -= uiManager.BindActivePlayerUI;
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
         

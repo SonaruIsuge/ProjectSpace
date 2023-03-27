@@ -21,8 +21,8 @@ public class PlayerManager : MonoBehaviour
     private float worldRotateAngle;
     private bool isStart;
 
-    public event Action<Player> OnPlayerActive;
-    public event Action<float> OnRotateCameraCall;
+    public event Action<Player, int> OnPlayerActive;
+    public event Action<Player, float> OnRotateCameraCall;
     
     
     public void SetWorldRotate(float angle)
@@ -95,7 +95,7 @@ public class PlayerManager : MonoBehaviour
             player.DetectInteract();
             
             // World turns in the opposite direction of the camera
-            if(player.PlayerInput.RotateCam != 0) OnRotateCameraCall?.Invoke(-player.PlayerInput.RotateCam);    
+            if(player.PlayerInput.RotateCam != 0) OnRotateCameraCall?.Invoke(player, -player.PlayerInput.RotateCam);    
         }
     }
     
@@ -134,7 +134,7 @@ public class PlayerManager : MonoBehaviour
             
             playerInput.PairWithDevice(bindPlayerDeviceDict[i]);
             ActivePlayer(player);
-            OnPlayerActive?.Invoke(player);
+            OnPlayerActive?.Invoke(player, i);
         }
     }
     

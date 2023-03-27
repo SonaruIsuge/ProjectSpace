@@ -850,8 +850,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainGameView: {fileID: 1915958137}
-  recycleHintUI: {fileID: 532956850256093402, guid: 1dd31bb18a743924a968b36d59693a33,
-    type: 3}
+  recycleHintUIPrefab: {fileID: 0}
+  playerRotateCamPrefab: {fileID: 0}
+  allIconTextures:
+  - {fileID: 2800000, guid: dc7153a8229ec754bb3261724a96c427, type: 3}
+  - {fileID: 2800000, guid: 277a6b20780fcef4dbf217a387db73e0, type: 3}
+  - {fileID: 2800000, guid: 1868d649de4c53a469374c6d93f6e45e, type: 3}
+  - {fileID: 2800000, guid: 43d6854bc9fff6c41bd69ee35b42d332, type: 3}
   gameOverView: {fileID: 2127413824}
 --- !u!4 &143546002
 Transform:
@@ -2086,9 +2091,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -10}
+  m_AnchoredPosition: {x: 90, y: -90}
   m_SizeDelta: {x: 100, y: 90}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &439273264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9070,9 +9075,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40, y: -10}
+  m_AnchoredPosition: {x: -90, y: -90}
   m_SizeDelta: {x: 100, y: 90}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1773570176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9582,6 +9587,9 @@ MonoBehaviour:
   remainRubbishText: {fileID: 1629309347}
   remainTimeBg: {fileID: 461631498}
   remainTimeText: {fileID: 938327773}
+  turnLeftTransform: {fileID: 439273263}
+  turnRightTransform: {fileID: 1773570175}
+  randomIconRange: {x: 100, y: 100}
 --- !u!1001 &1946893408
 PrefabInstance:
   m_ObjectHideFlags: 0

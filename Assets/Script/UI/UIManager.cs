@@ -7,15 +7,19 @@ using DG.Tweening;
 using SonaruUtilities;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     private Dictionary<Player, RecycleHintUI> playerHintUIDict;
+    private Dictionary<Player, PlayerRotateCamIcon> playerIconDict;
 
     [Header("In Game")] 
     [SerializeField] private MainGameView mainGameView;
-    [SerializeField] private RecycleHintUI recycleHintUI;
+    [SerializeField] private RecycleHintUI recycleHintUIPrefab;
+    [SerializeField] private PlayerRotateCamIcon playerRotateCamPrefab;
+    [SerializeField] private List<Texture> allIconTextures;
     [Header("Game Over")]
     [SerializeField] private GameOverView gameOverView;
 
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour
         gameOverView.gameObject.SetActive(false);
         
         playerHintUIDict = new Dictionary<Player, RecycleHintUI>();
+        playerIconDict = new Dictionary<Player, PlayerRotateCamIcon>();
     }
 
 
@@ -48,12 +53,16 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void BindActivePlayerUI(Player player)
+    public void BindActivePlayerUI(Player player, int characterIndex)
     {
         pairPlayerNum++;
-        var hintUI = Instantiate(recycleHintUI, mainGameView.transform);
-        playerHintUIDict.Add(player, hintUI);
+        var hintUI = Instantiate(recycleHintUIPrefab, mainGameView.transform);
         hintUI.BindPlayer(player);
+        playerHintUIDict.Add(player, hintUI);
+
+        var playerIcon = Instantiate(playerRotateCamPrefab, mainGameView.transform);
+        playerIcon.BindPlayerWithIcon(player, allIconTextures[characterIndex]);
+        playerIconDict.Add(player, playerIcon);
     }
 
 
@@ -80,6 +89,12 @@ public class UIManager : MonoBehaviour
     {
         gameOverView.gameObject.SetActive(true);
         gameOverView.SetGameOverData(isWin, useTime);
+    }
+
+
+    public void ShowPlayerIcon(Player player, float clockwise)
+    {
+        playerIconDict[player].Show(mainGameView.RandomFromRotateUI(clockwise));
     }
 
 

@@ -18,13 +18,14 @@ public class PlayerInput : IPlayerInput
     public bool HoldInteract => interactUnderPerform;
     public bool ReleaseInteract => playerInputAction.GamePlay.Interact.WasReleasedThisFrame(); 
     public bool SwitchEquipment => switchEquipmentUnderPerform && playerInputAction.GamePlay.SwitchEquip.WasPressedThisFrame();
-    public float RotateCam { get; private set; }
+    public float RotateCam => playerInputAction.GamePlay.RotateCam.WasPressedThisFrame() ? rotateCamValue : 0;
 
     
     
     private bool interactUnderPerform;
     private bool switchEquipmentUnderPerform;
-
+    private int rotateCamValue;    
+    
     
     public PlayerInput(Player player)
     {
@@ -100,8 +101,8 @@ public class PlayerInput : IPlayerInput
     private void OnInteractCancel(InputAction.CallbackContext ctx) => interactUnderPerform = false;
     private void OnSwitchEquipmentPerform(InputAction.CallbackContext ctx) => switchEquipmentUnderPerform = true;
     private void OnSwitchEquipmentCancel(InputAction.CallbackContext ctx) => switchEquipmentUnderPerform = false;
-    private void OnRotateCamPerform(InputAction.CallbackContext ctx) => RotateCam = FixFloatValueToInt(ctx.ReadValue<float>());
-    private void OnRotateCamCancel(InputAction.CallbackContext ctx) => RotateCam = 0;
+    private void OnRotateCamPerform(InputAction.CallbackContext ctx) => rotateCamValue = FixFloatValueToInt(ctx.ReadValue<float>());
+    private void OnRotateCamCancel(InputAction.CallbackContext ctx) => rotateCamValue = 0;
 
 
     private int FixFloatValueToInt(float direction)
