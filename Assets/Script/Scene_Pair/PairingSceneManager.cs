@@ -71,7 +71,7 @@ public class PairingSceneManager : MonoBehaviour
         pairManager.StopListenUnpairDevice();
         OnAllPlayerReady?.Invoke();
 
-        await Task.Delay(2000);
+        await Task.Delay(500);
 
         var pairedDict = pairManager.PairedUnit.ToDictionary(unit => unit.CharacterIndex, unit => unit.InputDevice);
         pairManager.UnpairAllDevice();

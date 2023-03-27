@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
         if (GameFlowManager.Instance.SceneData is not PairingData pairingData)
         {
             Debug.LogError("Can not get pairing data");
+            playerManager.BindPlayerWithDevice(new Dictionary<int, InputDevice> { { 0, Keyboard.current.device } });
             return;
         }
         
