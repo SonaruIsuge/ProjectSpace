@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
 
-
+/// <summary>
+/// Abandoned script !!
+/// </summary>
 [Serializable]
 public class PlayerPairingUnit
 {

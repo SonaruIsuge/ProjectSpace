@@ -14,7 +14,6 @@ public class PairingSceneManager : MonoBehaviour
     [SerializeField] private PlayerPairActManager playerActManager;
     
     [SerializeField] private bool isAllReady;
-    //private List<PlayerPairingUnit> allPairedUnits;
     private List<DevicePairUnit> allPairedUnits;
     private bool underReadyProgress;
     
@@ -23,7 +22,6 @@ public class PairingSceneManager : MonoBehaviour
     
     private void Awake()
     {
-        //allPairedUnits = new List<PlayerPairingUnit>();
         allPairedUnits = new List<DevicePairUnit>();
         isAllReady = false;
         underReadyProgress = false;
@@ -34,14 +32,14 @@ public class PairingSceneManager : MonoBehaviour
     {
         pairManager.InitSetup();
         pairManager.StartListenUnpairDevice();
+        uiManager.Init();
+        
         FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
     }
 
 
     private void OnEnable()
     {
-        //pairManager.OnPlayerPair += RecordPairedUnit;
-        //pairManager.OnPlayerPair += uiManager.AddReadyText;
         pairManager.OnDevicePair += RecordPairedUnit;
         pairManager.OnDeviceUnpair += RemoveUnpairUnit;
     }
@@ -49,8 +47,6 @@ public class PairingSceneManager : MonoBehaviour
 
     private void OnDisable()
     {
-        //pairManager.OnPlayerPair -= RecordPairedUnit;
-        //pairManager.OnPlayerPair -= uiManager.AddReadyText;
         pairManager.OnDevicePair -= RecordPairedUnit;
         pairManager.OnDeviceUnpair -= RemoveUnpairUnit;
     }
@@ -71,8 +67,6 @@ public class PairingSceneManager : MonoBehaviour
     {
         unit.OnChangeReady += UpdateReadyState;
         allPairedUnits.Add(unit);
-
-        //unit.Player.gameObject.SetActive(true);
     }
 
 

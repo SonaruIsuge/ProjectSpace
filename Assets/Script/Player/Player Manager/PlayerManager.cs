@@ -104,10 +104,21 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public void AddActivePlayer(Player player)
+    public void ActivePlayer(Player player)
     {
+        player.SetActive(true);
         if(!activePlayers.Contains(player)) activePlayers.Add(player);
     }
 
     
+    public void RemoveAllActivePlayer()
+    {
+        foreach (var player in activePlayers)
+        {
+            if(player.PlayerInput is not PlayerInput input) continue;
+            input.UnpairWithDevice();
+            player.SetActive(false);
+        }
+        activePlayers.Clear();
+    }
 }

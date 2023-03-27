@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
 
     private SimpleTimer gameTimer;
-    private List<PlayerPairingUnit> pairedPlayerUnit;
 
     private event Action<Player> OnPlayerPaired;
     public static event Action OnGameStart;
@@ -33,7 +32,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         IsGameOver = false;
-        pairedPlayerUnit = new List<PlayerPairingUnit>();
         
         playerManager.SetStart(false);
         itemManager.SetStart(false);
@@ -101,13 +99,15 @@ public class GameManager : MonoBehaviour
         var pairedDevices = pairingData.PairingPlayers;
         for (var i = 0; i < pairedDevices.Length; i++)
         {
-            var unit = new PlayerPairingUnit(i);
-            unit.TryPairPlayerWithDevice(players[i], pairedDevices[i]);
-            pairedPlayerUnit.Add(unit);
+            if (players[i].PlayerInput is not PlayerInput playerInput)
+            {
+                Debug.LogError($"Player{i} cannot pair with device");
+                continue;
+            }
             
-            unit.Player.SetActive(true);
-            playerManager.AddActivePlayer(unit.Player);
-            OnPlayerPaired?.Invoke(unit.Player);
+            playerInput.PairWithDevice(pairedDevices[i]);
+            playerManager.ActivePlayer(players[i]);
+            OnPlayerPaired?.Invoke(players[i]);
         }
     }
 
@@ -137,7 +137,8 @@ public class GameManager : MonoBehaviour
         playerManager.SetStart(false);
         itemManager.SetStart(false);
         machineManager.SetStart(false);
-        foreach(var unit in pairedPlayerUnit) unit.UnpairDevice();
+
+        playerManager.RemoveAllActivePlayer();
         
         IsGameOver = true;
         gameTimer.Pause();

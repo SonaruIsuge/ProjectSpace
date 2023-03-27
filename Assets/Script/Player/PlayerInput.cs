@@ -72,6 +72,22 @@ public class PlayerInput : IPlayerInput
         if (enable) playerInputAction.GamePlay.Enable();
         else playerInputAction.GamePlay.Disable();
     }
+
+
+    public void PairWithDevice(InputDevice device)
+    {
+        inputUser = InputUser.PerformPairingWithDevice(device);
+        inputUser.AssociateActionsWithUser(playerInputAction);
+        Debug.Log($"Pair {targetPlayer.name} with {device.name}");
+    }
+
+
+    public void UnpairWithDevice()
+    {
+        if(!inputUser.valid) return;
+        
+        inputUser.UnpairDevicesAndRemoveUser();
+    }
     
     
     private void OnMovePerform(InputAction.CallbackContext ctx) => Movement = ctx.ReadValue<Vector2>();

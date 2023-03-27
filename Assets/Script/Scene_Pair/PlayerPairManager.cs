@@ -78,19 +78,6 @@ public class PlayerPairManager : MonoBehaviour
         if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
             return;
         
-        // for (var i = 0; i < allPlayerPairUnit.Count; i++)
-        // {
-        //     var pairUnit = allPlayerPairUnit[i];
-        //     var pairSuccess = pairUnit.TryPairPlayerWithDevice(Players[i], c.device);
-        //
-        //     if (!pairSuccess) continue;
-        //
-        //     pairUnit.Player.SetActive(true);
-        //     pairedPlayerNum++;
-        //     OnPlayerPair?.Invoke(pairUnit);
-        //     return;
-        // }
-        
         for (var i = 0; i < maxPairNumber; i++)
         {
             var pairUnit = devicePairUnits[i];
@@ -99,7 +86,6 @@ public class PlayerPairManager : MonoBehaviour
             if (!pairSuccess) continue;
             
             pairedPlayerNum++;
-            //OnDevicePair?.Invoke(pairUnit);
             return;
         }
     }
@@ -108,7 +94,6 @@ public class PlayerPairManager : MonoBehaviour
     public void UnpairDevice(DevicePairUnit unit)
     {
         unit.UnpairDevice();
-        
     }
 
 
