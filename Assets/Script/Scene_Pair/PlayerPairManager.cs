@@ -11,17 +11,17 @@ using UnityEngine.InputSystem.Users;
 public class PlayerPairManager : MonoBehaviour
 {
     [SerializeField] private int maxPairNumber;
-    //[field: SerializeField] public List<Player> Players { get; private set; }
-    //public List<PlayerPairingUnit> allPlayerPairUnit { get; private set; }
-
     private DevicePairUnit[] devicePairUnits;
-    private int pairedPlayerNum;
 
-    //public event Action<PlayerPairingUnit> OnPlayerPair;
+    public List<DevicePairUnit> PairedUnit { get; private set; }
+    public int PairedNum => PairedUnit.Count;
+    public bool AllReady => PairedNum > 0 && PairedUnit.Aggregate(true, (current, unit) => current & unit.IsReady);
+
     public event Action<DevicePairUnit> OnDevicePair;
     public event Action<DevicePairUnit> OnDeviceUnpair;
-    
+    public event Action<DevicePairUnit, bool> OnDeviceChangeReady;
 
+    
     private void OnDisable()
     {
         UnregisterEvent();
@@ -30,13 +30,10 @@ public class PlayerPairManager : MonoBehaviour
 
     public void InitSetup()
     {
-        //allPlayerPairUnit = new List<PlayerPairingUnit>();
-        //for (var i = 0; i < maxPairNumber; i++) allPlayerPairUnit.Add(new PlayerPairingUnit(i));
-
         devicePairUnits = new DevicePairUnit[maxPairNumber];
-        for (var i = 0; i < maxPairNumber; i++) devicePairUnits[i] = new DevicePairUnit();
+        for (var i = 0; i < maxPairNumber; i++) devicePairUnits[i] = new DevicePairUnit(i);
 
-        pairedPlayerNum = 0;
+        PairedUnit = new List<DevicePairUnit>();
 
         RegisterEvent();
     }
@@ -54,6 +51,15 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
+    public void UpdateSelf()
+    {
+        for (var i = 0; i < PairedNum; i++)
+        {
+            PairedUnit[i].UpdateSelf();
+        }
+    }
+
+
     private void RegisterEvent()
     {
         InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
@@ -62,6 +68,7 @@ public class PlayerPairManager : MonoBehaviour
         {
             unit.OnPairDevice += PairDeviceEvent;
             unit.OnUnpairDevice += UnpairDeviceEvent;
+            unit.OnChangeReady += DeviceChangeReadyEvent;
         }
     }
 
@@ -84,8 +91,6 @@ public class PlayerPairManager : MonoBehaviour
             var pairSuccess = pairUnit.TryPairDevice(c.device);
 
             if (!pairSuccess) continue;
-            
-            pairedPlayerNum++;
             return;
         }
     }
@@ -99,23 +104,35 @@ public class PlayerPairManager : MonoBehaviour
 
     public void UnpairAllDevice()
     {
-        if(pairedPlayerNum == 0) return;
+        if(PairedNum == 0) return;
         
-        foreach (var pairedDevice in devicePairUnits.Where(unit => unit.IsPaired))
+        foreach (var unit in PairedUnit)
         {
-            pairedDevice.UnpairDevice();
+            // Remove unit from PairedUnit will cause error
+            unit.OnUnpairDevice -= UnpairDeviceEvent;
+            
+            unit.UnpairDevice();
         }
+        PairedUnit.Clear();
     }
 
 
     private void PairDeviceEvent(DevicePairUnit unit)
     {
+        PairedUnit.Add(unit);
         OnDevicePair?.Invoke(unit);
     }
 
 
     private void UnpairDeviceEvent(DevicePairUnit unit)
     {
+        PairedUnit.Remove(unit);
         OnDeviceUnpair?.Invoke(unit);
+    }
+
+
+    private void DeviceChangeReadyEvent(DevicePairUnit unit, bool isReady)
+    {
+        OnDeviceChangeReady?.Invoke(unit, isReady);
     }
 }

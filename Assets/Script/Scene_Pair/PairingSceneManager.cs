@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,13 +9,11 @@ using UnityEngine.InputSystem;
 public class PairingSceneManager : MonoBehaviour
 {
     [SerializeField] private int minPlayerNum;
-    
+    [SerializeField] private List<Player> pairPlayers;
     [SerializeField] private PlayerPairManager pairManager;
     [SerializeField] private PairingSceneUIManager uiManager;
     [SerializeField] private PlayerPairActManager playerActManager;
     
-    [SerializeField] private bool isAllReady;
-    private List<DevicePairUnit> allPairedUnits;
     private bool underReadyProgress;
     
     public event Action OnAllPlayerReady;
@@ -22,8 +21,6 @@ public class PairingSceneManager : MonoBehaviour
     
     private void Awake()
     {
-        allPairedUnits = new List<DevicePairUnit>();
-        isAllReady = false;
         underReadyProgress = false;
     }
     
@@ -40,56 +37,33 @@ public class PairingSceneManager : MonoBehaviour
 
     private void OnEnable()
     {
-        pairManager.OnDevicePair += RecordPairedUnit;
-        pairManager.OnDeviceUnpair += RemoveUnpairUnit;
+        pairManager.OnDeviceChangeReady += uiManager.PlayerChangeReady;
+        pairManager.OnDeviceUnpair += ResetReadyUI;
     }
 
 
     private void OnDisable()
     {
-        pairManager.OnDevicePair -= RecordPairedUnit;
-        pairManager.OnDeviceUnpair -= RemoveUnpairUnit;
+        pairManager.OnDeviceChangeReady -= uiManager.PlayerChangeReady;
+        pairManager.OnDeviceUnpair -= ResetReadyUI;
     }
 
 
     private void Update()
     {
-        for (var i = 0; i < allPairedUnits.Count; i++)
-        {
-            allPairedUnits[i].UpdateSelf();
-        }
+        pairManager.UpdateSelf();
 
-        if (allPairedUnits.Count >= minPlayerNum && isAllReady) AllReady();
+        if(pairManager.PairedNum >= minPlayerNum && pairManager.AllReady) StartGame();
     }
 
-
-    private void RecordPairedUnit(DevicePairUnit unit)
+    
+    private void ResetReadyUI(DevicePairUnit unit)
     {
-        unit.OnChangeReady += UpdateReadyState;
-        allPairedUnits.Add(unit);
+        uiManager.PlayerChangeReady(unit, false);
     }
+    
 
-
-    private void RemoveUnpairUnit(DevicePairUnit unit)
-    {
-        if(!allPairedUnits.Contains(unit)) return;
-        
-        unit.OnChangeReady -= UpdateReadyState;
-        allPairedUnits.Remove(unit);
-    }
-
-
-    private void UpdateReadyState(DevicePairUnit unit, bool isReady)
-    {
-        var playerIndex = allPairedUnits.IndexOf(unit);
-        uiManager.PlayerChangeReady(playerIndex, isReady);
-        
-        isAllReady = true;
-        foreach (var pairUnit in allPairedUnits) isAllReady &= pairUnit.IsReady;
-    }
-
-
-    private async void AllReady()
+    private async void StartGame()
     {
         if(underReadyProgress) return;
         
@@ -98,10 +72,9 @@ public class PairingSceneManager : MonoBehaviour
         OnAllPlayerReady?.Invoke();
 
         await Task.Delay(2000);
-        
-        var allPairedDevice = new InputDevice[allPairedUnits.Count];
-        for (var i = 0; i < allPairedUnits.Count; i++) allPairedDevice[i] = allPairedUnits[i].InputDevice;
+
+        var pairedDict = pairManager.PairedUnit.ToDictionary(unit => unit.CharacterIndex, unit => unit.InputDevice);
         pairManager.UnpairAllDevice();
-        GameFlowManager.Instance.LoadScene(1, new PairingData(allPairedDevice));
+        GameFlowManager.Instance.LoadScene(1, new PairingData(pairedDict));
     }
 }

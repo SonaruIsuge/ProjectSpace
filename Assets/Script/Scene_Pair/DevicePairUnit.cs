@@ -9,7 +9,7 @@ public class DevicePairUnit
     private PlayerInputAction playerInputAction;
     private InputUser inputUser;
     public InputDevice InputDevice { get; private set; }
-
+    public int CharacterIndex { get; }
     private bool PressReady => playerInputAction.Pair.Ready.WasPressedThisFrame();
     private bool Unpair => playerInputAction.Pair.Unpair.WasPressedThisFrame();
 
@@ -23,10 +23,11 @@ public class DevicePairUnit
     public event Action<DevicePairUnit, bool> OnChangeReady;
     
 
-    public DevicePairUnit()
+    public DevicePairUnit(int characterIndex)
     {
         playerInputAction = new PlayerInputAction();
 
+        CharacterIndex = characterIndex;
         IsPaired = false;
         startListenReadyInput = false;
     }
@@ -52,7 +53,7 @@ public class DevicePairUnit
         Enable(true);
         
         OnPairDevice?.Invoke(this);
-        Debug.Log($"Success pair {InputDevice.name}");
+        Debug.Log($"Success pair Character{CharacterIndex} with {InputDevice.name}");
 
         return true;
     }
@@ -63,7 +64,7 @@ public class DevicePairUnit
         if(!inputUser.valid) return;
         
         Enable(false);
-        Debug.Log($"Unpair {InputDevice.name} with InputUser{inputUser.id}");
+        Debug.Log($"Unpair {InputDevice.name} with Character{CharacterIndex}");
         
         inputUser.UnpairDevicesAndRemoveUser();
         

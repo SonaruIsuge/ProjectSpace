@@ -17,8 +17,8 @@ public class PairingSceneUIManager : MonoBehaviour
     }
     
 
-    public void PlayerChangeReady(int index, bool isReady)
+    public void PlayerChangeReady(DevicePairUnit unit, bool isReady)
     {
-        allPairedPlayerText[index].gameObject.SetActive(isReady);
+        allPairedPlayerText[unit.CharacterIndex].gameObject.SetActive(isReady);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -113,12 +114,12 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-    public void BindPlayerWithDevice(InputDevice[] pairedDevices)
+    public void BindPlayerWithDevice(Dictionary<int, InputDevice> bindPlayerDeviceDict)
     {
         for (var i = 0; i < AllPlayers.Count; i++)
         {
             var player = AllPlayers[i];
-            if (i >= pairedDevices.Length)
+            if (!bindPlayerDeviceDict.Keys.Contains(i))
             {
                 player.SetActive(false);
                 player.gameObject.SetActive(false);
@@ -131,7 +132,7 @@ public class PlayerManager : MonoBehaviour
                 continue;
             }
             
-            playerInput.PairWithDevice(pairedDevices[i]);
+            playerInput.PairWithDevice(bindPlayerDeviceDict[i]);
             ActivePlayer(player);
             OnPlayerActive?.Invoke(player);
         }

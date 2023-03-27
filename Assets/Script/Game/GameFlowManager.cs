@@ -1,4 +1,5 @@
-﻿using SonaruUtilities;
+﻿using System.Collections.Generic;
+using SonaruUtilities;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -21,9 +22,9 @@ public abstract class SceneData {}
 
 public class PairingData : SceneData
 {
-    public InputDevice[] PairingPlayers { get; }
+    public Dictionary<int, InputDevice> PairingPlayers { get; }
 
-    public PairingData(InputDevice[] pairingPlayers)
+    public PairingData(Dictionary<int, InputDevice> pairingPlayers)
     {
         PairingPlayers = pairingPlayers;
     }
