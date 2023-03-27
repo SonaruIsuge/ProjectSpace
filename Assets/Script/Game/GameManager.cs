@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
@@ -91,8 +92,14 @@ public class GameManager : MonoBehaviour
 
     private void LoadPairedPlayer()
     {
-        var pairedDevices = DataManager.Instance.AllPairedDevices;
-        for (var i = 0; i < pairedDevices.Count; i++)
+        if (GameFlowManager.Instance.SceneData is not PairingData pairingData)
+        {
+            Debug.LogError("Can not get pairing data");
+            return;
+        }
+        
+        var pairedDevices = pairingData.PairingPlayers;
+        for (var i = 0; i < pairedDevices.Length; i++)
         {
             var unit = new PlayerPairingUnit(i);
             unit.TryPairPlayerWithDevice(players[i], pairedDevices[i]);
@@ -142,9 +149,6 @@ public class GameManager : MonoBehaviour
 
     private void ReStartGame()
     {
-        
-        DataManager.Instance.AllPairedDevices.Clear();
-        
         UnbindManager();
         
         SceneManager.LoadScene(0);

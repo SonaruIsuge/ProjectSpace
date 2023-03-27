@@ -849,17 +849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93fd64df00810ab44b69fe0cb30ae803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaitToStartGamePanel: {fileID: 315326104}
-  playerCameras:
-  - {fileID: 7942521159940884571}
-  - {fileID: 1815321324}
-  - {fileID: 672416831}
-  - {fileID: 170581053}
-  playerReadyText:
-  - {fileID: 1663782643}
-  - {fileID: 264017545}
-  - {fileID: 342912028}
-  - {fileID: 937402976}
   mainGameView: {fileID: 1915958137}
   recycleHintUI: {fileID: 532956850256093402, guid: 1dd31bb18a743924a968b36d59693a33,
     type: 3}
@@ -7456,7 +7445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856f57dcc0967c6408e1bfab01f781ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeLimit: 5
+  gameTimeLimit: 3
   players:
   - {fileID: 660228954}
   - {fileID: 99419272}

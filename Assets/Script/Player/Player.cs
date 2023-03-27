@@ -28,7 +28,6 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: Header("Interact")]
     [field: SerializeField] public Transform ClawTransform { get; private set; }
     [field: SerializeField] public float InteractRange { get; private set; }
-    [SerializeField] private float pushForce;
     [field: SerializeField] public Transform InteractPoint { get; private set; }
     [field: SerializeField] public float ClawSpeed { get; private set; }
     [field: SerializeField] public Transform HeadPoint { get; private set; }
@@ -46,10 +45,10 @@ public class Player : MonoBehaviour, IGravityAffectable
     
     public bool UnderGravity { get; set; }
     public bool IgnoreGravity => PlayerInput.JetDirection != 0;
-     public bool IsActive { get; private set; }
+    public bool IsActive { get; private set; }
     
      
-     public void SetActive(bool active) => IsActive = active;
+    public void SetActive(bool active) => IsActive = active;
      
 
     // For debug use
@@ -119,15 +118,5 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         var useGravity = UnderGravity && !IgnoreGravity;
         PlayerGravityController.AddGravity(useGravity, GroundCheckPoint.position, gravitySize, gravityInitialVelocity);
-    }
-    
-    
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        var rb = hit.collider.attachedRigidbody;
-        if(!rb || !rb.TryGetComponent<Item>(out var item)) return;
-        
-        if(item.ItemData.Size != ItemSize.Large && item.ItemData.Size != ItemSize.ExtraLarge) 
-            rb.AddForce(hit.moveDirection * pushForce, ForceMode.Impulse);
     }
 }

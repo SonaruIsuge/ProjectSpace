@@ -348,6 +348,76 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Pair"",
+            ""id"": ""46f02bae-4e53-4ac6-9e75-4312e2d91d1c"",
+            ""actions"": [
+                {
+                    ""name"": ""Ready"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9f7752d-d590-494f-a204-94c2597a3f96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Unpair"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2641b39-cc8a-493a-b452-d991819fafc5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""7d1514b7-bab4-42d7-b5e1-a70ba0c1082e"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ready"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e44aaa7-4f69-478b-b5a9-38b67882d58b"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ready"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6145a46-3e2c-4bb2-b78a-40b50060f913"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unpair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d61d15bb-ce43-4934-8bf7-aa404877af8b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unpair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -360,6 +430,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         m_GamePlay_Interact = m_GamePlay.FindAction("Interact", throwIfNotFound: true);
         m_GamePlay_SwitchEquip = m_GamePlay.FindAction("SwitchEquip", throwIfNotFound: true);
         m_GamePlay_RotateCam = m_GamePlay.FindAction("RotateCam", throwIfNotFound: true);
+        // Pair
+        m_Pair = asset.FindActionMap("Pair", throwIfNotFound: true);
+        m_Pair_Ready = m_Pair.FindAction("Ready", throwIfNotFound: true);
+        m_Pair_Unpair = m_Pair.FindAction("Unpair", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -488,6 +562,47 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         }
     }
     public GamePlayActions @GamePlay => new GamePlayActions(this);
+
+    // Pair
+    private readonly InputActionMap m_Pair;
+    private IPairActions m_PairActionsCallbackInterface;
+    private readonly InputAction m_Pair_Ready;
+    private readonly InputAction m_Pair_Unpair;
+    public struct PairActions
+    {
+        private @PlayerInputAction m_Wrapper;
+        public PairActions(@PlayerInputAction wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Ready => m_Wrapper.m_Pair_Ready;
+        public InputAction @Unpair => m_Wrapper.m_Pair_Unpair;
+        public InputActionMap Get() { return m_Wrapper.m_Pair; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PairActions set) { return set.Get(); }
+        public void SetCallbacks(IPairActions instance)
+        {
+            if (m_Wrapper.m_PairActionsCallbackInterface != null)
+            {
+                @Ready.started -= m_Wrapper.m_PairActionsCallbackInterface.OnReady;
+                @Ready.performed -= m_Wrapper.m_PairActionsCallbackInterface.OnReady;
+                @Ready.canceled -= m_Wrapper.m_PairActionsCallbackInterface.OnReady;
+                @Unpair.started -= m_Wrapper.m_PairActionsCallbackInterface.OnUnpair;
+                @Unpair.performed -= m_Wrapper.m_PairActionsCallbackInterface.OnUnpair;
+                @Unpair.canceled -= m_Wrapper.m_PairActionsCallbackInterface.OnUnpair;
+            }
+            m_Wrapper.m_PairActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Ready.started += instance.OnReady;
+                @Ready.performed += instance.OnReady;
+                @Ready.canceled += instance.OnReady;
+                @Unpair.started += instance.OnUnpair;
+                @Unpair.performed += instance.OnUnpair;
+                @Unpair.canceled += instance.OnUnpair;
+            }
+        }
+    }
+    public PairActions @Pair => new PairActions(this);
     public interface IGamePlayActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -496,5 +611,10 @@ public partial class @PlayerInputAction : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnSwitchEquip(InputAction.CallbackContext context);
         void OnRotateCam(InputAction.CallbackContext context);
+    }
+    public interface IPairActions
+    {
+        void OnReady(InputAction.CallbackContext context);
+        void OnUnpair(InputAction.CallbackContext context);
     }
 }
