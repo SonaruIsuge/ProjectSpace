@@ -11,7 +11,7 @@ public class MainGameView : MonoBehaviour
     [SerializeField] private TMP_Text remainTimeText;
     [SerializeField] private RectTransform turnLeftTransform;
     [SerializeField] private RectTransform turnRightTransform;
-    [SerializeField] private Vector2 randomIconRange;
+    [SerializeField] private float randomIconRadius;
 
 
     public void SetRemainRubbish(int remainNum)
@@ -33,8 +33,8 @@ public class MainGameView : MonoBehaviour
     public Vector2 RandomFromRotateUI(float clockwise)
     {
         var ui = clockwise > 0 ? turnLeftTransform : turnRightTransform;
-        var xFromUI = (clockwise > 0 ? 1 : -1) * Random.Range(ui.rect.width, randomIconRange.x);
-        var yFromUI = -1 * Random.Range(ui.rect.height, randomIconRange.y);
-        return ui.position + new Vector3(xFromUI, yFromUI, 0);
+        var randomRad = (clockwise > 0 ? Random.Range(190, 440) : Random.Range(100, 350)) * Mathf.Deg2Rad;
+        var vector = new Vector3(Mathf.Cos(randomRad), Mathf.Sin(randomRad), 0) * Random.Range(80, randomIconRadius);
+        return ui.position + vector;
     }
 }

@@ -38,6 +38,7 @@ public class PlayerRotateCamIcon : MonoBehaviour
     public void Show(Vector2 randomPos)
     {
         transform.position = randomPos;
+        transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
         gameObject.SetActive(true);
         
         existTimer.Reset();
