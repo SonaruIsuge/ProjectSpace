@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6767015717945168207}
   - component: {fileID: 3299276468132029442}
   - component: {fileID: 4398243759070616738}
-  - component: {fileID: 4055376909475304558}
   - component: {fileID: 532956850256093402}
   m_Layer: 5
   m_Name: PlayerMoveHint
@@ -78,26 +77,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!95 &4055376909475304558
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4149427660834133393}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 27b5b3c807dee5f4aa258c29f691c156, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &532956850256093402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +89,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b342c309ba4d2e93c409c4cb5b35e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExistTime: 3
+  existTime: 3
+  fadeTime: 0.8
   hintImage: {fileID: 4398243759070616738}
-  hintShowAni: {fileID: 4055376909475304558}

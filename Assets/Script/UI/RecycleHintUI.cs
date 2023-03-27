@@ -1,16 +1,20 @@
 ﻿
 using System;
+using System.Threading.Tasks;
+using DG.Tweening;
 using SonaruUtilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class RecycleHintUI : MonoBehaviour
 {
-    [SerializeField] private float ExistTime;
+    [SerializeField] private float existTime;
+    [SerializeField] private float fadeTime;
     [SerializeField] private Image hintImage;
-    [SerializeField] private Animator hintShowAni;
     
     private SimpleTimer existTimer;
+    private Tweener showImgTween;
     private Player bindPlayer;
     private Item hintItem;
     private Camera MainCam => Camera.main;
@@ -18,9 +22,9 @@ public class RecycleHintUI : MonoBehaviour
 
     private void Awake()
     {
-        existTimer = new SimpleTimer(ExistTime);
+        existTimer = new SimpleTimer(existTime);
         existTimer.Pause();
-        Hide();
+        Hide(false);
     }
 
 
@@ -50,17 +54,35 @@ public class RecycleHintUI : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
         transform.position = MainCam.WorldToScreenPoint(bindPlayer.transform.position);
-        hintShowAni.Play("ItemHint");
-        existTimer.Reset();
+        
+        var hintImgColor = hintImage.color;
+        hintImgColor.a = 1f;
+        showImgTween?.Kill();
+        showImgTween = hintImage.DOColor(hintImgColor, fadeTime);
+        showImgTween.Play();
+        
+        existTimer.Resume();
     }
 
 
-    public void Hide()
+    public void Hide(bool useFade = true)
     {
-        SetRecycleHintSprite(null);
-        gameObject.SetActive(false);
+        var hintImgColor = hintImage.color;
+        hintImgColor.a = 0f;
+        showImgTween?.Kill();
+        if (useFade)
+        {
+            showImgTween = hintImage.DOColor(hintImgColor, fadeTime).OnComplete(() => SetRecycleHintSprite(null));
+            showImgTween.Play();
+        }
+        else
+        {
+            hintImage.color = hintImgColor;
+        }
+        
+        existTimer.Reset();
+        existTimer.Pause();
     }
 
 
