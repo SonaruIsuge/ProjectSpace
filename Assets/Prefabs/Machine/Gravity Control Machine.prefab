@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 7501803938945326097}
   - component: {fileID: 2479205373587388180}
   m_Layer: 0
-  m_Name: Test Gravity Control Machine
+  m_Name: Gravity Control Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

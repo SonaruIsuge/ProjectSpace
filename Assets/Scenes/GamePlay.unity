@@ -1054,7 +1054,7 @@ PrefabInstance:
     - target: {fileID: 6133838122839108160, guid: 429bf1da417f85641a5d8786b9e6fbaa,
         type: 3}
       propertyPath: m_Name
-      value: Test Normal Separator Machine (1)
+      value: Normal Separator Machine
       objectReference: {fileID: 0}
     - target: {fileID: 6133838122839108171, guid: 429bf1da417f85641a5d8786b9e6fbaa,
         type: 3}
@@ -3061,7 +3061,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000,
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 3789837215244479791, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
@@ -4944,7 +4944,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+      objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 3789837215244479791, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
@@ -6213,7 +6213,7 @@ PrefabInstance:
     - target: {fileID: 1033392722787718899, guid: 0e60aa91b1d86aa408325b485fd79d8f,
         type: 3}
       propertyPath: m_Name
-      value: Test Recycle Machine (Non-Combustible) (1)
+      value: Recycle Machine (Non-Combustible)
       objectReference: {fileID: 0}
     - target: {fileID: 1033392722787718910, guid: 0e60aa91b1d86aa408325b485fd79d8f,
         type: 3}
@@ -6967,7 +6967,7 @@ PrefabInstance:
     - target: {fileID: 6168694971472722879, guid: 261b186edacac054085c95f0d463b9df,
         type: 3}
       propertyPath: m_Name
-      value: Test Recycle Machine (Combustible) (1)
+      value: Recycle Machine (Combustible)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 261b186edacac054085c95f0d463b9df, type: 3}
@@ -7398,7 +7398,7 @@ PrefabInstance:
     - target: {fileID: 975423786555753437, guid: cb6bffd14f8f9eb4bbebfa103598f605,
         type: 3}
       propertyPath: m_Name
-      value: Test Recycle Machine (Toxic) (1)
+      value: Recycle Machine (Toxic)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb6bffd14f8f9eb4bbebfa103598f605, type: 3}
@@ -8455,7 +8455,7 @@ PrefabInstance:
     - target: {fileID: 7501803938945326103, guid: f327c00193f48924a9cff70abaa4fb26,
         type: 3}
       propertyPath: m_Name
-      value: Test Gravity Control Machine (1)
+      value: Gravity Control Machine
       objectReference: {fileID: 0}
     - target: {fileID: 7501803939732881305, guid: f327c00193f48924a9cff70abaa4fb26,
         type: 3}
@@ -9587,7 +9587,7 @@ PrefabInstance:
     - target: {fileID: 4720933420922682527, guid: 4c5d54c91fc9cfb498362634fb18db8e,
         type: 3}
       propertyPath: m_Name
-      value: Test Recycle Machine (Recyclable) (1)
+      value: Recycle Machine (Recyclable)
       objectReference: {fileID: 0}
     - target: {fileID: 4720933420922682594, guid: 4c5d54c91fc9cfb498362634fb18db8e,
         type: 3}
@@ -10580,7 +10580,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 3789837215244479791, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
@@ -12177,7 +12177,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000,
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
         type: 0}
     - target: {fileID: 3789837215244479791, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}

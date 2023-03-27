@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4447931272509898102}
   - component: {fileID: 6133838122839108167}
   m_Layer: 0
-  m_Name: Test Normal Separator Machine
+  m_Name: Normal Separator Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
