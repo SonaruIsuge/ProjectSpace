@@ -83,8 +83,8 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BlinkAlphaMax: 1
-    - _BlinkAlphaMin: 1
-    - _BlinkAlphaSpeed: 1
+    - _BlinkAlphaMin: 0.5
+    - _BlinkAlphaSpeed: 3.5
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
