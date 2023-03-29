@@ -9,12 +9,12 @@ using UnityEngine.InputSystem;
 public class PairingSceneManager : MonoBehaviour
 {
     [SerializeField] private int minPlayerNum;
-    [SerializeField] private List<Player> pairPlayers;
     [SerializeField] private PlayerPairManager pairManager;
     [SerializeField] private PairingSceneUIManager uiManager;
     [SerializeField] private PlayerPairActManager playerActManager;
-    
+
     private bool underReadyProgress;
+    private bool finalCheck;
     
     public event Action OnAllPlayerReady;
 
@@ -22,6 +22,7 @@ public class PairingSceneManager : MonoBehaviour
     private void Awake()
     {
         underReadyProgress = false;
+        finalCheck = false;
     }
     
     
@@ -30,30 +31,42 @@ public class PairingSceneManager : MonoBehaviour
         pairManager.InitSetup();
         pairManager.StartListenUnpairDevice();
         uiManager.Init();
-        
+        playerActManager.ResetPlayersPosition();
+
         FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
     }
 
 
     private void OnEnable()
     {
-        pairManager.OnDeviceChangeReady += uiManager.PlayerChangeReady;
-        pairManager.OnDeviceUnpair += ResetReadyUI;
+        pairManager.OnDeviceChangeReady += ChangeReadyEvent;
+        pairManager.OnDevicePair += PairEvent;
+        pairManager.OnDeviceUnpair += UnpairEvent;
+        pairManager.OnChangeAllReady += ChangeAllReadyEvent;
+
+        pairManager.OnEnableFinalCheck += EnableFinalCheckEvent;
+        pairManager.OnDeviceChangeFinalCheck += ChangeFinalCheckEvent;
     }
 
 
     private void OnDisable()
     {
-        pairManager.OnDeviceChangeReady -= uiManager.PlayerChangeReady;
-        pairManager.OnDeviceUnpair -= ResetReadyUI;
+        pairManager.OnDeviceChangeReady -= ChangeReadyEvent;
+        pairManager.OnDevicePair -= PairEvent;
+        pairManager.OnDeviceUnpair -= UnpairEvent;
+        pairManager.OnChangeAllReady -= ChangeAllReadyEvent;
+        
+        pairManager.OnEnableFinalCheck -= EnableFinalCheckEvent;
+        pairManager.OnDeviceChangeFinalCheck -= ChangeFinalCheckEvent;
     }
 
 
     private void Update()
     {
         pairManager.UpdateSelf();
-
-        if(pairManager.PairedNum >= minPlayerNum && pairManager.AllReady) StartGame();
+        playerActManager.UpdatePlayerAct();
+        
+        if(pairManager.PairedNum >= minPlayerNum && pairManager.AllCheck) StartGame();
     }
 
     
@@ -61,7 +74,6 @@ public class PairingSceneManager : MonoBehaviour
     {
         uiManager.PlayerChangeReady(unit, false);
     }
-    
 
     private async void StartGame()
     {
@@ -76,5 +88,48 @@ public class PairingSceneManager : MonoBehaviour
         var pairedDict = pairManager.PairedUnit.ToDictionary(unit => unit.CharacterIndex, unit => unit.InputDevice);
         pairManager.UnpairAllDevice();
         GameFlowManager.Instance.LoadScene(1, new PairingData(pairedDict));
+    }
+
+
+    private void ChangeReadyEvent(DevicePairUnit unit, bool isReady)
+    {
+        uiManager.PlayerChangeReady(unit, isReady);
+        
+    }
+    
+    
+    private void PairEvent(DevicePairUnit unit)
+    {
+        playerActManager.MovePlayerIn(unit.CharacterIndex);
+        uiManager.PlayerPair(unit);
+    }
+    
+    
+    private void UnpairEvent(DevicePairUnit unit)
+    {
+        ResetReadyUI(unit);
+        playerActManager.MovePlayerOut(unit.CharacterIndex);
+        uiManager.PlayerUnpair(unit);
+    }
+
+
+    private void ChangeAllReadyEvent(bool isAllReady)
+    {
+        
+    }
+
+
+    private void EnableFinalCheckEvent(bool enableFinalCheck)
+    {
+        uiManager.ShowAllReadyPanel(enableFinalCheck);
+        
+        if(enableFinalCheck) pairManager.StopListenUnpairDevice();
+        else pairManager.StartListenUnpairDevice();
+    }
+
+
+    private void ChangeFinalCheckEvent(DevicePairUnit unit, bool check)
+    {
+        uiManager.SetStartGameIconFocus(unit, check);   
     }
 }

@@ -81,11 +81,10 @@ public enum BGMType
 }
 
 
-public enum UIPanel
+public enum PairUnitState
 {
-    PlayerPair,
-    MainGame,
-    PauseMenu,
-    GameOver,
-    Debug
+    Unpair,
+    Paired,
+    Ready,
+    FinalCheck,
 }
