@@ -234,10 +234,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.7
+  m_Height: 3.5
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.75, z: 0}
 --- !u!54 &8514451853975531605
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -279,7 +279,6 @@ MonoBehaviour:
   gravityInitialVelocity: 2
   <ClawTransform>k__BackingField: {fileID: 34167690169771175}
   <InteractRange>k__BackingField: 1
-  pushForce: 0.1
   <InteractPoint>k__BackingField: {fileID: 3789837215927788695}
   <ClawSpeed>k__BackingField: 8
   <HeadPoint>k__BackingField: {fileID: 6957493598121008181}

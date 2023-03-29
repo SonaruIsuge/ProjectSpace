@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 283611817401107869}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MatePlayer_scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 9041976464733129606}
   - component: {fileID: 1063449040813160738}
   - component: {fileID: 2265603008381385218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceiling_Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 9085500516593740270}
   - component: {fileID: 3873623260043748722}
   - component: {fileID: 5003795302022582851}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Operation desk_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 596898597129479321}
   - component: {fileID: 513444050063432593}
   - component: {fileID: 488463239325248917}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceiling_pillars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 3821544010022875121}
   - component: {fileID: 7332641149523844756}
   - component: {fileID: 2791828759526812696}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 7966077321610762182}
   - component: {fileID: 5333985643504333060}
   - component: {fileID: 4853404096927804996}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 5611849652638969959}
   - component: {fileID: 6959950336854571483}
   - component: {fileID: 2310486860602894529}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pillars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 2388221892234064480}
   - component: {fileID: 8682535124890589091}
   - component: {fileID: 1687079073878687407}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Operation desk_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 4141283148995187183}
   - component: {fileID: 1710660451744881466}
   - component: {fileID: 1559572144755093968}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground_center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 3460792954730613972}
   - component: {fileID: 4724087066258110930}
   - component: {fileID: 7822769637290710669}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 7895144454481302913}
   - component: {fileID: 8947594156941553634}
   - component: {fileID: 4150570249643257533}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall_pillars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +884,7 @@ GameObject:
   - component: {fileID: 5115651292686582860}
   - component: {fileID: 836737567306874010}
   - component: {fileID: 9020819359556988685}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Operation desk_center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 4455499624142276219}
   - component: {fileID: 5162679935037785080}
   - component: {fileID: 5764010792587932001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
