@@ -31,7 +31,16 @@ public class GameOverView : MonoBehaviour
     {
         allUITween = GetComponentsInChildren<IUITween>();
     }
-    
+
+
+    private void Start()
+    {
+        foreach (var uiTween in allUITween)
+        {
+            uiTween.ResetToBegin();
+        }
+    }
+
 
     public void BindReplayButton(UnityAction onClick)
     {
@@ -87,7 +96,7 @@ public class GameOverView : MonoBehaviour
     {
         foreach (var uiTween in allUITween)
         {
-            uiTween.Tween();
+            uiTween.TweenTo();
         }
     }
 
@@ -97,11 +106,5 @@ public class GameOverView : MonoBehaviour
     {
         gameObject.SetActive(true);
         SetGameOverData(true, 0);
-    }
-
-    [ContextMenu("Initial Tween")]
-    public void ResetTween()
-    {
-        foreach (var uiTween in allUITween) uiTween.Initial();
     }
 }

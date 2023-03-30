@@ -25,25 +25,40 @@ public class UITMPFadeTween : MonoBehaviour, IUITween
         TargetObj = GetComponent<RectTransform>();
         targetText = GetComponent<TMP_Text>();
         
-        Initial();
+        InitTweener();
     }
 
 
-    public void Initial()
+    public void ResetToBegin()
     {
         var textColor = targetText.color;
         textColor.a = from;
         targetText.color = textColor;
-
-        textColor.a = to;
-        Tweener = targetText.DOColor(textColor, Duration);
-        Tweener.Pause();
     }
 
     
-    public async void Tween()
+    public async void TweenTo()
     {
+        InitTweener();
         await Task.Delay((int)(Delay * 1000));
         Tweener.Play();
     }
+
+
+    public async void TweenFrom()
+    {
+        InitTweener(reverse: true);
+        await Task.Delay((int)(Delay * 1000));
+        Tweener.Play();
+    }
+    
+    
+    private void InitTweener(bool reverse = false)
+         {
+             var textColor = targetText.color;
+     
+             textColor.a = reverse ? from : to;
+             Tweener = targetText.DOColor(textColor, Duration);
+             Tweener.Pause();
+         }
 }

@@ -64,7 +64,8 @@ public class PlayerPairManager : MonoBehaviour
         for (var i = 0; i < maxPairNumber; i++) devicePairUnits[i] = new DevicePairUnit(i);
 
         PairedUnit = new List<DevicePairUnit>();
-
+        
+        enableFinalCheck = false;
         RegisterEvent();
     }
 
@@ -137,7 +138,7 @@ public class PlayerPairManager : MonoBehaviour
         if(c.device.GetType() == Mouse.current.GetType()) return;
         if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
             return;
-        
+        //Debug.Log(c.device.name);
         for (var i = 0; i < maxPairNumber; i++)
         {
             var pairUnit = devicePairUnits[i];

@@ -13,6 +13,16 @@ public interface IUITween
 
     Ease EaseType { get; }
 
-    void Initial();
-    void Tween();
+
+    void ResetToBegin();
+
+    /// <summary>
+    /// Tween from -> to
+    /// </summary>
+    void TweenTo();
+    
+    /// <summary>
+    /// Tween to -> from
+    /// </summary>
+    void TweenFrom();
 }

@@ -19,21 +19,36 @@ public class UIPosTween : MonoBehaviour, IUITween
     {
         TargetObj = GetComponent<RectTransform>();
 
-        Initial();
+        InitTweener();
     }
 
 
-    public void Initial()
+    public void ResetToBegin()
     {
         TargetObj.anchoredPosition = From;
-        Tweener = TargetObj.DOAnchorPos(To, Duration).SetEase(EaseType);
-        Tweener.Pause();
     }
     
 
-    public async void Tween()
+    public async void TweenTo()
     {
+        InitTweener();
         await Task.Delay((int)(Delay * 1000));
         Tweener.Play();
+    }
+    
+    
+    public async void TweenFrom()
+    {
+        InitTweener(reverse: true);
+        await Task.Delay((int)(Delay * 1000));
+        Tweener.Play();
+    }
+
+
+    private void InitTweener(bool reverse = false)
+    {
+        
+        Tweener = TargetObj.DOAnchorPos(reverse ? From : To, Duration).SetEase(EaseType);
+        Tweener.Pause();
     }
 }

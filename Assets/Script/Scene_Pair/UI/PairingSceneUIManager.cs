@@ -14,6 +14,9 @@ public class PairingSceneUIManager : MonoBehaviour
     [SerializeField] private Transform allReadyPanel;
     [SerializeField] private List<RawImage> allStartGameIcons;
     [SerializeField] private List<RawImage> allStartGameFocus;
+
+    private IUITween joinHintTween;
+    private IUITween allReadyPanelTween;
     
     private int pairedNum;
     private bool allReadyPanelShow;
@@ -30,6 +33,9 @@ public class PairingSceneUIManager : MonoBehaviour
         
         pairedNum = 0;
         allReadyPanelShow = false;
+
+        joinHintTween = joinHint.GetComponent<IUITween>();
+        allReadyPanelTween = allReadyPanel.GetComponent<IUITween>();
     }
     
 
@@ -41,7 +47,7 @@ public class PairingSceneUIManager : MonoBehaviour
 
     public void PlayerPair(DevicePairUnit unit)
     {
-        if(pairedNum == 0) joinHint.gameObject.SetActive(false);
+        if(pairedNum == 0) joinHintTween.TweenTo();
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(false);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(true);
         pairedNum++;
@@ -53,15 +59,17 @@ public class PairingSceneUIManager : MonoBehaviour
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(true);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(false);
         pairedNum--;
-        if(pairedNum == 0) joinHint.gameObject.SetActive(true);
+        if(pairedNum == 0) joinHintTween.TweenFrom();
     }
 
 
     public void ShowAllReadyPanel(bool isAllReady)
     {
         if(allReadyPanelShow == isAllReady) return;
+
+        if (isAllReady) allReadyPanelTween.TweenTo();
+        else allReadyPanelTween.TweenFrom();
         
-        allReadyPanel.gameObject.SetActive(isAllReady);
         allReadyPanelShow = isAllReady;
     }
 
