@@ -83,14 +83,22 @@ public class PlayerPairManager : MonoBehaviour
 
     public void UpdateSelf()
     {
-        if (AllReady)
+        if (AllReady && !EnableFinalCheck)
         {
-            foreach (var _ in PairedUnit.Where(unit => unit.PressReady)) EnableFinalCheck = true;
+            foreach (var _ in PairedUnit.Where(unit => unit.PressReady))
+            {
+                EnableFinalCheck = true;
+                return;
+            }
         }
 
-        if (AllNotCheck)
+        if (AllNotCheck && EnableFinalCheck)
         {
-            foreach (var _ in PairedUnit.Where(unit => unit.PressCancel)) EnableFinalCheck = false;
+            foreach (var _ in PairedUnit.Where(unit => unit.PressCancel))
+            {
+                EnableFinalCheck = false;
+                return;
+            }
         }
 
 
@@ -175,7 +183,7 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
-    public void UpdateAllEnableFinalCheck(bool enable)
+    private void UpdateAllEnableFinalCheck(bool enable)
     {
         foreach(var unit in devicePairUnits) unit.EnableFinalCheck(enable);
     }

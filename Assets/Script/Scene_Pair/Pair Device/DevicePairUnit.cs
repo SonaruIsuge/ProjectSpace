@@ -22,7 +22,7 @@ public class DevicePairUnit
 
     [field: SerializeField] public PairUnitState CurrentState { get; private set; }
     
-    private bool startListenReadyInput;
+    private bool listenBtnClickFlag;
     private bool enableFinalCheck;
 
     public event Action<DevicePairUnit> OnPairDevice;
@@ -41,7 +41,7 @@ public class DevicePairUnit
         IsFinalCheck = false;
 
         CurrentState = PairUnitState.Unpair;
-        startListenReadyInput = false;
+        listenBtnClickFlag = false;
     }
     
 
@@ -89,7 +89,7 @@ public class DevicePairUnit
         
         IsPaired = false;
         IsReady = false;
-        startListenReadyInput = false;
+        listenBtnClickFlag = false;
         CurrentState = PairUnitState.Unpair;
         
         OnUnpairDevice?.Invoke(this);
@@ -100,13 +100,14 @@ public class DevicePairUnit
     {
         if(!IsPaired) return;
         
-        if (!startListenReadyInput)
+        if (!listenBtnClickFlag)
         {
-            // prevent bugs cause by pressing ready or unpair to pair
+            // when state change, wasPressedThisFrame = true will impact next determine in one frame.
+            // Therefore, need to check if button pressed this frame, and stop other determine until next frame.
             if (PressReady) return;
             if(PressCancel) return;
             
-            startListenReadyInput = true;
+            listenBtnClickFlag = true;
         }
 
         if (PressCancel)
@@ -128,7 +129,7 @@ public class DevicePairUnit
         
         var maxState = Enum.GetValues(typeof(PairUnitState)).Length - 1;
         if (!enableFinalCheck) maxState--;
-        var minState = enableFinalCheck ? (int)PairUnitState.Ready - 1 : 0;
+        var minState = enableFinalCheck ? (int)PairUnitState.Ready : 0;
 
         var nowState = (int)CurrentState;
         var newState = Mathf.Clamp(nowState + addState, minState, maxState);
