@@ -5,31 +5,23 @@ using TMPro;
 using UnityEngine;
 
 
-public class UITMPFadeTween : MonoBehaviour, IUITween
+public class UITMPFadeTween : UITweenBase
 {
-    public RectTransform TargetObj { get; private set; }
-    public Tweener Tweener { get; private set; }
-    private TMP_Text targetText;
     
-    [field: SerializeField] public float Duration { get; private set; }
-    [field: SerializeField] public float Delay { get; private set; }
+    private TMP_Text targetText;
 
     [Range(0, 1)] [SerializeField] private float from;
     [Range(0, 1)] [SerializeField] private float to;
-    
-    [field: SerializeField] public Ease EaseType { get; private set; }
 
 
     private void Awake()
     {
-        TargetObj = GetComponent<RectTransform>();
         targetText = GetComponent<TMP_Text>();
-        
         InitTweener();
     }
 
 
-    public void ResetToBegin()
+    public override void ResetToBegin()
     {
         var textColor = targetText.color;
         textColor.a = from;
@@ -37,28 +29,28 @@ public class UITMPFadeTween : MonoBehaviour, IUITween
     }
 
     
-    public async void TweenTo()
+    public override async void TweenTo()
     {
         InitTweener();
-        await Task.Delay((int)(Delay * 1000));
-        Tweener.Play();
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play();
     }
 
 
-    public async void TweenFrom()
+    public override async void TweenFrom()
     {
         InitTweener(reverse: true);
-        await Task.Delay((int)(Delay * 1000));
-        Tweener.Play();
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play();
     }
     
     
     private void InitTweener(bool reverse = false)
-         {
-             var textColor = targetText.color;
-     
-             textColor.a = reverse ? from : to;
-             Tweener = targetText.DOColor(textColor, Duration);
-             Tweener.Pause();
-         }
+    {
+        var textColor = targetText.color;
+
+        textColor.a = reverse ? from : to;
+        tweener = targetText.DOColor(textColor, duration);
+        tweener.Pause();
+    }
 }

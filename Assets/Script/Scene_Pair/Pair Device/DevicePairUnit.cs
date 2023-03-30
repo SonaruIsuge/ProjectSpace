@@ -45,7 +45,7 @@ public class DevicePairUnit
     }
     
 
-    public void Enable(bool enable)
+    public void EnableInput(bool enable)
     {
         if(enable) playerInputAction.Pair.Enable();
         else playerInputAction.Pair.Disable();
@@ -69,7 +69,7 @@ public class DevicePairUnit
 
         IsPaired = true;
         CurrentState = PairUnitState.Paired;
-        Enable(true);
+        EnableInput(true);
         
         OnPairDevice?.Invoke(this);
         Debug.Log($"Success pair Character{CharacterIndex} with {InputDevice.name}");
@@ -82,7 +82,7 @@ public class DevicePairUnit
     {
         if(!inputUser.valid) return;
         
-        Enable(false);
+        EnableInput(false);
         //Debug.Log($"Unpair {InputDevice.name} with Character{CharacterIndex}");
         
         inputUser.UnpairDevicesAndRemoveUser();

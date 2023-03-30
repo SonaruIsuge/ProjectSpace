@@ -7,16 +7,18 @@ using UnityEngine.UI;
 
 public class PairingSceneUIManager : MonoBehaviour
 {
-    [SerializeField] private Transform canvasTrans;
+    [SerializeField] private Transform pairUIRoot;
     [SerializeField] private TMP_Text joinHint;
     [SerializeField] private List<RawImage> allPreparePair;
     [SerializeField] private List<RawImage> allPairedPlayerReady;
     [SerializeField] private Transform allReadyPanel;
     [SerializeField] private List<RawImage> allStartGameIcons;
     [SerializeField] private List<RawImage> allStartGameFocus;
+    [SerializeField] private Transform startUIRoot;
+    [SerializeField] private List<UITweenBase> startAniTween;
 
-    private IUITween joinHintTween;
-    private IUITween allReadyPanelTween;
+    private UITweenBase joinHintTween;
+    private UITweenBase allReadyPanelTween;
     
     private int pairedNum;
     private bool allReadyPanelShow;
@@ -34,8 +36,8 @@ public class PairingSceneUIManager : MonoBehaviour
         pairedNum = 0;
         allReadyPanelShow = false;
 
-        joinHintTween = joinHint.GetComponent<IUITween>();
-        allReadyPanelTween = allReadyPanel.GetComponent<IUITween>();
+        joinHintTween = joinHint.GetComponent<UITweenBase>();
+        allReadyPanelTween = allReadyPanel.GetComponent<UITweenBase>();
     }
     
 
@@ -77,5 +79,21 @@ public class PairingSceneUIManager : MonoBehaviour
     public void SetStartGameIconFocus(DevicePairUnit unit, bool isReady)
     {
         allStartGameFocus[unit.CharacterIndex].gameObject.SetActive(isReady);
+    }
+
+
+    public void SwitchStartGroup()
+    {
+        allReadyPanelTween.TweenFrom();
+        startUIRoot.gameObject.SetActive(true);
+    }
+
+
+    public void PlayStartAni()
+    {
+        foreach (var tween in startAniTween)
+        {
+            tween.TweenTo();
+        }
     }
 }

@@ -4,51 +4,45 @@ using DG.Tweening;
 using UnityEngine;
 
 
-public class UIPosTween : MonoBehaviour, IUITween
+public class UIPosTween : UITweenBase
 {
-    public RectTransform TargetObj { get; private set; }
-    public Tweener Tweener { get; private set; }
-    
-    [field: SerializeField] public float Duration { get; private set; }
-    [field: SerializeField] public float Delay { get; private set; }
+    private RectTransform targetUI;
     [field: SerializeField] public Vector3 From { get; private set; }
     [field: SerializeField] public Vector3 To { get; private set; }
-    [field: SerializeField] public Ease EaseType { get; private set; }
+    
 
     private void Awake()
     {
-        TargetObj = GetComponent<RectTransform>();
-
+        targetUI = GetComponent<RectTransform>();
         InitTweener();
     }
 
 
-    public void ResetToBegin()
+    public override void ResetToBegin()
     {
-        TargetObj.anchoredPosition = From;
+        targetUI.anchoredPosition = From;
     }
     
 
-    public async void TweenTo()
+    public override async void TweenTo()
     {
         InitTweener();
-        await Task.Delay((int)(Delay * 1000));
-        Tweener.Play();
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play();
     }
     
     
-    public async void TweenFrom()
+    public override async void TweenFrom()
     {
         InitTweener(reverse: true);
-        await Task.Delay((int)(Delay * 1000));
-        Tweener.Play();
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play();
     }
 
 
     private void InitTweener(bool reverse = false)
     {
-        
-        Tweener = TargetObj.DOAnchorPos(reverse ? From : To, Duration).SetEase(EaseType);
-        Tweener.Pause();
+        tweener = targetUI.DOAnchorPos(reverse ? From : To, duration).SetEase(easeType);
+        tweener.Pause();
     }
 }

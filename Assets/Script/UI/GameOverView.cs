@@ -24,12 +24,12 @@ public class GameOverView : MonoBehaviour
     [SerializeField] private Button quitBtn;
 
     [SerializeField] private RectTransform selectBox;
-    [SerializeField] private IUITween[] allUITween;
+    [SerializeField] private UITweenBase[] allUITween;
 
 
     private void Awake()
     {
-        allUITween = GetComponentsInChildren<IUITween>();
+        allUITween = GetComponentsInChildren<UITweenBase>();
     }
 
 

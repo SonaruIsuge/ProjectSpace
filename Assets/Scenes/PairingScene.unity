@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 559f91817320f664f8d1fef1e059a02a, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.043983802, g: 0.043334488, b: 0.10055179, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -213,6 +213,18 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+--- !u!114 &81211947 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5684084910081355044, guid: 6fe64e119b5674843a96bc0dc85ce49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1712808043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a4d37f6e5549e5b54e819e9b426bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &170051117
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,8 +545,8 @@ Camera:
   m_GameObject: {fileID: 615616194}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.105882354, g: 0.20784314, b: 0.3882353, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -646,6 +658,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658035851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2307511967140226249, guid: 6fe64e119b5674843a96bc0dc85ce49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1712808043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a4d37f6e5549e5b54e819e9b426bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &662409863
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,6 +797,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1230923780 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8523125409046496632, guid: 6fe64e119b5674843a96bc0dc85ce49d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1712808043}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1379943713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1131,6 +1161,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 265879297252995948, guid: 6fe64e119b5674843a96bc0dc85ce49d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4678668080528120860, guid: 6fe64e119b5674843a96bc0dc85ce49d,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1290,6 +1325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678668081483462236, guid: 6fe64e119b5674843a96bc0dc85ce49d,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293051360
       objectReference: {fileID: 0}
     - target: {fileID: 4678668081942992997, guid: 6fe64e119b5674843a96bc0dc85ce49d,
         type: 3}
@@ -1815,7 +1855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd48f2914a144c0b529657e0134005d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasTrans: {fileID: 1712808044}
+  pairUIRoot: {fileID: 1712808044}
   joinHint: {fileID: 1712808062}
   allPreparePair:
   - {fileID: 1712808061}
@@ -1838,6 +1878,10 @@ MonoBehaviour:
   - {fileID: 1712808050}
   - {fileID: 1712808048}
   - {fileID: 1712808046}
+  startUIRoot: {fileID: 1230923780}
+  startAniTween:
+  - {fileID: 81211947}
+  - {fileID: 658035851}
 --- !u!4 &2056002106
 Transform:
   m_ObjectHideFlags: 0

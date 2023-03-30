@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -75,22 +76,43 @@ public class PairingSceneManager : MonoBehaviour
         uiManager.PlayerChangeReady(unit, false);
     }
 
-    private async void StartGame()
+    
+    // Disable input -> Clear UI -> Player animation -> camera zoom out & UI animation
+    private void StartGame()
     {
         if(underReadyProgress) return;
-        
         underReadyProgress = true;
-        pairManager.StopListenUnpairDevice();
+
+        StopInput();
+        
+        DelayDo(uiManager.SwitchStartGroup, .5f);
+
         OnAllPlayerReady?.Invoke();
+        DelayDo(uiManager.PlayStartAni, 1f);
 
-        await Task.Delay(500);
+        DelayDo(ChangeScene, 3f);
+    }
 
+
+    private void StopInput()
+    {
+        pairManager.StopListenUnpairDevice();
+        
+        foreach(var unit in pairManager.PairedUnit) unit.EnableInput(false);
+    }
+
+
+    private void ChangeScene()
+    {
         var pairedDict = pairManager.PairedUnit.ToDictionary(unit => unit.CharacterIndex, unit => unit.InputDevice);
         pairManager.UnpairAllDevice();
         GameFlowManager.Instance.LoadScene(1, new PairingData(pairedDict));
     }
 
 
+    
+    
+    
     private void ChangeReadyEvent(DevicePairUnit unit, bool isReady)
     {
         uiManager.PlayerChangeReady(unit, isReady);
@@ -132,4 +154,31 @@ public class PairingSceneManager : MonoBehaviour
     {
         uiManager.SetStartGameIconFocus(unit, check);   
     }
+    
+    
+    #region Delay Do Function
+    public void DelayDo(Action onComplete, float delay)
+    {
+        StartCoroutine(DelayDoInner(delay, onComplete));
+    }
+
+    public void DelayDo<T>(Action<T> onComplete, T param1, float delay)
+    {
+        StartCoroutine(DelayDoInner<T>(delay, onComplete, param1));
+    }
+
+    private IEnumerator DelayDoInner(float delay, Action onComplete = null)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator DelayDoInner<T>(float delay, Action<T> onComplete, T param1)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        onComplete?.Invoke(param1);
+    }
+    #endregion
 }
