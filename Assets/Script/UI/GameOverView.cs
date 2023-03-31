@@ -1,11 +1,11 @@
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using SonaruUtilities;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class GameOverView : MonoBehaviour
@@ -26,7 +26,9 @@ public class GameOverView : MonoBehaviour
     [SerializeField] private RectTransform selectBox;
     [SerializeField] private UITweenBase[] allUITween;
 
-
+    private EventSystem EventSystem => EventSystem.current;
+    
+    
     private void Awake()
     {
         allUITween = GetComponentsInChildren<UITweenBase>();
@@ -74,6 +76,9 @@ public class GameOverView : MonoBehaviour
         timeBox.gameObject.SetActive(isWin);
         nextLevelBtnBox.gameObject.SetActive(isWin);
         replayBtnBox.gameObject.SetActive(!isWin);
+
+        EventSystem.SetSelectedGameObject(isWin ? nextLevelBtn.gameObject : replayBtn.gameObject);
+        
     }
 
 

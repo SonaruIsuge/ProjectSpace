@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
 
     private int pairPlayerNum;
 
+    public event Action OnPressBackToPair;
     public event Action OnPressReplay;
 
     private void Awake()
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
         ItemManager.OnItemStartInteract += ShowItemHint;
 
         gameOverView.BindReplayButton(() => OnPressReplay?.Invoke() );
+        gameOverView.BindQuitButton( () => OnPressBackToPair?.Invoke() );
     }
 
 

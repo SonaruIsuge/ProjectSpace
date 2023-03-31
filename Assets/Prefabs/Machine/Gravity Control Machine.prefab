@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxPower>k__BackingField: 100
-  <ConsumptionRate>k__BackingField: 2
+  <ConsumptionRate>k__BackingField: 1
   chargeRate: 50
   remainPowerBar: {fileID: 4695800820490948469}
 --- !u!1 &7501803939305154067

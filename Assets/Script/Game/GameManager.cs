@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
         
         uiManager.OnPressReplay += ReStartGame;
+        uiManager.OnPressBackToPair += BackToPair;
         
         OnGameOver += GameOver;
     }
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
         
         uiManager.OnPressReplay -= ReStartGame;
+        uiManager.OnPressBackToPair -= BackToPair;
         
         OnGameOver -= GameOver;
     }
@@ -140,8 +142,13 @@ public class GameManager : MonoBehaviour
 
     private void ReStartGame()
     {
+        var data = GameFlowManager.Instance.SceneData;
+        GameFlowManager.Instance.LoadScene(1, data);
+    }
+
+    private void BackToPair()
+    {
         UnbindManager();
-        
-        SceneManager.LoadScene(0);
+        GameFlowManager.Instance.LoadScene(0, null);
     }
 }
