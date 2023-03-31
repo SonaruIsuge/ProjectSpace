@@ -22,26 +22,12 @@ public class UIPosTween : UITweenBase
     {
         targetUI.anchoredPosition = From;
     }
-    
-
-    public override async void TweenTo()
-    {
-        InitTweener();
-        await Task.Delay((int)(delay * 1000));
-        tweener.Play();
-    }
-    
-    
-    public override async void TweenFrom()
-    {
-        InitTweener(reverse: true);
-        await Task.Delay((int)(delay * 1000));
-        tweener.Play();
-    }
 
 
-    private void InitTweener(bool reverse = false)
+    protected override void InitTweener(bool reverse = false)
     {
+        base.InitTweener(reverse);
+        
         tweener = targetUI.DOAnchorPos(reverse ? From : To, duration).SetEase(easeType);
         tweener.Pause();
     }

@@ -86,7 +86,7 @@ public class PairingSceneManager : MonoBehaviour
         StopInput();
         OnAllPlayerReady?.Invoke();
         
-        DelayDo(uiManager.SwitchStartGroup, 0.2f);
+        DelayDo(uiManager.ActiveStartGroup, 0.2f);
 
         for (var i = 0; i < pairManager.PairedUnit.Count; i++)
         {
@@ -143,7 +143,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void ChangeAllReadyEvent(bool isAllReady)
     {
-        
+        uiManager.ToggleFinalCheckHint(isAllReady);
     }
 
 

@@ -1,4 +1,6 @@
-﻿using DG.Tweening;
+﻿using System;
+using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -15,15 +17,33 @@ public class UITweenBase : MonoBehaviour
     /// </summary>
     public virtual void ResetToBegin() { }
 
+    
     /// <summary>
     /// Tween from -> to
     /// </summary>
-    public virtual void TweenTo() { }
+    public virtual async void TweenTo(Action onComplete = null)
+    {
+        InitTweener();
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play().OnComplete(() => onComplete?.Invoke());
+    }
 
+    
     /// <summary>
     /// Tween to -> from
     /// </summary>
-    public virtual void TweenFrom() { }
+    public virtual async void TweenFrom(Action onComplete = null)
+    {
+        InitTweener(reverse: true);
+        await Task.Delay((int)(delay * 1000));
+        tweener.Play().OnComplete(() => onComplete?.Invoke());
+    }
+
+
+    protected virtual void InitTweener(bool reverse = false)
+    {
+        tweener?.Kill();
+    }
 
 
     [ContextMenu("Debug Tween")]

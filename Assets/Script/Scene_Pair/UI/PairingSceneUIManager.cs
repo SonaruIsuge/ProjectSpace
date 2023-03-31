@@ -7,8 +7,10 @@ using UnityEngine.UI;
 
 public class PairingSceneUIManager : MonoBehaviour
 {
-    [SerializeField] private Transform pairUIRoot;
-    [SerializeField] private TMP_Text joinHint;
+    [SerializeField] private string pairHintText;
+    [SerializeField] private string finalCheckHintText;
+    [SerializeField] private TMP_Text pairHint;
+    [SerializeField] private RawImage finalCheckHintImage;
     [SerializeField] private List<RawImage> allPreparePair;
     [SerializeField] private List<RawImage> allPairedPlayerReady;
     [SerializeField] private Transform allReadyPanel;
@@ -17,7 +19,8 @@ public class PairingSceneUIManager : MonoBehaviour
     [SerializeField] private Transform startUIRoot;
     [SerializeField] private List<UITweenBase> startAniTween;
 
-    private UITweenBase joinHintTween;
+    private UITweenBase finalCheckImageTween;
+    private UITweenBase pairHintTween;
     private UITweenBase allReadyPanelTween;
     
     private int pairedNum;
@@ -36,7 +39,8 @@ public class PairingSceneUIManager : MonoBehaviour
         pairedNum = 0;
         allReadyPanelShow = false;
 
-        joinHintTween = joinHint.GetComponent<UITweenBase>();
+        finalCheckImageTween = finalCheckHintImage.GetComponent<UITweenBase>();
+        pairHintTween = pairHint.GetComponent<UITweenBase>();
         allReadyPanelTween = allReadyPanel.GetComponent<UITweenBase>();
     }
     
@@ -49,7 +53,7 @@ public class PairingSceneUIManager : MonoBehaviour
 
     public void PlayerPair(DevicePairUnit unit)
     {
-        if(pairedNum == 0) joinHintTween.TweenTo();
+        if(pairedNum == 0) pairHintTween.TweenTo();
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(false);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(true);
         pairedNum++;
@@ -61,7 +65,24 @@ public class PairingSceneUIManager : MonoBehaviour
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(true);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(false);
         pairedNum--;
-        if(pairedNum == 0) joinHintTween.TweenFrom();
+        if(pairedNum == 0) pairHintTween.TweenFrom();
+    }
+
+
+    public void ToggleFinalCheckHint(bool activeFinalCheck)
+    {
+        if (activeFinalCheck)
+        {
+            pairHintTween.TweenFrom();
+            finalCheckImageTween.TweenFrom();
+            pairHint.text = finalCheckHintText;
+            finalCheckHintImage.gameObject.SetActive(true);
+        }
+        else
+        {
+            pairHintTween.TweenTo(() => pairHint.text = pairHintText);
+            finalCheckImageTween.TweenTo( () => finalCheckHintImage.gameObject.SetActive(false));
+        }
     }
 
 
@@ -82,7 +103,7 @@ public class PairingSceneUIManager : MonoBehaviour
     }
 
 
-    public void SwitchStartGroup()
+    public void ActiveStartGroup()
     {
         allReadyPanelTween.TweenFrom();
         startUIRoot.gameObject.SetActive(true);

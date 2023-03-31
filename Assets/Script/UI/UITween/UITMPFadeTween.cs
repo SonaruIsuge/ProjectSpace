@@ -28,27 +28,12 @@ public class UITMPFadeTween : UITweenBase
         targetText.color = textColor;
     }
 
-    
-    public override async void TweenTo()
-    {
-        InitTweener();
-        await Task.Delay((int)(delay * 1000));
-        tweener.Play();
-    }
 
-
-    public override async void TweenFrom()
+    protected override void InitTweener(bool reverse = false)
     {
-        InitTweener(reverse: true);
-        await Task.Delay((int)(delay * 1000));
-        tweener.Play();
-    }
-    
-    
-    private void InitTweener(bool reverse = false)
-    {
+        base.InitTweener(reverse);
+        
         var textColor = targetText.color;
-
         textColor.a = reverse ? from : to;
         tweener = targetText.DOColor(textColor, duration);
         tweener.Pause();
