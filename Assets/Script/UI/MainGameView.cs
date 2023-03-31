@@ -44,7 +44,7 @@ public class MainGameView : MonoBehaviour
         var fromAngle = isClockwise ? -45 + iconRangeAngle / 2 : 225 - iconRangeAngle / 2;
         var toAngle = isClockwise ? -45 - iconRangeAngle / 2 : 225 + iconRangeAngle / 2;
         var space = iconRangeAngle / 3;
-        Debug.Log(referCornerPos);
+        
         var iconRad = (fromAngle + (isClockwise ? -1 : 1) * space * playerIndex) * Mathf.Deg2Rad;
         return referCornerPos + new Vector3(Mathf.Cos(iconRad), Mathf.Sin(iconRad), 0) * iconFromCornerRad;
     }

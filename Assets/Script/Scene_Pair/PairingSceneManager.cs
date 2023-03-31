@@ -84,13 +84,19 @@ public class PairingSceneManager : MonoBehaviour
         underReadyProgress = true;
 
         StopInput();
-        
-        DelayDo(uiManager.SwitchStartGroup, .5f);
-
         OnAllPlayerReady?.Invoke();
-        DelayDo(uiManager.PlayStartAni, 1f);
+        
+        DelayDo(uiManager.SwitchStartGroup, 0.2f);
 
-        DelayDo(ChangeScene, 3f);
+        for (var i = 0; i < pairManager.PairedUnit.Count; i++)
+        {
+            var player = pairManager.PairedUnit[i];
+            DelayDo(playerActManager.SetPlayerReadyAni, player.CharacterIndex, 1 + i * 0.25f);
+        }
+        
+        DelayDo(uiManager.PlayStartAni, 3f);
+
+        DelayDo(ChangeScene, 5f);
     }
 
 

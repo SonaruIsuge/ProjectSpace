@@ -45,4 +45,10 @@ public class PlayerPairActManager : MonoBehaviour
     {
         pairPlayerControllers[index].MoveOut();
     }
+
+
+    public void SetPlayerReadyAni(int index)
+    {
+        pairPlayerControllers[index].Ready();
+    }
 }

@@ -31,9 +31,14 @@ public class PairPlayerController
 
     public void UpdateController()
     {
-        if (isMove && disFromDestination <= 0.01f)
+        if (isMove && disFromDestination <= 0.1f)
         {
-            isMove = false;
+            RotateForward();
+            if (Vector3.Angle(player.forward, targetPosition.forward) < 1)
+            {
+                isMove = false;    
+            }
+            
         }
         
         playerAni.SetBool("Move", isMove);
@@ -45,7 +50,7 @@ public class PairPlayerController
     {
         isMove = true;
         playerAI.SetDestination(targetPosition.position);
-       
+        
     }
 
 
@@ -53,5 +58,21 @@ public class PairPlayerController
     {
         isMove = true;
         playerAI.SetDestination(originPosition.position);
+    }
+
+
+    public void Ready()
+    {
+        playerAni.SetBool("Ready", true);
+    }
+
+
+    private float currentRotate;
+    private void RotateForward()
+    {
+        var rotateY = Mathf.SmoothDampAngle(player.transform.eulerAngles.y, targetPosition.eulerAngles.y, ref currentRotate, 0.1f);
+        
+        player.transform.rotation = Quaternion.Euler(0, rotateY, 0);
+        //player.Rotate(0, rotateY * Time.deltaTime, 0);
     }
 }
