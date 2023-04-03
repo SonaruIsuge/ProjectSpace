@@ -323,8 +323,8 @@ MonoBehaviour:
   duration: 1.2
   delay: 0
   easeType: 13
-  <From>k__BackingField: {x: 1090, y: 0, z: 0}
-  <To>k__BackingField: {x: 0, y: 0, z: 0}
+  from: {x: 1090, y: 0, z: 0}
+  to: {x: 0, y: 0, z: 0}
 --- !u!1 &4678668080225635098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,8 +1090,8 @@ MonoBehaviour:
   duration: 1
   delay: 0
   easeType: 28
-  <From>k__BackingField: {x: 0, y: 800, z: 0}
-  <To>k__BackingField: {x: 0, y: -10, z: 0}
+  from: {x: 0, y: 800, z: 0}
+  to: {x: 0, y: 0, z: 0}
 --- !u!1 &4678668080877477287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,5 +2221,5 @@ MonoBehaviour:
   duration: 1.2
   delay: 0
   easeType: 13
-  <From>k__BackingField: {x: -995, y: 0, z: 0}
-  <To>k__BackingField: {x: 0, y: 0, z: 0}
+  from: {x: -995, y: 0, z: 0}
+  to: {x: 0, y: 0, z: 0}

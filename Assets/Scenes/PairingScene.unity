@@ -2140,9 +2140,10 @@ MonoBehaviour:
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 5628002929997359892}
   <Joint>k__BackingField: {fileID: 0}
-  <playerAnimator>k__BackingField: {fileID: 913090391103785758}
+  <PlayerAnimator>k__BackingField: {fileID: 0}
   playerPhysics: {fileID: 913090389115336302}
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeedInGround>k__BackingField: 0
+  <MoveSpeedInSpace>k__BackingField: 0
   <RotateSpeed>k__BackingField: 240
   <JetPackAcceleration>k__BackingField: 5
   <MaxJetPackVelocity>k__BackingField: 5
@@ -3020,12 +3021,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda56b848e71f34d922596c28d750cc, type: 3}
---- !u!95 &913090391103785758 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0eda56b848e71f34d922596c28d750cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 913090391103785757}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &913090391103785759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0eda56b848e71f34d922596c28d750cc,
@@ -4057,12 +4052,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda56b848e71f34d922596c28d750cc, type: 3}
---- !u!95 &1326501973204046762 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0eda56b848e71f34d922596c28d750cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1326501973204046761}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1326501973204046763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0eda56b848e71f34d922596c28d750cc,
@@ -4106,9 +4095,10 @@ MonoBehaviour:
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 5825954241434842016}
   <Joint>k__BackingField: {fileID: 0}
-  <playerAnimator>k__BackingField: {fileID: 1326501973204046762}
+  <PlayerAnimator>k__BackingField: {fileID: 0}
   playerPhysics: {fileID: 1326501973296688858}
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeedInGround>k__BackingField: 0
+  <MoveSpeedInSpace>k__BackingField: 0
   <RotateSpeed>k__BackingField: 240
   <JetPackAcceleration>k__BackingField: 5
   <MaxJetPackVelocity>k__BackingField: 5
@@ -6078,12 +6068,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda56b848e71f34d922596c28d750cc, type: 3}
---- !u!95 &5718491504036280991 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0eda56b848e71f34d922596c28d750cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 5718491504036280990}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5718491504036280992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0eda56b848e71f34d922596c28d750cc,
@@ -6167,9 +6151,10 @@ MonoBehaviour:
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 1003587752117279383}
   <Joint>k__BackingField: {fileID: 0}
-  <playerAnimator>k__BackingField: {fileID: 5718491504036280991}
+  <PlayerAnimator>k__BackingField: {fileID: 0}
   playerPhysics: {fileID: 5718491505286531053}
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeedInGround>k__BackingField: 0
+  <MoveSpeedInSpace>k__BackingField: 0
   <RotateSpeed>k__BackingField: 240
   <JetPackAcceleration>k__BackingField: 5
   <MaxJetPackVelocity>k__BackingField: 5
@@ -7178,12 +7163,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eda56b848e71f34d922596c28d750cc, type: 3}
---- !u!95 &6327336030097522884 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0eda56b848e71f34d922596c28d750cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 6327336030097522883}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6327336030097522885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0eda56b848e71f34d922596c28d750cc,
@@ -7287,9 +7266,10 @@ MonoBehaviour:
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 1548792554415694026}
   <Joint>k__BackingField: {fileID: 0}
-  <playerAnimator>k__BackingField: {fileID: 6327336030097522884}
+  <PlayerAnimator>k__BackingField: {fileID: 0}
   playerPhysics: {fileID: 6327336032151076272}
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeedInGround>k__BackingField: 0
+  <MoveSpeedInSpace>k__BackingField: 0
   <RotateSpeed>k__BackingField: 240
   <JetPackAcceleration>k__BackingField: 5
   <MaxJetPackVelocity>k__BackingField: 5

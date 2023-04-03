@@ -300,7 +300,7 @@ MonoBehaviour:
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 3340522881595781736}
   <Joint>k__BackingField: {fileID: 0}
-  <playerAnimator>k__BackingField: {fileID: 4431579908612681712}
+  <PlayerAnimator>k__BackingField: {fileID: 4431579908612681712}
   playerPhysics: {fileID: 7848287452002774802}
   <MoveSpeedInGround>k__BackingField: 2
   <MoveSpeedInSpace>k__BackingField: 4
