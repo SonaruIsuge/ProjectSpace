@@ -91,6 +91,7 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerMovement.Move(movement, speed, JetPackAcceleration, MaxJetPackVelocity);
         PlayerMovement.CalcInertia(!UnderGravity);
         
+        playerAnimator.SetBool("IsGround", IsGround);
         playerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
         playerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && IsGround ? 4 : 2);
     }
