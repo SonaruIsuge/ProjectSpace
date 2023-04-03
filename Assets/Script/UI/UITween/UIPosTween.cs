@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class UIPosTween : UITweenBase
 {
     private RectTransform targetUI;
-    [field: SerializeField] public Vector3 From { get; private set; }
-    [field: SerializeField] public Vector3 To { get; private set; }
+    [SerializeField] private Vector3 from;
+    [SerializeField] private Vector3 to;
     
 
     private void Awake()
@@ -20,7 +21,7 @@ public class UIPosTween : UITweenBase
 
     public override void ResetToBegin()
     {
-        targetUI.anchoredPosition = From;
+        targetUI.anchoredPosition = from;
     }
 
 
@@ -28,7 +29,7 @@ public class UIPosTween : UITweenBase
     {
         base.InitTweener(reverse);
         
-        tweener = targetUI.DOAnchorPos(reverse ? From : To, duration).SetEase(easeType);
+        tweener = targetUI.DOAnchorPos(reverse ? from : to, duration).SetEase(easeType);
         tweener.Pause();
     }
 }

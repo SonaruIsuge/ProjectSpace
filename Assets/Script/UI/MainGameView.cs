@@ -36,7 +36,7 @@ public class MainGameView : MonoBehaviour
     }
 
 
-    public Vector2 RandomFromRotateUI(int playerIndex, float clockwise)
+    public Vector2 CalcIconPos(int playerIndex, float clockwise)
     {
         var isClockwise = clockwise > 0;
         

@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     public void ShowPlayerIcon(Player player, float clockwise)
     {
         var index = playerIconDict.Keys.ToList().IndexOf(player);
-        playerIconDict[player].Show(mainGameView.RandomFromRotateUI(index, clockwise));
+        playerIconDict[player].Show(mainGameView.CalcIconPos(index, clockwise));
     }
 
 

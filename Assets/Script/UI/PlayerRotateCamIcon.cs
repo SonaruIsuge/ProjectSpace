@@ -35,9 +35,9 @@ public class PlayerRotateCamIcon : MonoBehaviour
     }
 
 
-    public void Show(Vector2 randomPos)
+    public void Show(Vector2 pos)
     {
-        transform.position = randomPos;
+        transform.position = pos;
         gameObject.SetActive(true);
         
         existTimer.Reset();

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: SerializeField] public CharacterController Cc { get; private set; } // Will remove this after rigidbody only test finish.
     [field: SerializeField] public Rigidbody Rb { get; private set; }
     [field: SerializeField] public Joint Joint { get; private set; }
-    [field: SerializeField] public Animator playerAnimator { get; private set; }
+    [field: SerializeField] public Animator PlayerAnimator { get; private set; }
     
     [Header("Movement")]
     [SerializeField] private GameObject playerPhysics;
@@ -91,9 +91,9 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerMovement.Move(movement, speed, JetPackAcceleration, MaxJetPackVelocity);
         PlayerMovement.CalcInertia(!UnderGravity);
         
-        playerAnimator.SetBool("IsGround", IsGround);
-        playerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
-        playerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && IsGround ? 4 : 2);
+        PlayerAnimator.SetBool("IsGround", IsGround);
+        PlayerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
+        PlayerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && IsGround ? 4 : 2);
     }
 
 

@@ -9,6 +9,11 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     [field: SerializeField] public float MaxPower { get; private set; }
     [field: SerializeField] public float ConsumptionRate { get; private set; }
     [SerializeField] private float chargeRate;
+    [SerializeField] private Renderer radiusRenderer;
+
+    //private Material radiusMat;
+    //private float default_BlinkAlphaSpeed;
+    
     private Item chargeJam;
     
     private float remainPower;
@@ -33,6 +38,9 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     {
         remainPower = MaxPower;
         chargeJam = null;
+
+        //radiusMat = radiusRenderer.material;
+        //default_BlinkAlphaSpeed = radiusMat.GetFloat("_BlinkAlphaSpeed");
     }
     
 
@@ -51,6 +59,8 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     {
         if(chargeJam.isInteract) chargeJam.ForceDisconnect();
         chargeJam.RemoveItem();
+        
+        //radiusMat.SetFloat("_BlinkAlphaSpeed", default_BlinkAlphaSpeed);
     }
     
     
@@ -71,6 +81,8 @@ public class CatPower : MonoBehaviour, IPowerConsumable
     
     private void UpdateUI()
     {
+        //if (RemainPower / MaxPower <= 0.2) radiusMat.SetFloat("_BlinkAlphaSpeed", 10);
+        
         remainPowerBar.fillAmount = RemainPower / MaxPower;
     }
 }

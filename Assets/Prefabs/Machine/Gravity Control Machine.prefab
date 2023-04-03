@@ -117,6 +117,7 @@ MonoBehaviour:
   <MaxPower>k__BackingField: 100
   <ConsumptionRate>k__BackingField: 1
   chargeRate: 50
+  radiusRenderer: {fileID: 2211534782366744933}
   remainPowerBar: {fileID: 4695800820490948469}
 --- !u!1 &7501803939305154067
 GameObject:
@@ -580,6 +581,12 @@ PrefabInstance:
 --- !u!4 &1079702785412037130 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8c8ee36cea9b84b4db1c9a49231b5508,
+    type: 3}
+  m_PrefabInstance: {fileID: 680437765993045473}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2211534782366744933 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 8c8ee36cea9b84b4db1c9a49231b5508,
     type: 3}
   m_PrefabInstance: {fileID: 680437765993045473}
   m_PrefabAsset: {fileID: 0}
