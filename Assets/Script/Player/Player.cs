@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IGravityAffectable
     
     [Header("Movement")]
     [SerializeField] private GameObject playerPhysics;
-    [field: SerializeField] public float MoveSpeed { get; private set; }
+    [field: SerializeField] public float MoveSpeedInGround { get; private set; }
+    [field: SerializeField] public float MoveSpeedInSpace { get; private set; }
     [field: SerializeField] public float RotateSpeed { get; private set; }
     
     [field: Header("Jetpack")]
@@ -86,7 +87,8 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void Move(Vector3 movement)
     {
-        PlayerMovement.Move(movement, MoveSpeed, JetPackAcceleration, MaxJetPackVelocity);
+        var speed = IsGround ? MoveSpeedInGround : MoveSpeedInSpace;
+        PlayerMovement.Move(movement, speed, JetPackAcceleration, MaxJetPackVelocity);
         PlayerMovement.CalcInertia(!UnderGravity);
         
         playerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);

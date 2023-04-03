@@ -181,7 +181,8 @@ MonoBehaviour:
   <Joint>k__BackingField: {fileID: 0}
   <playerAnimator>k__BackingField: {fileID: 1996162584171042867}
   playerPhysics: {fileID: 5393446356967413969}
-  <MoveSpeed>k__BackingField: 2
+  <MoveSpeedInGround>k__BackingField: 2
+  <MoveSpeedInSpace>k__BackingField: 4
   <RotateSpeed>k__BackingField: 240
   <JetPackAcceleration>k__BackingField: 5
   <MaxJetPackVelocity>k__BackingField: 5
