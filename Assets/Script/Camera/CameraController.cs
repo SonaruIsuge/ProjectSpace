@@ -1,15 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraController : MonoBehaviour
 {
-    private List<CinemachineVirtualCamera> allVirtualCameras;
-    private CinemachineVirtualCamera currentActiveCam;
     private List<CinemachineVirtualCamera> allRotatableCam;
+
+    [SerializeField] private CinemachineVirtualCamera originVirtualCam;
+
+    [SerializeField] private float ellipseMajorAxis;
+    private CinemachineVirtualCamera currentActiveCam;
     private Camera mainCam => Camera.main;
 
     [SerializeField] private float rotateUnitAngle;
@@ -30,13 +35,31 @@ public class CameraController : MonoBehaviour
     private bool isRotating;
     
     private bool enableAutoRotate;
-    
+
+
+    private void OnDrawGizmos()
+    {
+        var currentPos = originVirtualCam.transform.position;
+        var center = new Vector3(0, currentPos.y, 0);
+        
+        Gizmos.color = Color.magenta;
+        
+        for (var i = rotateUnitAngle; i < 360f; i += rotateUnitAngle)
+        {
+            var nextPos = CircleRotateAroundAxis(currentPos, Vector3.up, rotateUnitAngle);
+            //RotatePointOnEllipse(center, ellipseMajorAxis, Vector3.Distance(originVirtualCam.transform.position, center), i);
+            Gizmos.DrawLine(currentPos, nextPos);
+            currentPos = nextPos;
+        }
+        Gizmos.DrawLine(currentPos, originVirtualCam.transform.position);
+    }
+
+
     private void Awake()
     {
-        allVirtualCameras = GetComponentsInChildren<CinemachineVirtualCamera>().ToList();
         allRotatableCam = new List<CinemachineVirtualCamera>();
         
-        foreach (var cam in allVirtualCameras.Where(cam => cam.gameObject.activeInHierarchy)) currentActiveCam = cam;
+        currentActiveCam = originVirtualCam;
         
         var pos = currentActiveCam.transform.position;
         CurrentRotate = Mathf.Atan2(pos.x, pos.z) * Mathf.Rad2Deg;
@@ -50,7 +73,6 @@ public class CameraController : MonoBehaviour
             var cam = Instantiate(currentActiveCam, transform);
             cam.transform.RotateAround(Vector3.zero, Vector3.up, i);
             allRotatableCam.Add(cam);
-            allVirtualCameras.Add(cam);
             cam.gameObject.SetActive(false);
         }
 
@@ -96,4 +118,27 @@ public class CameraController : MonoBehaviour
         await Task.Delay(500);
         isRotating = false;
     }
+
+
+    private Vector3 CircleRotateAroundAxis(Vector3 originPos, Vector3 axis, float angle)
+    { 
+        return Quaternion.AngleAxis(angle, axis) * originPos;
+    }
+
+
+    // public static Vector3 RotatePointOnEllipse(Vector3 centerPos, float majorAxis, float minorAxis, float angle)
+    // {
+    //     var x = centerPos.x + majorAxis * Mathf.Cos(angle);
+    //     var y = centerPos.y;
+    //     var z = centerPos.z + minorAxis * Mathf.Sin(angle);
+    //     return new Vector3(x, y, z);
+    // }
+    //
+    //
+    // private Vector3 RotateAroundYAxis(Vector3 originPos, Vector3 center, float majorAxis, float angle)
+    // {
+    //     var minerAxis = Vector3.Distance(originPos, center);
+    //     var majorPoint = Vector3.Cross(originPos, Vector3.up).normalized * majorAxis;
+    //     
+    // }
 }

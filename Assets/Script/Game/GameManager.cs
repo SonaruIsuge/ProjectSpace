@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CameraController cameraController;
 
     private SimpleTimer gameTimer;
+    private bool startGameProgress;
 
     public static event Action OnGameStart;
     public static event Action<bool> OnGameOver;
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
         
         gameTimer = new SimpleTimer(gameTimeLimit);
         gameTimer.Pause();
+
+        startGameProgress = false;
     }
 
 
@@ -68,11 +71,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void Start()
+    private async void Start()
     {
         BindManager();
-        
         LoadPairedPlayer();
+
+        await PlayStartAni(0.2f);
 
         GameStart();
     }
@@ -80,6 +84,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if(!startGameProgress) return;   
+        
         playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
         
         uiManager.UpdateItemRemain(itemManager.RemainItemNum);
@@ -101,6 +107,12 @@ public class GameManager : MonoBehaviour
         
         var pairedDevices = pairingData.PairingPlayers;
         playerManager.BindPlayerWithDevice(pairedDevices);
+    }
+
+
+    private async Task PlayStartAni(float delay)
+    {
+        await uiManager.ShowStartAni(delay, () => startGameProgress = true);
     }
 
 

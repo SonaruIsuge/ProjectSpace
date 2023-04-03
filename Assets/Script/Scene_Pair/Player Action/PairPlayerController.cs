@@ -41,6 +41,7 @@ public class PairPlayerController
             
         }
         
+        playerAni.SetBool("IsGround", true);
         playerAni.SetBool("Move", isMove);
         playerAni.SetFloat("MoveSpeed",  6);
     }

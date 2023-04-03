@@ -256,8 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df7a72fa82ae2a64692aa8273b5be8dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  originVirtualCam: {fileID: 4470805637158284212}
   rotateUnitAngle: 45
-  <CurrentRotate>k__BackingField: 0
 --- !u!1 &8253988575085936688
 GameObject:
   m_ObjectHideFlags: 0

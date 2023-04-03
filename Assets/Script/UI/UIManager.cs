@@ -1,20 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DG.Tweening;
-using SonaruUtilities;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     private Dictionary<Player, RecycleHintUI> playerHintUIDict;
     private Dictionary<Player, PlayerRotateCamIcon> playerIconDict;
 
+    [Header("Game Start")]
+    [SerializeField] private GameStartView gameStartView;
     [Header("In Game")] 
     [SerializeField] private MainGameView mainGameView;
     [SerializeField] private RecycleHintUI recycleHintUIPrefab;
@@ -77,6 +73,18 @@ public class UIManager : MonoBehaviour
     public void UpdateTimeRemain(float remain, float remain01)
     {
         mainGameView.SetRemainTime(remain, remain01);
+    }
+
+
+    public async Task ShowStartAni(float delay, Action onComplete = null)
+    {
+        gameStartView.ResetTween();
+        await Task.Delay((int)(delay * 1000));
+        gameStartView.ShowAni(() =>
+        {
+            onComplete?.Invoke();
+            gameOverView.gameObject.SetActive(false);
+        });
     }
 
 
