@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Cinemachine;
 using UnityEngine;
@@ -27,7 +28,21 @@ public class CameraController : MonoBehaviour
     }
     
     private bool isRotating;
+    [SerializeField] private bool showGizmos;
 
+    private void OnDrawGizmos()
+    {
+        if(!showGizmos) return;
+        if(allRotatableCam == null || allRotatableCam.Count == 0) return;
+
+        Gizmos.color = Color.yellow;
+        for (var i = 0; i < allRotatableCam.Count - 1; i++)
+        {
+            Gizmos.DrawLine(allRotatableCam[i].transform.position, allRotatableCam[i+1].transform.position);
+        }
+        Gizmos.DrawLine(allRotatableCam.First().transform.position, allRotatableCam.Last().transform.position);
+    }
+    
 
     private void Awake()
     {

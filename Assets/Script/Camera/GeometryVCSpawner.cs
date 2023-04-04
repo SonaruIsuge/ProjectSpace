@@ -8,12 +8,14 @@ public class GeometryVCSpawner : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera originVirtualCam;
     [Range(1, 360)] [SerializeField] private float rotateUnitAngle;
-
+    [SerializeField] private bool showGizmos;
+    
     private List<CinemachineVirtualCamera> allSpawnedVC;
     private int activeCamIndex;
 
     private void OnDrawGizmos()
     {
+        if(!showGizmos) return;
         if(!originVirtualCam) return;
         if(rotateUnitAngle <= 0) return;
         

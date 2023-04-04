@@ -8163,7 +8163,7 @@ MonoBehaviour:
   - {fileID: 2073119473}
   allWaitingItem:
   - {fileID: 2409702401408018251, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
-  - {fileID: 6361874875558958194, guid: 24e463f242097ea4b91df6f5b7dd3ef1, type: 3}
+  - {fileID: 915714569762472109, guid: bb29d6f049ba2c6459aa9169f750ceb5, type: 3}
   - {fileID: 2409702401408018251, guid: cf736cbf98fa7ec4c9b97f6566b95062, type: 3}
   - {fileID: 5360202476792271001, guid: cdd3f1e6e945f0440981e8be56aee061, type: 3}
   - {fileID: 1409622558667570405, guid: e032fae65b04aa04d8079c47e36b5669, type: 3}
@@ -8534,36 +8534,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2035196992833679850, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: ellipseMajorAxis
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805636663702165, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_BindingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637158284210, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_Name
-      value: Game Main Virtual Cam
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637158284213, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637158284213, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637158284213, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4470805637165279729, guid: 129070d72114ee74a9be66bf1963545a,
         type: 3}
       propertyPath: m_RootOrder
@@ -8624,101 +8594,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: VirtualCameraContainer
       objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582324, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582326, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_Lens.FieldOfView
-      value: 24.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582326, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_Lens.OrthographicSize
-      value: 3.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4470805637357582327, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748534469696296364, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -23.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748534469696296364, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 37.58
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748534469696296364, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -58.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748534469696296364, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 26.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748534469696296364, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 19.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797033367744217839, guid: 129070d72114ee74a9be66bf1963545a,
-        type: 3}
-      propertyPath: m_Lens.FieldOfView
-      value: 35
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4470805637512324932, guid: 129070d72114ee74a9be66bf1963545a, type: 3}
-    - {fileID: 4470805637512324933, guid: 129070d72114ee74a9be66bf1963545a, type: 3}
-    - {fileID: 4470805636663702164, guid: 129070d72114ee74a9be66bf1963545a, type: 3}
-    - {fileID: 4470805636663702165, guid: 129070d72114ee74a9be66bf1963545a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129070d72114ee74a9be66bf1963545a, type: 3}
 --- !u!1001 &5707718759367039802
 PrefabInstance:
