@@ -1848,7 +1848,7 @@ PrefabInstance:
     - target: {fileID: 1151275982895329006, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2574467395857921425, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
@@ -1874,6 +1874,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880348909117947543, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4024143265847727975, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
@@ -1938,7 +1943,7 @@ PrefabInstance:
     - target: {fileID: 7768159906202319039, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7890859765417531350, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
@@ -1954,6 +1959,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MatePlayer_scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8106767818049026337, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8174885363951967061, guid: 97a2032bdc2c2a84e9a1085ee346b35e,
         type: 3}
