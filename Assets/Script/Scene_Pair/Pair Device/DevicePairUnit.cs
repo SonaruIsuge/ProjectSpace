@@ -45,6 +45,10 @@ public class DevicePairUnit
     }
     
 
+    /// <summary>
+    /// Enable/disable state of player pair input.
+    /// </summary>
+    /// <param name="enable">is pair input enable?</param>
     public void EnableInput(bool enable)
     {
         if(enable) playerInputAction.Pair.Enable();
@@ -52,12 +56,21 @@ public class DevicePairUnit
     }
 
 
+    /// <summary>
+    /// Enable/disable player to final check.
+    /// </summary>
+    /// <param name="enable">is final check enable?</param>
     public void EnableFinalCheck(bool enable)
     {
         enableFinalCheck = enable;
     }
 
 
+    /// <summary>
+    /// Try pair device with player.
+    /// </summary>
+    /// <param name="device">which device to pair the player</param>
+    /// <returns>if pair success</returns>
     public bool TryPairDevice(InputDevice device)
     {
         if (inputUser.valid) return false;
@@ -78,6 +91,9 @@ public class DevicePairUnit
     }
 
 
+    /// <summary>
+    /// Unpair player with paired device.
+    /// </summary>
     public void UnpairDevice()
     {
         if(!inputUser.valid) return;

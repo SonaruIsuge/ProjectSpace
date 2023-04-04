@@ -29,6 +29,11 @@ public class PairingSceneUIManager : MonoBehaviour
     private Camera MainCam => Camera.main;
 
 
+    /// <summary>
+    /// <para>Set UI gameObject active state.</para>
+    /// <para>Reset script value.</para>
+    /// <para>Get all ui tween</para>
+    /// </summary>
     public void Init()
     {
         foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(true);

@@ -58,6 +58,10 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// <para>Create devicePairUnits and fill data in.</para>
+    /// <para>Bind pairing event.</para>
+    /// </summary>
     public void InitSetup()
     {
         devicePairUnits = new DevicePairUnit[maxPairNumber];
@@ -70,12 +74,18 @@ public class PlayerPairManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Input system start listen for device pair
+    /// </summary>
     public void StartListenUnpairDevice()
     {
         InputUser.listenForUnpairedDeviceActivity = maxPairNumber;
     }
 
 
+    /// <summary>
+    /// Input system stop listen unpaired device
+    /// </summary>
     public void StopListenUnpairDevice()
     {
         InputUser.listenForUnpairedDeviceActivity = 0;

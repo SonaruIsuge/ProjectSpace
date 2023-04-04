@@ -13,6 +13,9 @@ public class PlayerPairActManager : MonoBehaviour
     private List<PairPlayerController> pairPlayerControllers;
     
 
+    /// <summary>
+    /// Create player list and reset all players position to origin position.
+    /// </summary>
     public void ResetPlayersPosition()
     {
         pairPlayerControllers = new List<PairPlayerController>();
@@ -35,18 +38,30 @@ public class PlayerPairActManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Move player to target position.
+    /// </summary>
+    /// <param name="index">which player move in</param>
     public void MovePlayerIn(int index)
     {
         pairPlayerControllers[index].MoveIn();
     }
     
     
+    /// <summary>
+    /// Move player to origin position.
+    /// </summary>
+    /// <param name="index">which player move out</param>
     public void MovePlayerOut(int index)
     {
         pairPlayerControllers[index].MoveOut();
     }
 
 
+    /// <summary>
+    /// Make player play ready animation
+    /// </summary>
+    /// <param name="index">which player play the animation</param>
     public void SetPlayerReadyAni(int index)
     {
         pairPlayerControllers[index].Ready();
