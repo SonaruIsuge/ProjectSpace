@@ -78,6 +78,7 @@ public class UIManager : MonoBehaviour
 
     public async Task ShowStartAni(float delay, Action onComplete = null)
     {
+        gameStartView.gameObject.SetActive(true);
         gameStartView.ResetTween();
         await Task.Delay((int)(delay * 1000));
         gameStartView.ShowAni(() =>
