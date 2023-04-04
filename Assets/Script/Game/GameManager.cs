@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         if(!startGameProgress) return;   
         
-        playerManager.SetWorldRotate(cameraController.CurrentRotate - 180);
+        playerManager.SetWorldRotate(cameraController.CurrentRotate);
         
         uiManager.UpdateItemRemain(itemManager.RemainItemNum);
         uiManager.UpdateTimeRemain(gameTimer.Remain, gameTimer.Remain01);

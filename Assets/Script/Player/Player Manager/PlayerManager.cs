@@ -95,7 +95,7 @@ public class PlayerManager : MonoBehaviour
             player.DetectInteract();
             
             // World turns in the opposite direction of the camera
-            if(player.PlayerInput.RotateCam != 0) OnRotateCameraCall?.Invoke(player, -player.PlayerInput.RotateCam);    
+            if(player.PlayerInput.RotateCam != 0) OnRotateCameraCall?.Invoke(player, -player.PlayerInput.RotateCam);
         }
     }
     
