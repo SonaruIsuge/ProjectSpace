@@ -64,6 +64,11 @@ public class RbOnlyMove : IPlayerMove
         
         if (moveVelocity != Vector2.zero && targetPlayer.PlayerInteractController.CurrentInteract is not Item) 
             Rotate(moveVelocity);
+
+        if (targetPlayer.PlayerInteractController.CurrentInteract is Item item && item.CarryPlayers.Count == 1)
+        {
+            Rotate(moveVelocity);
+        }
     }
 
     public void CalcInertia(bool needInertia)

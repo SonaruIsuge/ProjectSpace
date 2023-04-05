@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 {
     public ItemData ItemData;
-    [SerializeField] private List<Player> carryPlayers;
+    [field: SerializeField] public List<Player> CarryPlayers { get; private set; }
     public InteractType InteractType => InteractType.Tap;
     
     public bool isInteract { get; private set; }
@@ -57,7 +57,7 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
         if (interactType != InteractType || !CanInteract) return;
         
         // picked up by player
-        if(!carryPlayers.Contains(interactPlayer)) PickUp(interactPlayer);
+        if(!CarryPlayers.Contains(interactPlayer)) PickUp(interactPlayer);
         else DropDown(interactPlayer);
     }
     
@@ -72,9 +72,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 
     private void PickUp(Player picker)
     {
-        if(carryPlayers.Contains(picker)) return;
+        if(CarryPlayers.Contains(picker)) return;
         
-        carryPlayers.Add(picker);
+        CarryPlayers.Add(picker);
         isInteract = true;
         picker.PlayerInteractController.SetCurrentInteract(this);
         picker.SwitchToRigidbodyMove(true);
@@ -90,10 +90,10 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 
     private void DropDown(Player dropper)
     {
-        if(!carryPlayers.Contains(dropper)) return;
+        if(!CarryPlayers.Contains(dropper)) return;
 
-        carryPlayers.Remove(dropper);
-        if(carryPlayers.Count == 0) isInteract = false;
+        CarryPlayers.Remove(dropper);
+        if(CarryPlayers.Count == 0) isInteract = false;
         dropper.PlayerInteractController.SetCurrentInteract(null);
         
         //Rb.WakeUp();
@@ -125,10 +125,10 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
     
     public void ApplyGravity(float gravity)
     {
-        IgnoreGravity = carryPlayers.Count != 0;
-        if (carryPlayers.Count > 0)
+        IgnoreGravity = CarryPlayers.Count != 0;
+        if (CarryPlayers.Count > 0)
         {
-            foreach (var player in carryPlayers.Where(player => player.IgnoreGravity)) IgnoreGravity = true;
+            foreach (var player in CarryPlayers.Where(player => player.IgnoreGravity)) IgnoreGravity = true;
         }
 
         UpdateGravity();
@@ -140,9 +140,9 @@ public class Item : MonoBehaviour, IInteractable, IGravityAffectable
 
     public void ForceDisconnect()
     {
-        for (var i = carryPlayers.Count -1; i >= 0; i--)
+        for (var i = CarryPlayers.Count -1; i >= 0; i--)
         {
-            DropDown(carryPlayers[i]);
+            DropDown(CarryPlayers[i]);
         }
     }
     
