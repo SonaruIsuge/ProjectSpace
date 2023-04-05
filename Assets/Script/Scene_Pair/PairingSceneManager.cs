@@ -115,9 +115,9 @@ public class PairingSceneManager : MonoBehaviour
         GameFlowManager.Instance.LoadScene(1, new PairingData(pairedDict));
     }
 
+    
 
-    
-    
+    #region Bind Event Here
     
     private void ChangeReadyEvent(DevicePairUnit unit, bool isReady)
     {
@@ -150,6 +150,7 @@ public class PairingSceneManager : MonoBehaviour
     private void EnableFinalCheckEvent(bool enableFinalCheck)
     {
         uiManager.ShowAllReadyPanel(enableFinalCheck);
+        uiManager.ToggleFinalCheckHint(!enableFinalCheck);
         
         if(enableFinalCheck) pairManager.StopListenUnpairDevice();
         else pairManager.StartListenUnpairDevice();
@@ -158,11 +159,15 @@ public class PairingSceneManager : MonoBehaviour
 
     private void ChangeFinalCheckEvent(DevicePairUnit unit, bool check)
     {
-        uiManager.SetStartGameIconFocus(unit, check);   
+        uiManager.SetStartGameIconFocus(unit, check);
     }
+    
+    #endregion
+    
     
     
     #region Delay Do Function
+    
     public void DelayDo(Action onComplete, float delay)
     {
         StartCoroutine(DelayDoInner(delay, onComplete));
@@ -186,5 +191,6 @@ public class PairingSceneManager : MonoBehaviour
         
         onComplete?.Invoke(param1);
     }
+    
     #endregion
 }
