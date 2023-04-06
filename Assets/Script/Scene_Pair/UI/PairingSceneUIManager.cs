@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class PairingSceneUIManager : MonoBehaviour
 {
+    [SerializeField] private Transform pairUIRoot;
     [SerializeField] private string pairHintText;
     [SerializeField] private string finalCheckHintText;
     [SerializeField] private TMP_Text pairHint;
     [SerializeField] private RawImage finalCheckHintImage;
+
     [SerializeField] private List<RawImage> allPreparePair;
     [SerializeField] private List<RawImage> allPairedPlayerReady;
     [SerializeField] private Transform allReadyPanel;
@@ -37,7 +39,8 @@ public class PairingSceneUIManager : MonoBehaviour
         foreach(var readyIcon in allPairedPlayerReady) readyIcon.gameObject.SetActive(false);
         foreach (var startIcon in allStartGameIcons) startIcon.gameObject.SetActive(false);
         foreach (var iconFocus in allStartGameFocus) iconFocus.gameObject.SetActive(false);
-
+        pairUIRoot.gameObject.SetActive(false);
+        
         finalCheckImageTween = finalCheckHintImage.GetComponent<UITweenBase>();
         pairHintTween = pairHint.GetComponent<UITweenBase>();
         allReadyPanelTween = allReadyPanel.GetComponent<UITweenBase>();
@@ -50,6 +53,7 @@ public class PairingSceneUIManager : MonoBehaviour
     /// </summary>
     public void EnableOriginPairUI(bool active)
     {
+        pairUIRoot.gameObject.SetActive(active);
         foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(active);
         pairedNum = 0;
         allReadyPanelShow = false;
