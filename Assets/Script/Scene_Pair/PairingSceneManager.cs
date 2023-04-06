@@ -18,6 +18,7 @@ public class PairingSceneManager : MonoBehaviour
     
     [SerializeField] private Animator lobbyCutSceneAni;
     private static readonly int Direction = Animator.StringToHash("Direction");
+    private bool isPlayCutSceneAni;
     
     private bool underReadyProgress;
     private bool finalCheck;
@@ -31,6 +32,8 @@ public class PairingSceneManager : MonoBehaviour
     {
         underReadyProgress = false;
         finalCheck = false;
+
+        isPlayCutSceneAni = false;
     }
     
     
@@ -123,13 +126,14 @@ public class PairingSceneManager : MonoBehaviour
 
     private async void PlayCutScene(Action onComplete, bool isReverse = false)
     {
-        lobbyCutSceneAni.enabled = true;
+        if(isPlayCutSceneAni) return;
+        isPlayCutSceneAni = true;
         
+        lobbyCutSceneAni.enabled = true;
         lobbyCutSceneAni.SetFloat(Direction, isReverse ? -1 : 1);
         lobbyCutSceneAni.Play("A_DollyCamLobby");
         
         var timer = 0f;
-        
         while (timer < lobbyCutSceneAni.GetCurrentAnimatorStateInfo(0).length)
         {
             timer += Time.deltaTime;
@@ -138,6 +142,8 @@ public class PairingSceneManager : MonoBehaviour
 
         lobbyCutSceneAni.enabled = false;
         onComplete?.Invoke();
+        
+        isPlayCutSceneAni = false;
     }
 
     
