@@ -19,9 +19,11 @@ public class PlayerGrabInteractController : IPlayerInteract
     
     private Transform ClawTransform => targetPlayer.ClawTransform;
     private Vector3 clawLocalOriginPos;
-    private Vector3 ClawWorldOriginPos =>
-        targetPlayer.transform.position + Vector3.Scale(targetPlayer.transform.rotation * clawLocalOriginPos, targetPlayer.transform.localScale);
+
+    private Vector3 ClawWorldOriginPos => targetPlayer.ClawBaseTransform.position;
+        //targetPlayer.transform.position + Vector3.Scale(targetPlayer.transform.rotation * clawLocalOriginPos, targetPlayer.transform.localScale);
     private Vector3 ClawPos => ClawTransform.position;
+    private Vector3 ClawHeadPos => targetPlayer.ClawHeadTransform.position;
 
     
     public PlayerGrabInteractController(Player player)
@@ -138,11 +140,13 @@ public class PlayerGrabInteractController : IPlayerInteract
         {
             if(!currentDetectCollider) return false;
             
-            var targetPoint = currentDetectCollider.ClosestPoint(ClawPos);
+            var targetPoint = currentDetectCollider.ClosestPoint(ClawHeadPos);
             ClawTransform.LookAt(targetPoint);
-            ClawTransform.position = Vector3.MoveTowards(ClawPos, targetPoint, targetPlayer.ClawSpeed * Time.deltaTime);
 
-            isAttach = Vector3.Distance(targetPoint, ClawPos) < 0.01f;
+            var clawHeadDiff = ClawHeadPos - ClawPos;
+            ClawTransform.position = Vector3.MoveTowards(ClawPos, targetPoint - clawHeadDiff, targetPlayer.ClawSpeed * Time.deltaTime);
+
+            isAttach = Vector3.Distance(targetPoint, ClawHeadPos) < 0.01f;
             await Task.Yield();
         }
 
@@ -160,14 +164,14 @@ public class PlayerGrabInteractController : IPlayerInteract
             var itemHitPos = currentDetectCollider.ClosestPoint(ClawPos);
             var itemCenterHitDiff = itemHitPos - currentDetectCollider.transform.position;
 
-            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
+            ClawTransform.LookAt(itemHitPos);
             ClawTransform.position =
                 Vector3.MoveTowards(ClawPos, ClawWorldOriginPos, targetPlayer.ClawSpeed * Time.deltaTime);
             
             item.transform.position = Vector3.MoveTowards(item.transform.position,
                 ClawWorldOriginPos - itemCenterHitDiff, targetPlayer.ClawSpeed * Time.deltaTime);
 
-            getItem = Vector3.Distance(ClawWorldOriginPos, itemHitPos) < 0.01f;
+            getItem = Vector3.Distance(ClawWorldOriginPos, ClawPos) < 0.01f;
             await Task.Yield();
         }
         
@@ -194,7 +198,7 @@ public class PlayerGrabInteractController : IPlayerInteract
             var playerPos = targetPlayer.transform.position;
             var clawPlayerWorldDiff = playerPos - ClawWorldOriginPos;
 
-            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
+            //ClawTransform.LookAt(currentItemPoint);
             ClawTransform.position =
                 Vector3.MoveTowards(ClawPos, currentItemPoint, targetPlayer.ClawSpeed * Time.deltaTime);
             targetPlayer.transform.position = Vector3.MoveTowards(playerPos, currentItemPoint + clawPlayerWorldDiff,
@@ -214,7 +218,8 @@ public class PlayerGrabInteractController : IPlayerInteract
         var clawReturn = false;
         while (!clawReturn)
         {
-            ClawTransform.LookAt(ClawPos - ClawWorldOriginPos);
+            var clawOriginLookVector = (ClawPos - ClawWorldOriginPos).normalized;
+            ClawTransform.LookAt(ClawTransform.position + clawOriginLookVector);
             ClawTransform.position = Vector3.MoveTowards(ClawPos, ClawWorldOriginPos, targetPlayer.ClawSpeed * Time.deltaTime);
             
             clawReturn = Vector3.Distance(ClawWorldOriginPos, ClawPos) < 0.01f;

@@ -28,6 +28,8 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     [field: Header("Interact")]
     [field: SerializeField] public Transform ClawTransform { get; private set; }
+    [field: SerializeField] public Transform ClawBaseTransform { get; private set; }
+    [field: SerializeField] public Transform ClawHeadTransform { get; private set; }
     [field: SerializeField] public float InteractRange { get; private set; }
     [field: SerializeField] public Transform InteractPoint { get; private set; }
     [field: SerializeField] public float ClawSpeed { get; private set; }

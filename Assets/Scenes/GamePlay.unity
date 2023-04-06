@@ -3181,6 +3181,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 413697629812469628, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_Name
+      value: Claw Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271340512136643168, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1271340512136643168, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659715904641995368, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659715904641995368, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1659715904641995368, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3224329324697016414, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_Name
+      value: Claw_02
+      objectReference: {fileID: 0}
     - target: {fileID: 3789837215244479776, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
       propertyPath: m_RootOrder
@@ -3240,6 +3279,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 1P
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888616718138554809, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888616718138554809, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888616718138554809, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187022209886380249, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187022209886380249, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6816030119833549411, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_Name
+      value: Claw
+      objectReference: {fileID: 0}
+    - target: {fileID: 7222702725688126108, guid: 37e884296f5ba394c87e911ee172e4be,
+        type: 3}
+      propertyPath: m_Name
+      value: Claw_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37e884296f5ba394c87e911ee172e4be, type: 3}
