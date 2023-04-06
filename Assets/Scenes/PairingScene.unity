@@ -6018,9 +6018,9 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: -0.51, y: 6.02, z: 15.84}
     roll: 0
-  - position: {x: -25.149305, y: 5.3, z: 9.040178}
+  - position: {x: -24.0143, y: 5.3, z: 9.040178}
     roll: 0
-  - position: {x: -22.353779, y: 5, z: -11.919612}
+  - position: {x: -22.885796, y: 5, z: -9.898756}
     roll: 0
   - position: {x: 0, y: 5.04, z: -18}
     roll: 0
