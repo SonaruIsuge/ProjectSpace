@@ -9273,7 +9273,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":3.5,"z":0.0},"angles":{"x":0.0,"y":35.0,"z":0.0},"size":{"x":5.0,"y":5.0,"z":5.0}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":4.199999809265137,"z":0.0},"angles":{"x":0.0,"y":60.0,"z":0.0},"size":{"x":5.0,"y":5.0,"z":5.0}}'
     m_Space: 0
   m_Property:
     name: FieldTransform
@@ -13760,7 +13760,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":0.0,"y":3.5,"z":0.0},"angles":{"x":0.0,"y":35.0,"z":0.0},"size":{"x":6.0,"y":6.0,"z":8.0}}'
+      m_SerializableObject: '{"center":{"x":0.0,"y":4.199999809265137,"z":0.0},"angles":{"x":0.0,"y":60.0,"z":0.0},"size":{"x":6.0,"y":6.0,"z":8.0}}'
     m_Space: 0
   m_Property:
     name: FieldTransform

@@ -274,15 +274,14 @@ MonoBehaviour:
   m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8869ad8a0f24c1f499bb751e2abd98db, type: 2}
-  m_sharedMaterial: {fileID: 2663714016096855781, guid: 8869ad8a0f24c1f499bb751e2abd98db,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a7ef49b8a7139a741b48b4f49d40b03a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290937249
-  m_fontColor: {r: 0.6313726, g: 0.5058824, b: 0.7607844, a: 1}
+    rgba: 4293051360
+  m_fontColor: {r: 0.8784314, g: 0.7647059, b: 0.8862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -410,15 +409,14 @@ MonoBehaviour:
   m_text: Setting
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8869ad8a0f24c1f499bb751e2abd98db, type: 2}
-  m_sharedMaterial: {fileID: 2663714016096855781, guid: 8869ad8a0f24c1f499bb751e2abd98db,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a7ef49b8a7139a741b48b4f49d40b03a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290937249
-  m_fontColor: {r: 0.6313726, g: 0.5058824, b: 0.7607844, a: 1}
+    rgba: 4293051360
+  m_fontColor: {r: 0.8784314, g: 0.7647059, b: 0.8862745, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -618,7 +616,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sharedProfile
       value: 
-      objectReference: {fileID: 11400000, guid: c1ab45d735fdcb64b8df3bd90b98bddd,
+      objectReference: {fileID: 11400000, guid: 4fc69453bb3f55445bb9032a5451082a,
         type: 2}
     - target: {fileID: 5689714172915359293, guid: 1449afaa7d9742e418f5c57afa9b81d7,
         type: 3}
@@ -1043,7 +1041,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 11700000, guid: c147c43f6b9038346bd9ffe68671faeb, type: 2}
+        m_Name: SDF
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!1 &864516449
@@ -1245,7 +1246,7 @@ PrefabInstance:
     - target: {fileID: 794377497352866205, guid: cb8e7eb32b05753428227c9978a51451,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.42
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 794377497352866205, guid: cb8e7eb32b05753428227c9978a51451,
         type: 3}
@@ -2224,7 +2225,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 11700000, guid: c147c43f6b9038346bd9ffe68671faeb, type: 2}
+        m_Name: SDF
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!1 &2056002104
@@ -2378,15 +2382,14 @@ MonoBehaviour:
   m_text: Project Space
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8869ad8a0f24c1f499bb751e2abd98db, type: 2}
-  m_sharedMaterial: {fileID: 2663714016096855781, guid: 8869ad8a0f24c1f499bb751e2abd98db,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a7ef49b8a7139a741b48b4f49d40b03a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294961402
+  m_fontColor: {r: 0.980283, g: 0.9103774, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5980,7 +5983,7 @@ MonoBehaviour:
     width: 0.2
   m_Looped: 0
   m_Waypoints:
-  - position: {x: -1.42, y: 6.02, z: 15.84}
+  - position: {x: -0.51, y: 6.02, z: 15.84}
     roll: 0
   - position: {x: -25.149305, y: 5.3, z: 9.912752}
     roll: 0
@@ -9383,7 +9386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -7}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6259282336023902991
@@ -9409,15 +9412,14 @@ MonoBehaviour:
   m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8869ad8a0f24c1f499bb751e2abd98db, type: 2}
-  m_sharedMaterial: {fileID: 2663714016096855781, guid: 8869ad8a0f24c1f499bb751e2abd98db,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a7ef49b8a7139a741b48b4f49d40b03a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4290937249
-  m_fontColor: {r: 0.6313726, g: 0.5058824, b: 0.7607844, a: 1}
+    rgba: 4293051360
+  m_fontColor: {r: 0.8784314, g: 0.7647059, b: 0.8867924, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
