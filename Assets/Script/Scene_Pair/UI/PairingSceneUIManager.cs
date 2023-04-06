@@ -25,28 +25,34 @@ public class PairingSceneUIManager : MonoBehaviour
     
     private int pairedNum;
     private bool allReadyPanelShow;
-    
-    private Camera MainCam => Camera.main;
 
 
     /// <summary>
-    /// <para>Set UI gameObject active state.</para>
-    /// <para>Reset script value.</para>
+    /// <para>Set UI gameObject inactive.</para>
     /// <para>Get all ui tween</para>
     /// </summary>
-    public void Init()
+    public void InitPairUI()
     {
-        foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(true);
+        foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(false);
         foreach(var readyIcon in allPairedPlayerReady) readyIcon.gameObject.SetActive(false);
         foreach (var startIcon in allStartGameIcons) startIcon.gameObject.SetActive(false);
         foreach (var iconFocus in allStartGameFocus) iconFocus.gameObject.SetActive(false);
-        
-        pairedNum = 0;
-        allReadyPanelShow = false;
 
         finalCheckImageTween = finalCheckHintImage.GetComponent<UITweenBase>();
         pairHintTween = pairHint.GetComponent<UITweenBase>();
         allReadyPanelTween = allReadyPanel.GetComponent<UITweenBase>();
+    }
+
+
+    /// <summary>
+    /// <para>Active/Inactive origin pair UI</para>
+    /// <para>Reset script value.</para>
+    /// </summary>
+    public void EnableOriginPairUI(bool active)
+    {
+        foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(active);
+        pairedNum = 0;
+        allReadyPanelShow = false;
     }
     
 
@@ -108,6 +114,9 @@ public class PairingSceneUIManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Hide all ready panel and enable start UI.
+    /// </summary>
     public void ActiveStartGroup()
     {
         allReadyPanelTween.TweenFrom();

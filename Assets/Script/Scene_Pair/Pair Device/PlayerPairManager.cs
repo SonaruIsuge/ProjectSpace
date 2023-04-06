@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.tvOS;
 
@@ -43,8 +45,12 @@ public class PlayerPairManager : MonoBehaviour
 
     public bool AllCheck;
     public bool AllNotCheck;
-    
-    
+
+    private EventSystem EventSystem => EventSystem.current;
+    [SerializeField] private InputActionAsset uiInputAction;
+
+
+    public event Action OnBackToLastStage;
     public event Action<DevicePairUnit> OnDevicePair;
     public event Action<DevicePairUnit> OnDeviceUnpair;
     public event Action<DevicePairUnit, bool> OnDeviceChangeReady;
@@ -71,6 +77,8 @@ public class PlayerPairManager : MonoBehaviour
         
         enableFinalCheck = false;
         RegisterEvent();
+
+        uiInputAction = EventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset;
     }
 
 
@@ -94,6 +102,15 @@ public class PlayerPairManager : MonoBehaviour
 
     public void UpdateSelf()
     {
+        if (PairedNum == 1 && !PairedUnit[0].IsReady && uiInputAction.FindAction("Cancel").WasPressedThisFrame())
+        {
+            Debug.Log(PairedUnit[0].CurrentState);
+            UnpairDevice(PairedUnit[0]);
+            StopListenUnpairDevice();
+            OnBackToLastStage?.Invoke();
+            return;
+        }
+        
         if (AllReady && !EnableFinalCheck)
         {
             foreach (var _ in PairedUnit.Where(unit => unit.PressReady))
@@ -148,7 +165,6 @@ public class PlayerPairManager : MonoBehaviour
         if(c.device.GetType() == Mouse.current.GetType()) return;
         if (!(c.device.GetType() == Keyboard.current.GetType() || c.device.GetType() == Gamepad.current.GetType()))
             return;
-        //Debug.Log(c.device.name);
         for (var i = 0; i < maxPairNumber; i++)
         {
             var pairUnit = devicePairUnits[i];
