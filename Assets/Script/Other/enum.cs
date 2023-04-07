@@ -64,6 +64,7 @@ public enum VFXType
 {
     Recycle,
     PlayerLanding,
+    PlayerCollision,
 }
 
 

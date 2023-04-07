@@ -20,8 +20,8 @@ public class ItemManager : MonoBehaviour
 
     public int ItemInStageNum => allItemInStage.Count;
     public int RemainItemNum => allItemInStage.Count(i => i.ItemData.type != ItemType.Energy);
-    public static event Action<Item, Player> OnItemStartInteract;
-    public static event Action<Item, Player> OnItemEndInteract;
+    public event Action<Item, Player> OnItemStartInteract;
+    public event Action<Item, Player> OnItemEndInteract;
 
     private bool isStart;
     public void SetStart(bool start) => isStart = start;

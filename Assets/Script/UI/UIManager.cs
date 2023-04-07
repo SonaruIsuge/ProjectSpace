@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ItemManager.OnItemStartInteract += ShowItemHint;
+        //ItemManager.OnItemStartInteract += ShowItemHint;
 
         gameOverView.BindReplayButton(() => OnPressReplay?.Invoke() );
         gameOverView.BindQuitButton( () => OnPressBackToPair?.Invoke() );
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        ItemManager.OnItemStartInteract -= ShowItemHint;
+        //ItemManager.OnItemStartInteract -= ShowItemHint;
     }
 
 
@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void ShowItemHint(Item item, Player player)
+    public void ShowItemHint(Item item, Player player)
     {
         var hintUI = playerHintUIDict[player];
         hintUI.SetHintItem(item);

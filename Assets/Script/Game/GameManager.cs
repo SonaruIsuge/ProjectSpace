@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraController cameraController;
 
+    private ItemDestinationHint curveHint;
+    
     private SimpleTimer gameTimer;
     private bool startGameProgress;
 
@@ -40,6 +42,8 @@ public class GameManager : MonoBehaviour
         gameTimer.Pause();
 
         startGameProgress = false;
+
+        curveHint = GetComponent<ItemDestinationHint>();
     }
 
 
@@ -48,11 +52,16 @@ public class GameManager : MonoBehaviour
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
         playerManager.OnRotateCameraCall += uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive += uiManager.BindActivePlayerUI;
-        machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
         
+        machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
+        itemManager.OnItemStartInteract += uiManager.ShowItemHint;
+        itemManager.OnItemStartInteract += playerManager.NewItemInteractPlayer;
+        itemManager.OnItemStartInteract += SetCurveHint;
+        itemManager.OnItemEndInteract += playerManager.RemovePlayerInteractItem;
+
         uiManager.OnPressReplay += ReStartGame;
         uiManager.OnPressBackToPair += BackToPair;
-        
+
         OnGameOver += GameOver;
     }
 
@@ -62,7 +71,12 @@ public class GameManager : MonoBehaviour
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
         playerManager.OnRotateCameraCall -= uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive -= uiManager.BindActivePlayerUI;
+        
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
+        itemManager.OnItemStartInteract -= uiManager.ShowItemHint;
+        itemManager.OnItemStartInteract -= playerManager.NewItemInteractPlayer;
+        itemManager.OnItemStartInteract -= SetCurveHint;
+        itemManager.OnItemEndInteract -= playerManager.RemovePlayerInteractItem;
         
         uiManager.OnPressReplay -= ReStartGame;
         uiManager.OnPressBackToPair -= BackToPair;
@@ -162,5 +176,14 @@ public class GameManager : MonoBehaviour
     {
         UnbindManager();
         GameFlowManager.Instance.LoadScene(0, null);
+    }
+    
+    
+    // Side hint
+    private async void SetCurveHint(Item item, Player player)
+    {
+        if(!curveHint) return;
+        var machine = machineManager.GetMachineByType(DataManager.Instance.GetRecycleType(item.ItemData.type));
+        await curveHint.SpawnCurve(item.transform.position, machine.position);
     }
 }

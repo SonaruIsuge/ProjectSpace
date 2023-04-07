@@ -3186,10 +3186,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Claw Base
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1271340512136643168, guid: 37e884296f5ba394c87e911ee172e4be,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3350,7 +3346,7 @@ MonoBehaviour:
   gravityControlMachine: {fileID: 1607153067}
   combustibleRecycleMachine: {fileID: 992471279}
   nonCombustibleRecycleMachine: {fileID: 846997459}
-  energyRecycleMachine: {fileID: 1946893409}
+  recyclableRecycleMachine: {fileID: 1946893409}
   toxicRecycleMachine: {fileID: 1315906731}
 --- !u!4 &794795005
 Transform:
@@ -3971,6 +3967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 880351380}
   - component: {fileID: 880351379}
+  - component: {fileID: 880351381}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -4011,6 +4008,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &880351381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880351378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cb53b6ee8147e8943970b3d813b5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curveParticle: {fileID: 2637884753077771215, guid: f872e6e059c6ff642ac3f6e99ac1332d,
+    type: 3}
+  curveStep: 20
+  curveSpeed: 20
+  initialNum: 1
 --- !u!1 &928921662
 GameObject:
   m_ObjectHideFlags: 0
@@ -7426,6 +7440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5cb89d0d06b344d84219020d93d4bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flashSpace: 0
 --- !u!1 &1968795838
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class MachineManager : MonoBehaviour
@@ -10,10 +11,11 @@ public class MachineManager : MonoBehaviour
     [SerializeField] private GravityControlMachine gravityControlMachine;
     [SerializeField] private RecycleMachine combustibleRecycleMachine;
     [SerializeField] private RecycleMachine nonCombustibleRecycleMachine;
-    [SerializeField] private RecycleMachine energyRecycleMachine;
+    [SerializeField] private RecycleMachine recyclableRecycleMachine;
     [SerializeField] private RecycleMachine toxicRecycleMachine;
 
     private List<IMachine> allMachine;
+    private Dictionary<RecycleType, Transform> machineTypeDict;
 
     public bool SeparatorWorking => normalSeparatorMachine.IsWorking;
 
@@ -30,8 +32,18 @@ public class MachineManager : MonoBehaviour
             gravityControlMachine,
             combustibleRecycleMachine,
             nonCombustibleRecycleMachine,
-            energyRecycleMachine,
+            recyclableRecycleMachine,
             toxicRecycleMachine
+        };
+
+        machineTypeDict = new Dictionary<RecycleType, Transform>
+        {
+            { RecycleType.Combustible, combustibleRecycleMachine.transform },
+            { RecycleType.NonCombustible, nonCombustibleRecycleMachine.transform },
+            { RecycleType.Recyclable, recyclableRecycleMachine.transform },
+            { RecycleType.ToxicSubstances, toxicRecycleMachine.transform },
+            { RecycleType.Energy , gravityControlMachine.transform },
+            { RecycleType.CannotRecycle, normalSeparatorMachine.transform }
         };
     }
 
@@ -49,8 +61,12 @@ public class MachineManager : MonoBehaviour
             machine.SetUp();
             machine.SetActive(true);
         }
+    }
 
-        
+
+    public Transform GetMachineByType(RecycleType type)
+    {
+        return machineTypeDict.ContainsKey(type) ? machineTypeDict[type] : null;
     }
 
 

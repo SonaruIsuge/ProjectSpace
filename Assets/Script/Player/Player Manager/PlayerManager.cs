@@ -52,15 +52,15 @@ public class PlayerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ItemManager.OnItemStartInteract += NewItemInteractPlayer;
-        ItemManager.OnItemEndInteract += RemovePlayerInteractItem;
+        //ItemManager.OnItemStartInteract += NewItemInteractPlayer;
+        //ItemManager.OnItemEndInteract += RemovePlayerInteractItem;
     }
 
 
     private void OnDisable()
     {
-        ItemManager.OnItemStartInteract -= NewItemInteractPlayer;
-        ItemManager.OnItemEndInteract -= RemovePlayerInteractItem;
+        //ItemManager.OnItemStartInteract -= NewItemInteractPlayer;
+        //ItemManager.OnItemEndInteract -= RemovePlayerInteractItem;
     }
 
 
@@ -100,14 +100,14 @@ public class PlayerManager : MonoBehaviour
     }
     
 
-    private void NewItemInteractPlayer(Item item, Player interactor)
+    public void NewItemInteractPlayer(Item item, Player interactor)
     {
         if (playerInteractItemDict.ContainsKey(item)) playerInteractItemDict[item].Add(interactor);
         else playerInteractItemDict.Add(item, new List<Player> { interactor });
     }
 
 
-    private void RemovePlayerInteractItem(Item item, Player interactor)
+    public void RemovePlayerInteractItem(Item item, Player interactor)
     {
         if (playerInteractItemDict[item].Count == 1) playerInteractItemDict.Remove(item);
         else playerInteractItemDict[item].Remove(interactor);

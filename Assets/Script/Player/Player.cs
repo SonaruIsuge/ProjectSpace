@@ -1,4 +1,5 @@
 
+using System;
 using Script.Other;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour, IGravityAffectable
     [field: Header("Component")]
     [field: SerializeField] public CharacterController Cc { get; private set; } // Will remove this after rigidbody only test finish.
     [field: SerializeField] public Rigidbody Rb { get; private set; }
+    [field: SerializeField] public Collider Col { get; private set; }
     [field: SerializeField] public Joint Joint { get; private set; }
     [field: SerializeField] public Animator PlayerAnimator { get; private set; }
     
@@ -123,5 +125,22 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         var useGravity = UnderGravity && !IgnoreGravity;
         PlayerGravityController.AddGravity(useGravity, GroundCheckPoint.position, gravitySize, gravityInitialVelocity);
+    }
+
+
+    public bool spawnCollisionVFX;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(!collision.gameObject.CompareTag("Player")) return;
+
+        var player = collision.gameObject.GetComponent<Player>();
+        if (player.spawnCollisionVFX)
+        {
+            spawnCollisionVFX = false;
+            return;
+        }
+        
+        FXController.Instance.InitVFX(VFXType.PlayerCollision, collision.GetContact(0).point);
+        spawnCollisionVFX = true;
     }
 }
