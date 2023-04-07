@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Users;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private List<Player> AllPlayers;
-    [SerializeField] private List<Player> activePlayers;
+    [field: SerializeField] public List<Player> ActivePlayers { get; private set; }
     
     private SinglePlayerMoveCalculator singlePlayerMoveCalculator;
     private MultiPlayerCarryItemMoveCalculator multiPlayerCarryItemMoveCalculator;
@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         multiPlayerCarryItemMoveCalculator = new MultiPlayerCarryItemMoveCalculator();
         itemSizeMoveCalculator = new ItemSizeMoveCalculator();
 
-        activePlayers = new List<Player>();
+        ActivePlayers = new List<Player>();
         playerInteractItemDict = new Dictionary<Item, List<Player>>();
 
         worldRotateAngle = 0;
@@ -68,7 +68,7 @@ public class PlayerManager : MonoBehaviour
     {
         if(!isStart) return;
         
-        foreach (var player in activePlayers)
+        foreach (var player in ActivePlayers)
         {
             if(!player.IsActive) continue;
             
@@ -142,18 +142,18 @@ public class PlayerManager : MonoBehaviour
     public void ActivePlayer(Player player)
     {
         player.SetActive(true);
-        if(!activePlayers.Contains(player)) activePlayers.Add(player);
+        if(!ActivePlayers.Contains(player)) ActivePlayers.Add(player);
     }
 
     
     public void RemoveAllActivePlayer()
     {
-        foreach (var player in activePlayers)
+        foreach (var player in ActivePlayers)
         {
             if(player.PlayerInput is not PlayerInput input) continue;
             input.UnpairWithDevice();
             player.SetActive(false);
         }
-        activePlayers.Clear();
+        ActivePlayers.Clear();
     }
 }
