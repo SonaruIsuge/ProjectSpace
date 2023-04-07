@@ -11,25 +11,29 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button settingButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private UITweenBase canvasTween;
     
     private EventSystem EventSystem => EventSystem.current;
 
 
-    public void BindStartEvent(UnityAction onClick)
+    public void SetStartEvent(bool bind, UnityAction onClick)
     {
-        startButton.onClick.AddListener(onClick);
+        if(!bind) startButton.onClick.RemoveAllListeners();
+        else startButton.onClick.AddListener(onClick);
     }
 
 
-    public void BindSettingEvent(UnityAction onClick)
+    public void SetSettingEvent(bool bind, UnityAction onClick)
     {
-        settingButton.onClick.AddListener(onClick);
+        if(!bind) settingButton.onClick.RemoveAllListeners();
+        else settingButton.onClick.AddListener(onClick);
     }
 
 
-    public void BindQuitEvent(UnityAction onClick)
+    public void SetQuitEvent(bool bind, UnityAction onClick)
     {
-        quitButton.onClick.AddListener(onClick);
+        if(!bind) quitButton.onClick.RemoveAllListeners();
+        else quitButton.onClick.AddListener(onClick);
     }
     
     
@@ -42,15 +46,16 @@ public class MainMenuUIManager : MonoBehaviour
     }
 
 
-    public void ShowMainMenu()
+    public void ShowMainMenu(Action onShowComplete = null)
     {
-        mainMenu.gameObject.SetActive(true);
+        canvasTween.TweenFrom(onShowComplete);
         EventSystem.SetSelectedGameObject(startButton.gameObject);
     }
 
 
-    public void HideMainMenu()
+    public void HideMainMenu(Action onHideComplete = null)
     {
-        mainMenu.gameObject.SetActive(false);
+        EventSystem.SetSelectedGameObject(null);
+        canvasTween.TweenTo(onHideComplete);
     }
 }

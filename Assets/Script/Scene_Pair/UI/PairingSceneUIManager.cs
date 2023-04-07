@@ -57,6 +57,8 @@ public class PairingSceneUIManager : MonoBehaviour
         foreach(var pairIcon in allPreparePair) pairIcon.gameObject.SetActive(active);
         pairedNum = 0;
         allReadyPanelShow = false;
+        if (active) pairHintTween.TweenFrom();
+        else pairHintTween.TweenTo();
     }
     
 
