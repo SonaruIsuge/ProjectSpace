@@ -32,7 +32,6 @@ Transform:
   - {fileID: 7399568779517999924}
   - {fileID: 7399568780091048742}
   - {fileID: 7399568779251225948}
-  - {fileID: 7399568779720494485}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,7 +100,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 0, y: 7.09, z: -18.03}
         m_Name: Attractor
         m_Overridden: 1
     m_Vector4f:
@@ -252,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: Attractor
-  Target: {fileID: 7399568779720494485}
+  Target: {fileID: 0}
 --- !u!1 &7399568779517999921
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +317,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 0, y: 7.09, z: -18.03}
         m_Name: Attractor
         m_Overridden: 1
     m_Vector4f:
@@ -469,38 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: Attractor
-  Target: {fileID: 7399568779720494485}
---- !u!1 &7399568779720494482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7399568779720494485}
-  m_Layer: 0
-  m_Name: VFX_Space_target
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7399568779720494485
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7399568779720494482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3730498810277680669}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  Target: {fileID: 0}
 --- !u!1 &7399568779941545434
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +531,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 0, y: 7.09, z: -18.03}
         m_Name: Attractor
         m_Overridden: 1
     m_Vector4f:
@@ -652,7 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: Attractor
-  Target: {fileID: 7399568779720494485}
+  Target: {fileID: 0}
 --- !u!1 &7399568780091048739
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +686,7 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0, y: 0, z: 0}
+      - m_Value: {x: 0, y: 7.09, z: -18.03}
         m_Name: Attractor
         m_Overridden: 1
     m_Vector4f:
@@ -869,4 +837,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Property:
     m_Name: Attractor
-  Target: {fileID: 7399568779720494485}
+  Target: {fileID: 0}
