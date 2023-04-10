@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour, IGravityAffectable
 {
+    public int PlayerIndex { get; private set; }
     [field: Header("Component")]
     [field: SerializeField] public CharacterController Cc { get; private set; } // Will remove this after rigidbody only test finish.
     [field: SerializeField] public Rigidbody Rb { get; private set; }
@@ -86,6 +87,12 @@ public class Player : MonoBehaviour, IGravityAffectable
     private void OnDisable()
     {
         PlayerInput.UnregisterInput();
+    }
+
+
+    public void SetPlayerIndex(int i)
+    {
+        PlayerIndex = i;
     }
 
 

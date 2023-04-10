@@ -132,6 +132,7 @@ public class PlayerManager : MonoBehaviour
                 continue;
             }
             
+            player.SetPlayerIndex(i);
             playerInput.PairWithDevice(bindPlayerDeviceDict[i]);
             ActivePlayer(player);
             OnPlayerActive?.Invoke(player, i);

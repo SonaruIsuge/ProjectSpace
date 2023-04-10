@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
@@ -98,6 +99,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        foreach (var _ in playerManager.ActivePlayers.Where(p => p.PlayerInput.TapInteract))
+            startGameProgress = true;
+        
         if(!startGameProgress) return;   
         
         playerManager.SetWorldRotate(cameraController.CurrentRotate);
