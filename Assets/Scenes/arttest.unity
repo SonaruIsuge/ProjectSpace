@@ -66050,10 +66050,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2146158425600145368, guid: 9b5c6c6c95cdde34e9d8b6c607fbd8ce,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2146158425600145369, guid: 9b5c6c6c95cdde34e9d8b6c607fbd8ce,
         type: 3}
       propertyPath: m_Name
       value: VFX_ProjectionDevice
+      objectReference: {fileID: 0}
+    - target: {fileID: 2146158425600145369, guid: 9b5c6c6c95cdde34e9d8b6c607fbd8ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2146158425600145370, guid: 9b5c6c6c95cdde34e9d8b6c607fbd8ce,
         type: 3}
@@ -76413,7 +76423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8663575139745495196}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.31, y: 0.75, z: 2.98}
+  m_LocalPosition: {x: -0.94, y: 0.75, z: 2.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
