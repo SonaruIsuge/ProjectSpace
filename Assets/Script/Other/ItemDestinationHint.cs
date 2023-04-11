@@ -46,7 +46,7 @@ public class ItemDestinationHint : MonoBehaviour
         {
             var targetPoint = routes.Dequeue();
             
-            Debug.DrawLine(lastPoint, targetPoint, Color.red, 100f);
+            //Debug.DrawLine(lastPoint, targetPoint, Color.red, 100f);
             lastPoint = targetPoint;
             
             while (Vector3.Distance(group.target.position, targetPoint) > 0.01f)

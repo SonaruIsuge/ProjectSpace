@@ -50,7 +50,9 @@ public enum ItemType
     AbandonedSatellite,
     //Add new furniture
     Table,
-    Chair
+    Chair,
+    BrokenTable1,
+    BrokenTable2
 }
 
 

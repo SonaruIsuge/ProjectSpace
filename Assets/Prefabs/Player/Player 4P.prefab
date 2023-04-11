@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1715569901933090976}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 7.5, y: 0, z: -4}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1172154993146659384}
@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Cc>k__BackingField: {fileID: 0}
   <Rb>k__BackingField: {fileID: 6160838232759174618}
+  <Col>k__BackingField: {fileID: 0}
   <Joint>k__BackingField: {fileID: 0}
   <PlayerAnimator>k__BackingField: {fileID: 5090325510446700610}
   playerPhysics: {fileID: 1715569901933090976}
@@ -105,6 +106,7 @@ MonoBehaviour:
   <HeadPoint>k__BackingField: {fileID: 4889540243221359034}
   <JetVFX>k__BackingField: {fileID: 6500810390508960197}
   <MoveVFX>k__BackingField: {fileID: 7650549916624160806}
+  spawnCollisionVFX: 0
 --- !u!1 &1715569903492511019
 GameObject:
   m_ObjectHideFlags: 0

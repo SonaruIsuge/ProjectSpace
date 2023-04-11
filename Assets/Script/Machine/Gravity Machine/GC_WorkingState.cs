@@ -44,7 +44,7 @@ public class GC_WorkingState : IGravityControlMachineState
 
     private void DetectGravity()
     {
-        var results = new RaycastHit[50];
+        var results = new RaycastHit[250];
         var size = Physics.BoxCastNonAlloc(Machine.GravityRangeVisual.position, Machine.GravityRadius, Vector3.up, results, quaternion.identity, 0);
 
         foreach (var result in results)
