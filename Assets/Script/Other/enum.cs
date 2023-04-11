@@ -47,7 +47,10 @@ public enum ItemType
     // extra large item
     SpaceCrap,
     EnemyShipCore,
-    AbandonedSatellite
+    AbandonedSatellite,
+    //Add new furniture
+    Table,
+    Chair
 }
 
 

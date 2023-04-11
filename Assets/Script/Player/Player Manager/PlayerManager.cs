@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
     [field: SerializeField] public List<Player> ActivePlayers { get; private set; }
     
     private SinglePlayerMoveCalculator singlePlayerMoveCalculator;
-    private MultiPlayerCarryItemMoveCalculator multiPlayerCarryItemMoveCalculator;
+    //private MultiPlayerCarryItemMoveCalculator multiPlayerCarryItemMoveCalculator;
     private ItemSizeMoveCalculator itemSizeMoveCalculator;
     
     private Dictionary<Item, List<Player>> playerInteractItemDict;
@@ -40,27 +40,13 @@ public class PlayerManager : MonoBehaviour
     private void Awake()
     {
         singlePlayerMoveCalculator = new SinglePlayerMoveCalculator();
-        multiPlayerCarryItemMoveCalculator = new MultiPlayerCarryItemMoveCalculator();
+        //multiPlayerCarryItemMoveCalculator = new MultiPlayerCarryItemMoveCalculator();
         itemSizeMoveCalculator = new ItemSizeMoveCalculator();
 
         ActivePlayers = new List<Player>();
         playerInteractItemDict = new Dictionary<Item, List<Player>>();
 
         worldRotateAngle = 0;
-    }
-
-
-    private void OnEnable()
-    {
-        //ItemManager.OnItemStartInteract += NewItemInteractPlayer;
-        //ItemManager.OnItemEndInteract += RemovePlayerInteractItem;
-    }
-
-
-    private void OnDisable()
-    {
-        //ItemManager.OnItemStartInteract -= NewItemInteractPlayer;
-        //ItemManager.OnItemEndInteract -= RemovePlayerInteractItem;
     }
 
 
@@ -91,7 +77,6 @@ public class PlayerManager : MonoBehaviour
             
             // player update
             player.Move(playerMoveVelocity);
-            
             player.DetectInteract();
             
             // World turns in the opposite direction of the camera

@@ -41,7 +41,9 @@ public class NS_IdleState : INormalSeparatorState
         foreach (var obj in objects)
         {
             if(!obj || !obj.TryGetComponent<Item>(out var item)) continue;
-            if(item.ItemData.Size is ItemSize.Small or ItemSize.ExtraLarge) continue;
+
+            var itemRecycle = DataManager.Instance.GetRecycleType(item.ItemData.type);
+            if(itemRecycle != RecycleType.CannotRecycle) continue;
             
             var distance = Vector3.Distance(Machine.transform.position, item.transform.position);
             if (distance >= minDistance) continue;
