@@ -11,7 +11,9 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button settingButton;
     [SerializeField] private Button quitButton;
+    
     [SerializeField] private UITweenBase canvasTween;
+    [SerializeField] private UITweenBase mainMenuPanelTween;
     
     private EventSystem EventSystem => EventSystem.current;
 
@@ -57,5 +59,19 @@ public class MainMenuUIManager : MonoBehaviour
     {
         EventSystem.SetSelectedGameObject(null);
         canvasTween.TweenTo(onHideComplete);
+    }
+
+
+    public void EnableMainMenuPanel(bool enable)
+    {
+        if (enable)
+        {
+            mainMenuPanelTween.gameObject.SetActive(true);
+            mainMenuPanelTween.TweenFrom(() => EventSystem.SetSelectedGameObject(startButton.gameObject));
+        }
+        else
+        {
+            mainMenuPanelTween.TweenTo(() => mainMenuPanelTween.gameObject.SetActive(false));
+        }
     }
 }

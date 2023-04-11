@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.Serialization;
 
 
@@ -18,17 +20,22 @@ public class PairingSceneManager : MonoBehaviour
     [field: SerializeField] public PlayerPairManager PairManager { get; private set; }
     [field: SerializeField] public PairingSceneUIManager PairUIManager{ get; private set; }
     [field: SerializeField] public MainMenuUIManager MainMenuUIManager { get; private set; }
+    [field: SerializeField] public LevelMenuUIManager LevelMenuUIManager { get; private set; }
     [field: SerializeField] public PlayerPairActManager PlayerActManager { get; private set; }
     
     [Header("Transition")]
     [SerializeField] private Animator lobbyCutSceneAni;
     
+    private EventSystem EventSystem => EventSystem.current;
+    private InputActionAsset actionsAsset;
+    
     private static readonly int Direction = Animator.StringToHash("Direction");
     private bool isPlayCutSceneAni;
     
     private bool underReadyProgress;
-    private bool finalCheck;
-    
+    //private bool finalCheck;
+
+    private SceneIndex targetScene;
 
     public event Action UpdateEvent;
     public event Action OnAllPlayerReady;
@@ -37,15 +44,17 @@ public class PairingSceneManager : MonoBehaviour
     private void Awake()
     {
         underReadyProgress = false;
-        finalCheck = false;
+        //finalCheck = false;
 
         isPlayCutSceneAni = false;
+        actionsAsset = EventSystem.GetComponent<InputSystemUIInputModule>().actionsAsset;
     }
     
     
     private void Start()
     {
         MainMenuUIManager.InitMainMenuUI();
+        LevelMenuUIManager.InitLevelButton();
         PairManager.InitSetup();
         PairUIManager.InitPairUI();
         PlayerActManager.ResetPlayersPosition();
@@ -54,8 +63,10 @@ public class PairingSceneManager : MonoBehaviour
 
     private void OnEnable()
     {
-        MainMenuUIManager.SetStartEvent(true, StartPairing);
+        MainMenuUIManager.SetStartEvent(true, StartLevelChoosing);
         MainMenuUIManager.SetQuitEvent(true, QuitGame);
+
+        LevelMenuUIManager.OnLevelChoosed += SetLevel;
 
         PairManager.OnBackToLastStage += CancelPairing;
         PairManager.OnDeviceChangeReady += ChangeReadyEvent;
@@ -87,6 +98,14 @@ public class PairingSceneManager : MonoBehaviour
     }
 
 
+    private void StartLevelChoosing()
+    {
+        MainMenuUIManager.EnableMainMenuPanel(false);
+        LevelMenuUIManager.EnableLevelPanel(true);
+        UpdateEvent += LevelChooseUpdate;
+    }
+    
+
     private async void StartPairing()
     {
         var hideUIEnd = false;
@@ -102,7 +121,8 @@ public class PairingSceneManager : MonoBehaviour
         PairUIManager.EnableOriginPairUI(true);
         
         FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
-        
+
+        UpdateEvent -= LevelChooseUpdate;
         UpdateEvent += PairingUpdate;
     }
 
@@ -122,6 +142,16 @@ public class PairingSceneManager : MonoBehaviour
         await PlayCutScene(null, true);
         
         MainMenuUIManager.ShowMainMenu();
+    }
+
+
+    private void LevelChooseUpdate()
+    {
+        if (!actionsAsset.FindAction("Cancel").WasPressedThisFrame()) return;
+        // To main menu
+        MainMenuUIManager.EnableMainMenuPanel(true);
+        LevelMenuUIManager.EnableLevelPanel(false);
+        UpdateEvent -= LevelChooseUpdate;
     }
     
     
@@ -189,7 +219,15 @@ public class PairingSceneManager : MonoBehaviour
     {
         var pairedDict = PairManager.PairedUnit.ToDictionary(unit => unit.CharacterIndex, unit => unit.InputDevice);
         PairManager.UnpairAllDevice();
-        GameFlowManager.Instance.LoadScene(1, new PairingData(pairedDict));
+        GameFlowManager.Instance.LoadScene((int)targetScene, new PairingData(pairedDict));
+    }
+
+
+    private void SetLevel(SceneIndex sceneIndex)
+    {
+        targetScene = sceneIndex;
+        if (sceneIndex == SceneIndex.None) targetScene = SceneIndex.MainMenu;
+        else StartPairing();
     }
 
     

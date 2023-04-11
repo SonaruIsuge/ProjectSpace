@@ -38,19 +38,19 @@ public class MachineManager : MonoBehaviour
 
         machineTypeDict = new Dictionary<RecycleType, Transform>
         {
-            { RecycleType.Combustible, combustibleRecycleMachine.transform },
-            { RecycleType.NonCombustible, nonCombustibleRecycleMachine.transform },
-            { RecycleType.Recyclable, recyclableRecycleMachine.transform },
-            { RecycleType.ToxicSubstances, toxicRecycleMachine.transform },
-            { RecycleType.Energy , gravityControlMachine.transform },
-            { RecycleType.CannotRecycle, normalSeparatorMachine.transform }
+            { RecycleType.Combustible, combustibleRecycleMachine ? combustibleRecycleMachine.transform : null},
+            { RecycleType.NonCombustible, nonCombustibleRecycleMachine ? nonCombustibleRecycleMachine.transform : null},
+            { RecycleType.Recyclable, recyclableRecycleMachine ? recyclableRecycleMachine.transform : null },
+            { RecycleType.ToxicSubstances, toxicRecycleMachine ? toxicRecycleMachine.transform : null },
+            { RecycleType.Energy , gravityControlMachine ? gravityControlMachine.transform : null },
+            { RecycleType.CannotRecycle, normalSeparatorMachine ? normalSeparatorMachine.transform : null }
         };
     }
 
 
     private void OnEnable()
     {
-        normalSeparatorMachine.OnNewItemOutput += ItemProduced;
+        if(normalSeparatorMachine) normalSeparatorMachine.OnNewItemOutput += ItemProduced;
     }
     
 
@@ -58,6 +58,8 @@ public class MachineManager : MonoBehaviour
     {
         foreach (var machine in allMachine)
         {
+            if(machine == null) continue;
+            
             machine.SetUp();
             machine.SetActive(true);
         }
@@ -76,8 +78,8 @@ public class MachineManager : MonoBehaviour
 
         foreach (var machine in allMachine)
         {
-            if(!machine.IsActive) continue;
-            
+            if(machine is not { IsActive: true }) continue;
+
             machine.Work();
         }
     }

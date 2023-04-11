@@ -89,3 +89,12 @@ public enum PairUnitState
     Ready,
     FinalCheck,
 }
+
+
+public enum SceneIndex
+{
+    MainMenu = 0,
+    Tutorial = 1,
+    FirstLevel1 = 2,
+    None
+}

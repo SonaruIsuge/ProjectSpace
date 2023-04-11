@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,7 +8,7 @@ public class SelectBox : MonoBehaviour
 {
     [SerializeField] private float flashSpace;
     private GameObject CurrentSelected => EventSystem.current.currentSelectedGameObject;
-    private GameObject nowRecordSelected;
+    //private GameObject nowRecordSelected;
     private RawImage image;
 
 
@@ -19,16 +20,13 @@ public class SelectBox : MonoBehaviour
 
     private void OnEnable()
     {
-        nowRecordSelected = CurrentSelected;
+        //nowRecordSelected = null;
     }
 
 
     private void Update()
     {
-        if (!CurrentSelected || nowRecordSelected == CurrentSelected) return;
-        
-        nowRecordSelected = CurrentSelected;
-        transform.position = nowRecordSelected.transform.position;
+        if(CurrentSelected) transform.position = CurrentSelected.transform.position;
     }
 
 

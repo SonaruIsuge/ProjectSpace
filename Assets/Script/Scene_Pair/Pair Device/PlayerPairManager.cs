@@ -8,7 +8,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
-using UnityEngine.tvOS;
 
 
 public class PlayerPairManager : MonoBehaviour
