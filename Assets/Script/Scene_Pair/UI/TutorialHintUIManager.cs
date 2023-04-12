@@ -11,6 +11,7 @@ public class TutorialHintUIManager : MonoBehaviour
     [SerializeField] private RectTransform hintPanel;
     [SerializeField] private Button yesBtn;
     [SerializeField] private Button noBtn;
+    [SerializeField] private Transform selectBox;
     private UITweenBase hintPanelTween;
     private EventSystem EventSystem => EventSystem.current;
 
@@ -34,11 +35,13 @@ public class TutorialHintUIManager : MonoBehaviour
 
     public void ShowUI(Action onComplete = null)
     {
+        selectBox.gameObject.SetActive(false);
         hintPanel.gameObject.SetActive(true);
         hintPanelTween.ResetToBegin();
         hintPanelTween.TweenTo(() =>
         {
             EventSystem.SetSelectedGameObject(yesBtn.gameObject);
+            selectBox.gameObject.SetActive(true);
             onComplete?.Invoke();
         });
     }
@@ -46,6 +49,7 @@ public class TutorialHintUIManager : MonoBehaviour
 
     public void HindUI(Action onComplete = null)
     {
+        selectBox.gameObject.SetActive(false);
         EventSystem.SetSelectedGameObject(null);
         hintPanelTween.TweenFrom(() =>
         {

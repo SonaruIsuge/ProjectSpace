@@ -16,5 +16,5 @@ MonoBehaviour:
   Size: 1
   ProductNumber: 2
   SeparateProducets:
-  - {fileID: 11400000, guid: 86c3b8ff58e8b904d8fd68a5d04603d4, type: 2}
-  - {fileID: 11400000, guid: 86c3b8ff58e8b904d8fd68a5d04603d4, type: 2}
+  - {fileID: 11400000, guid: f5edb0accedf3cf47a3ef4c3995f52bc, type: 2}
+  - {fileID: 11400000, guid: f5edb0accedf3cf47a3ef4c3995f52bc, type: 2}

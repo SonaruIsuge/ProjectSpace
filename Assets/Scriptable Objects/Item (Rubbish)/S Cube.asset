@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
-  m_Name: M Table
+  m_Name: S Cube
   m_EditorClassIdentifier: 
-  type: 14
-  Size: 1
-  ProductNumber: 2
-  SeparateProducets:
-  - {fileID: 11400000, guid: f5edb0accedf3cf47a3ef4c3995f52bc, type: 2}
-  - {fileID: 11400000, guid: f5edb0accedf3cf47a3ef4c3995f52bc, type: 2}
+  type: 17
+  Size: 0
+  ProductNumber: 0
+  SeparateProducets: []

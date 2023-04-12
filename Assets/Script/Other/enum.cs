@@ -51,7 +51,9 @@ public enum ItemType
     //Add new furniture
     Table,
     Chair,
-    Sculpture
+    Sculpture,
+    Cube,
+    Book
 }
 
 

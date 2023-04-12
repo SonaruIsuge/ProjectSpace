@@ -21,16 +21,12 @@ public class RotateCamHintUI : MonoBehaviour
     private Dictionary<Player, PlayerRotateCamIcon> playerIconDict;
 
 
-    private void Awake()
-    {
-        playerIconDict = new Dictionary<Player, PlayerRotateCamIcon>();
-    }
-
-
     public void BindIconWithPlayer(Player player, int characterIndex)
     {
         var playerIcon = Instantiate(playerRotateCamPrefab, transform);
         playerIcon.BindPlayerWithIcon(player, allIconTextures[characterIndex]);
+        
+        playerIconDict ??= new Dictionary<Player, PlayerRotateCamIcon>(); 
         playerIconDict.Add(player, playerIcon);
     }
     
