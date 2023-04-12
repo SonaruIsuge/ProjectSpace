@@ -77,7 +77,6 @@ public enum VFXType
 public enum SFXType
 {
     PlayerMove,
-    
 }
 
 
