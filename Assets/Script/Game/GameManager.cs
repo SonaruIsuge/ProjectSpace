@@ -188,6 +188,6 @@ public class GameManager : MonoBehaviour
     {
         if(!curveHint) return;
         var machine = machineManager.GetMachineByType(DataManager.Instance.GetRecycleType(item.ItemData.type));
-        await curveHint.SpawnCurve(item.transform.position, machine.position);
+        await curveHint.SpawnCurve(player.HeadPoint.position, machine.position);
     }
 }
