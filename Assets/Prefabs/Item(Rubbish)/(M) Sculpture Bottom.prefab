@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5245297618310543934}
   - component: {fileID: 5245297618310543933}
   m_Layer: 0
-  m_Name: (S) Scupture Bottom
+  m_Name: (M) Sculpture Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c488ea357c74965bcfce6d0d4b916ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemData: {fileID: 0}
+  ItemData: {fileID: 11400000, guid: 5246fefa1c8d419488eaec671c4267bf, type: 2}
   <CarryPlayers>k__BackingField: []
 --- !u!1001 &5245297619483106179
 PrefabInstance:

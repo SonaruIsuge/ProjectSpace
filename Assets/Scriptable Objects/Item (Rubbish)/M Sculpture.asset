@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6401e39ff164c0da2f51e82206fa5fe, type: 3}
-  m_Name: L Table
+  m_Name: M Sculpture
   m_EditorClassIdentifier: 
-  type: 14
+  type: 16
   Size: 1
   ProductNumber: 2
   SeparateProducets:
-  - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}
-  - {fileID: 11400000, guid: c8b291ced8a00d043a344cbd7ad406e4, type: 2}
+  - {fileID: 11400000, guid: 86c3b8ff58e8b904d8fd68a5d04603d4, type: 2}
+  - {fileID: 11400000, guid: 86c3b8ff58e8b904d8fd68a5d04603d4, type: 2}

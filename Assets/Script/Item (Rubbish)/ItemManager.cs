@@ -14,7 +14,8 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private List<Item> allItemInStage;
     [SerializeField] private float popItemTime;
     [SerializeField] private float maxItemSpeed;
-
+    [SerializeField] private bool applyInitialRandomSpeed;
+    
     private SimpleTimer timer;
     private Queue<Item> waitingQueue;
 
@@ -67,6 +68,8 @@ public class ItemManager : MonoBehaviour
     public void InitialSetUp()
     {
         timer.Resume();
+        
+        if(!applyInitialRandomSpeed) return;
         foreach (var item in allItemInStage) item.Rb.velocity = Random.onUnitSphere;
     }
 

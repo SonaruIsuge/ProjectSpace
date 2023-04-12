@@ -5,14 +5,15 @@ using Script.Item__Rubbish_;
 using SonaruUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class DataManager : TSingletonMonoBehaviour<DataManager>
 {
-    [SerializeField] private ItemContainer itemContainer;
+    [SerializeField] private ItemProductsContainer productsContainer;
     [SerializeField] private RecycleRule recycleRule;
     [SerializeField] private RecycleHintContainer recycleHint;
 
-    private Dictionary<ItemType, GameObject> itemContainerDict;
+    private Dictionary<ItemType, GameObject> separateProductDict;
     private Dictionary<RecycleType, ItemTypeCollection> recycleRuleDict;
     private Dictionary<RecycleType, Sprite> recycleHintDict;
 
@@ -21,16 +22,16 @@ public class DataManager : TSingletonMonoBehaviour<DataManager>
     protected override void Awake()
     {
         base.Awake();
-        itemContainerDict = itemContainer.GenerateDictionary();
+        separateProductDict = productsContainer.GenerateDictionary();
         recycleRuleDict = recycleRule.GenerateDictionary();
         recycleHintDict = recycleHint.GenerateDictionary();
     }
 
 
-    public GameObject GetItem(ItemType type)
+    public GameObject GetProduct(ItemType type)
     {
-        if (itemContainerDict == null || !itemContainerDict.ContainsKey(type)) return null;
-        return itemContainerDict[type];
+        if (separateProductDict == null || !separateProductDict.ContainsKey(type)) return null;
+        return separateProductDict[type];
     }
 
 
