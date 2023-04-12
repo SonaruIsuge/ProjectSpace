@@ -811,13 +811,6 @@ MonoBehaviour:
   mainGameView: {fileID: 1915958137}
   recycleHintUIPrefab: {fileID: 532956850256093402, guid: 1dd31bb18a743924a968b36d59693a33,
     type: 3}
-  playerRotateCamPrefab: {fileID: 6353383141226312703, guid: 18346c766fa457a44af8362214defe82,
-    type: 3}
-  allIconTextures:
-  - {fileID: 2800000, guid: dc7153a8229ec754bb3261724a96c427, type: 3}
-  - {fileID: 2800000, guid: 277a6b20780fcef4dbf217a387db73e0, type: 3}
-  - {fileID: 2800000, guid: 1868d649de4c53a469374c6d93f6e45e, type: 3}
-  - {fileID: 2800000, guid: 43d6854bc9fff6c41bd69ee35b42d332, type: 3}
   gameOverView: {fileID: 2127413824}
 --- !u!4 &143546002
 Transform:
@@ -2960,6 +2953,8 @@ MonoBehaviour:
   itemManager: {fileID: 2132360308}
   uiManager: {fileID: 143546001}
   cameraController: {fileID: 143483245}
+  rotateCamHintUI: {fileID: 1915958138}
+  curveHint: {fileID: 880351381}
 --- !u!4 &880351380
 Transform:
   m_ObjectHideFlags: 0
@@ -5359,6 +5354,7 @@ GameObject:
   - component: {fileID: 1915958134}
   - component: {fileID: 1915958133}
   - component: {fileID: 1915958137}
+  - component: {fileID: 1915958138}
   m_Layer: 5
   m_Name: Game Canvas
   m_TagString: Untagged
@@ -5467,6 +5463,25 @@ MonoBehaviour:
   remainRubbishText: {fileID: 1629309347}
   remainTimeBg: {fileID: 461631498}
   remainTimeText: {fileID: 938327773}
+--- !u!114 &1915958138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915958132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b9f146aaed4632a3a2ab160cc71978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRotateCamPrefab: {fileID: 6353383141226312703, guid: 18346c766fa457a44af8362214defe82,
+    type: 3}
+  allIconTextures:
+  - {fileID: 2800000, guid: dc7153a8229ec754bb3261724a96c427, type: 3}
+  - {fileID: 2800000, guid: 277a6b20780fcef4dbf217a387db73e0, type: 3}
+  - {fileID: 2800000, guid: 1868d649de4c53a469374c6d93f6e45e, type: 3}
+  - {fileID: 2800000, guid: 43d6854bc9fff6c41bd69ee35b42d332, type: 3}
   canvasRectTrans: {fileID: 1915958136}
   iconFromCornerRad: 210
   iconRangeAngle: 60
@@ -6225,6 +6240,7 @@ MonoBehaviour:
   allItemInStage: []
   popItemTime: 3
   maxItemSpeed: 5
+  applyInitialRandomSpeed: 0
 --- !u!4 &2132360309
 Transform:
   m_ObjectHideFlags: 0

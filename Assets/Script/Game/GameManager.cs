@@ -20,8 +20,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemManager itemManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private CameraController cameraController;
-
-    private ItemDestinationHint curveHint;
+    
+    [Header("Hint Scripts")]
+    [SerializeField] private RotateCamHintUI rotateCamHintUI;
+    [SerializeField] private ItemDestinationHint curveHint;
     
     private SimpleTimer gameTimer;
     private bool startGameProgress;
@@ -44,16 +46,22 @@ public class GameManager : MonoBehaviour
 
         startGameProgress = false;
 
-        curveHint = GetComponent<ItemDestinationHint>();
+        //curveHint = GetComponent<ItemDestinationHint>();
     }
 
 
     private void BindManager()
     {
         playerManager.OnRotateCameraCall += cameraController.RotateCam;
-        playerManager.OnRotateCameraCall += uiManager.ShowPlayerIcon;
+        //playerManager.OnRotateCameraCall += uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive += uiManager.BindActivePlayerUI;
         
+        if (rotateCamHintUI)
+        {
+            playerManager.OnPlayerActive += rotateCamHintUI.BindIconWithPlayer;
+            playerManager.OnRotateCameraCall += rotateCamHintUI.ShowIcon;
+        }
+
         machineManager.OnItemProducedByMachine += itemManager.RegisterItemEvent;
         itemManager.OnItemStartInteract += uiManager.ShowItemHint;
         itemManager.OnItemStartInteract += playerManager.NewItemInteractPlayer;
@@ -70,8 +78,14 @@ public class GameManager : MonoBehaviour
     private void UnbindManager()
     {
         playerManager.OnRotateCameraCall -= cameraController.RotateCam;
-        playerManager.OnRotateCameraCall -= uiManager.ShowPlayerIcon;
+        //playerManager.OnRotateCameraCall -= uiManager.ShowPlayerIcon;
         playerManager.OnPlayerActive -= uiManager.BindActivePlayerUI;
+        
+        if (rotateCamHintUI)
+        {
+            playerManager.OnPlayerActive -= rotateCamHintUI.BindIconWithPlayer;
+            playerManager.OnRotateCameraCall -= rotateCamHintUI.ShowIcon;
+        }
         
         machineManager.OnItemProducedByMachine -= itemManager.RegisterItemEvent;
         itemManager.OnItemStartInteract -= uiManager.ShowItemHint;

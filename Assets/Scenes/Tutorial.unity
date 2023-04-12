@@ -6103,13 +6103,6 @@ MonoBehaviour:
   mainGameView: {fileID: 1791500498}
   recycleHintUIPrefab: {fileID: 532956850256093402, guid: 1dd31bb18a743924a968b36d59693a33,
     type: 3}
-  playerRotateCamPrefab: {fileID: 6353383141226312703, guid: 18346c766fa457a44af8362214defe82,
-    type: 3}
-  allIconTextures:
-  - {fileID: 2800000, guid: dc7153a8229ec754bb3261724a96c427, type: 3}
-  - {fileID: 2800000, guid: 277a6b20780fcef4dbf217a387db73e0, type: 3}
-  - {fileID: 2800000, guid: 1868d649de4c53a469374c6d93f6e45e, type: 3}
-  - {fileID: 2800000, guid: 43d6854bc9fff6c41bd69ee35b42d332, type: 3}
   gameOverView: {fileID: 979072198}
 --- !u!4 &1614335366
 Transform:
@@ -6627,9 +6620,6 @@ MonoBehaviour:
   remainRubbishText: {fileID: 285933793}
   remainTimeBg: {fileID: 988701127}
   remainTimeText: {fileID: 324989037}
-  canvasRectTrans: {fileID: 1791500502}
-  iconFromCornerRad: 210
-  iconRangeAngle: 60
 --- !u!114 &1791500499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7031,7 +7021,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1856705839}
+  - component: {fileID: 1856705840}
   - component: {fileID: 1856705838}
   - component: {fileID: 1856705837}
   m_Layer: 0
@@ -7076,8 +7066,10 @@ MonoBehaviour:
   itemManager: {fileID: 118762778}
   uiManager: {fileID: 1614335365}
   cameraController: {fileID: 6467198707761409030}
---- !u!4 &1856705839
-Transform:
+  rotateCamHintUI: {fileID: 0}
+  curveHint: {fileID: 1856705837}
+--- !u!224 &1856705840
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7091,6 +7083,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1865590009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1715569901933090991, guid: 0988f207bf3af184b84f368eb639678b,

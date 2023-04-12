@@ -7,15 +7,13 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private Dictionary<Player, RecycleHintUI> playerHintUIDict;
-    private Dictionary<Player, PlayerRotateCamIcon> playerIconDict;
 
     [Header("Game Start")]
     [SerializeField] private GameStartView gameStartView;
     [Header("In Game")] 
     [SerializeField] private MainGameView mainGameView;
     [SerializeField] private RecycleHintUI recycleHintUIPrefab;
-    [SerializeField] private PlayerRotateCamIcon playerRotateCamPrefab;
-    [SerializeField] private List<Texture> allIconTextures;
+
     [Header("Game Over")]
     [SerializeField] private GameOverView gameOverView;
 
@@ -32,22 +30,13 @@ public class UIManager : MonoBehaviour
         gameOverView.gameObject.SetActive(false);
         
         playerHintUIDict = new Dictionary<Player, RecycleHintUI>();
-        playerIconDict = new Dictionary<Player, PlayerRotateCamIcon>();
     }
 
 
     private void OnEnable()
     {
-        //ItemManager.OnItemStartInteract += ShowItemHint;
-
         gameOverView.BindReplayButton(() => OnPressReplay?.Invoke() );
         gameOverView.BindQuitButton( () => OnPressBackToPair?.Invoke() );
-    }
-
-
-    private void OnDisable()
-    {
-        //ItemManager.OnItemStartInteract -= ShowItemHint;
     }
 
 
@@ -57,10 +46,6 @@ public class UIManager : MonoBehaviour
         var hintUI = Instantiate(recycleHintUIPrefab, mainGameView.transform);
         hintUI.BindPlayer(player);
         playerHintUIDict.Add(player, hintUI);
-
-        var playerIcon = Instantiate(playerRotateCamPrefab, mainGameView.transform);
-        playerIcon.BindPlayerWithIcon(player, allIconTextures[characterIndex]);
-        playerIconDict.Add(player, playerIcon);
     }
 
 
@@ -100,13 +85,6 @@ public class UIManager : MonoBehaviour
     {
         gameOverView.gameObject.SetActive(true);
         gameOverView.SetGameOverData(isWin, useTime);
-    }
-
-
-    public void ShowPlayerIcon(Player player, float clockwise)
-    {
-        var index = playerIconDict.Keys.ToList().IndexOf(player);
-        playerIconDict[player].Show(mainGameView.CalcIconPos(index, clockwise), clockwise > 0);
     }
 
 
