@@ -908,6 +908,7 @@ MonoBehaviour:
   easeType: 27
   from: 0
   to: 1
+  reverseEaseType: 26
 --- !u!1001 &347505497
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class UIScaleTween : UITweenBase
     private RectTransform targetUI;
     [SerializeField] private float from;
     [SerializeField] private float to;
+    [SerializeField] private Ease reverseEaseType;
     
 
     private void Awake()
@@ -26,7 +27,7 @@ public class UIScaleTween : UITweenBase
     {
         base.InitTweener(reverse);
         
-        tweener = targetUI.DOScale(reverse ? from : to, duration).SetEase(easeType);
+        tweener = targetUI.DOScale(reverse ? from : to, duration).SetEase(reverse ? reverseEaseType : easeType);
         tweener.Pause();
     }
 }
