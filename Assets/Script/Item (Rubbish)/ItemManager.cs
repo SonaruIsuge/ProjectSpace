@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class ItemManager : MonoBehaviour
 {
-    [SerializeField] private ItemContainer itemContainer;
+    //[SerializeField] private ItemContainer itemContainer;
     [SerializeField] private List<Transform> initItemPoint;
     [SerializeField] private List<Item> allWaitingItem;
     [SerializeField] private List<Item> allItemInStage;
@@ -30,7 +30,7 @@ public class ItemManager : MonoBehaviour
     private void Awake()
     {
         allItemInStage = FindObjectsOfType<Item>().ToList();
-        itemContainer.GenerateDictionary();
+        //itemContainer.GenerateDictionary();
 
         waitingQueue = new Queue<Item>(allWaitingItem);
         timer = new SimpleTimer(popItemTime);

@@ -111,7 +111,7 @@ public class PlayerGrabInteractController : IPlayerInteract
 
     private async void CatchItem(Item item, Player interactPlayer, InteractType interactType)
     {
-        var successAttach = await AttachItem();
+        var successAttach = await AttachItem(item);
         
         if (!successAttach)
         {
@@ -133,7 +133,7 @@ public class PlayerGrabInteractController : IPlayerInteract
     }
 
 
-    private async Task<bool> AttachItem()
+    private async Task<bool> AttachItem(Item item)
     {
         var isAttach = false;
         while (!isAttach)
@@ -147,7 +147,8 @@ public class PlayerGrabInteractController : IPlayerInteract
             isAttach = Vector3.Distance(targetPoint, ClawHeadPos) < 0.01f;
             await Task.Yield();
         }
-
+        item.Rb.velocity = Vector3.zero;
+        item.Rb.angularVelocity = Vector3.zero;
         return true;
     }
     
@@ -189,8 +190,6 @@ public class PlayerGrabInteractController : IPlayerInteract
         
         var currentItemPoint = currentDetectCollider.ClosestPoint(ClawPos);
 
-        if (targetPlayer.Cc) targetPlayer.Cc.enabled = false;
-
         while (!getItem)
         {
             var playerPos = targetPlayer.transform.position;
@@ -206,7 +205,7 @@ public class PlayerGrabInteractController : IPlayerInteract
             await Task.Yield();
         }
 
-        if (targetPlayer.Cc) targetPlayer.Cc.enabled = true;
+
         return true;
     }
 

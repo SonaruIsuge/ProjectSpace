@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c488ea357c74965bcfce6d0d4b916ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemData: {fileID: 11400000, guid: 404225f32072f7c49976fec6ae30f4e0, type: 2}
+  ItemData: {fileID: 11400000, guid: f2114368698004b418e558523e1cbb08, type: 2}
   <CarryPlayers>k__BackingField: []
 --- !u!1001 &3743237229702146819
 PrefabInstance:

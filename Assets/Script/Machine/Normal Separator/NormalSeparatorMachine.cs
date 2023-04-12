@@ -81,6 +81,7 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         isSelect = true;
     }
 
+    
     public void Interact(Player interactPlayer, InteractType interactType)
     {
         if (interactType != InteractType) return;
@@ -110,6 +111,8 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         CurrentProcessingItem = inputItem;
         IsWorking = true;
         CurrentProcessingItem.RemoveItem();
+
+        FXController.Instance.InitVFX(VFXType.Recycle, InputPoint.position);
         
         OnItemSeparated?.Invoke(inputItem);
     }

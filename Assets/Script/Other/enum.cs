@@ -51,8 +51,6 @@ public enum ItemType
     //Add new furniture
     Table,
     Chair,
-    BrokenTable1,
-    BrokenTable2
 }
 
 
