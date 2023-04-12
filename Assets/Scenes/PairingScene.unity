@@ -1710,7 +1710,6 @@ MonoBehaviour:
   <PairManager>k__BackingField: {fileID: 662409864}
   <PairUIManager>k__BackingField: {fileID: 2056002105}
   <MainMenuUIManager>k__BackingField: {fileID: 2056002107}
-  <LevelMenuUIManager>k__BackingField: {fileID: 2056002108}
   <PlayerActManager>k__BackingField: {fileID: 1642316205}
   lobbyCutSceneAni: {fileID: 4241012306475907052}
 --- !u!1 &1520078093
@@ -2319,7 +2318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6b378db4e846ebb018f716b29f60af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemContainer: {fileID: 11400000, guid: 1449046001c87f743bfb85abc20c639c, type: 2}
+  productsContainer: {fileID: 11400000, guid: 1449046001c87f743bfb85abc20c639c, type: 2}
   recycleRule: {fileID: 11400000, guid: 980547bb5aa5b214eb97f99e8c7d58d9, type: 2}
   recycleHint: {fileID: 11400000, guid: fa07b1f859cdd1d47a9538ba863e9597, type: 2}
   SelectItemMat: {fileID: 2100000, guid: bf2c8e3865bb76f46a24f0fcb1be18dd, type: 2}
@@ -2660,7 +2659,6 @@ GameObject:
   - component: {fileID: 2056002106}
   - component: {fileID: 2056002105}
   - component: {fileID: 2056002107}
-  - component: {fileID: 2056002108}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -2743,29 +2741,6 @@ MonoBehaviour:
   quitButton: {fileID: 1677996297}
   canvasTween: {fileID: 6259282335836895398}
   mainMenuPanelTween: {fileID: 1945267363}
---- !u!114 &2056002108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056002104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9971a7bb331c463e800300b7d20d525b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelPanel: {fileID: 645384763}
-  levelBtnPrefab: {fileID: 4686742049281606545, guid: 6ad6218178bfc344db1342430d495047,
-    type: 3}
-  allLevel:
-  - name: Tutorial
-    sceneIndex: 1
-  - name: Asteroid Belt 1
-    sceneIndex: 2
-  - name: Asteroid Belt 2
-    sceneIndex: 3
-  levelPanelTween: {fileID: 645384764}
 --- !u!1 &2123560730
 GameObject:
   m_ObjectHideFlags: 0

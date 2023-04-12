@@ -20,7 +20,7 @@ public class PairingSceneManager : MonoBehaviour
     [field: SerializeField] public PlayerPairManager PairManager { get; private set; }
     [field: SerializeField] public PairingSceneUIManager PairUIManager{ get; private set; }
     [field: SerializeField] public MainMenuUIManager MainMenuUIManager { get; private set; }
-    [field: SerializeField] public LevelMenuUIManager LevelMenuUIManager { get; private set; }
+    //[field: SerializeField] public LevelMenuUIManager LevelMenuUIManager { get; private set; }
     [field: SerializeField] public PlayerPairActManager PlayerActManager { get; private set; }
     
     [Header("Transition")]
@@ -54,7 +54,7 @@ public class PairingSceneManager : MonoBehaviour
     private void Start()
     {
         MainMenuUIManager.InitMainMenuUI();
-        LevelMenuUIManager.InitLevelButton();
+        //LevelMenuUIManager.InitLevelButton();
         PairManager.InitSetup();
         PairUIManager.InitPairUI();
         PlayerActManager.ResetPlayersPosition();
@@ -63,10 +63,10 @@ public class PairingSceneManager : MonoBehaviour
 
     private void OnEnable()
     {
-        MainMenuUIManager.SetStartEvent(true, StartLevelChoosing);
+        MainMenuUIManager.SetStartEvent(true, StartPairing);
         MainMenuUIManager.SetQuitEvent(true, QuitGame);
 
-        LevelMenuUIManager.OnLevelChoosed += SetLevel;
+        //LevelMenuUIManager.OnLevelChoosed += SetLevel;
 
         PairManager.OnBackToLastStage += CancelPairing;
         PairManager.OnDeviceChangeReady += ChangeReadyEvent;
@@ -98,14 +98,6 @@ public class PairingSceneManager : MonoBehaviour
     }
 
 
-    private void StartLevelChoosing()
-    {
-        MainMenuUIManager.EnableMainMenuPanel(false);
-        LevelMenuUIManager.EnableLevelPanel(true);
-        UpdateEvent += LevelChooseUpdate;
-    }
-    
-
     private async void StartPairing()
     {
         var hideUIEnd = false;
@@ -122,7 +114,7 @@ public class PairingSceneManager : MonoBehaviour
         
         FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
 
-        UpdateEvent -= LevelChooseUpdate;
+        //UpdateEvent -= LevelChooseUpdate;
         UpdateEvent += PairingUpdate;
     }
 
@@ -145,16 +137,6 @@ public class PairingSceneManager : MonoBehaviour
     }
 
 
-    private void LevelChooseUpdate()
-    {
-        if (!actionsAsset.FindAction("Cancel").WasPressedThisFrame()) return;
-        // To main menu
-        MainMenuUIManager.EnableMainMenuPanel(true);
-        LevelMenuUIManager.EnableLevelPanel(false);
-        UpdateEvent -= LevelChooseUpdate;
-    }
-    
-    
     private void PairingUpdate()
     {
         PairManager.UpdateSelf();
@@ -221,14 +203,32 @@ public class PairingSceneManager : MonoBehaviour
         PairManager.UnpairAllDevice();
         GameFlowManager.Instance.LoadScene((int)targetScene, new PairingData(pairedDict));
     }
-
-
-    private void SetLevel(SceneIndex sceneIndex)
-    {
-        targetScene = sceneIndex;
-        if (sceneIndex == SceneIndex.None) targetScene = SceneIndex.MainMenu;
-        else StartPairing();
-    }
+    
+    
+    // private void StartLevelChoosing()
+    // {
+    //     MainMenuUIManager.EnableMainMenuPanel(false);
+    //     LevelMenuUIManager.EnableLevelPanel(true);
+    //     UpdateEvent += LevelChooseUpdate;
+    // }
+    //
+    //
+    // private void SetLevel(SceneIndex sceneIndex)
+    // {
+    //     targetScene = sceneIndex;
+    //     if (sceneIndex == SceneIndex.None) targetScene = SceneIndex.MainMenu;
+    //     else StartPairing();
+    // }
+    //
+    //
+    // private void LevelChooseUpdate()
+    // {
+    //     if (!actionsAsset.FindAction("Cancel").WasPressedThisFrame()) return;
+    //     // To main menu
+    //     MainMenuUIManager.EnableMainMenuPanel(true);
+    //     LevelMenuUIManager.EnableLevelPanel(false);
+    //     UpdateEvent -= LevelChooseUpdate;
+    // }
 
     
 
