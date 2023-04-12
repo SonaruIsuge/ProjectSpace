@@ -20,6 +20,7 @@ public class PairingSceneManager : MonoBehaviour
     [field: SerializeField] public PlayerPairManager PairManager { get; private set; }
     [field: SerializeField] public PairingSceneUIManager PairUIManager{ get; private set; }
     [field: SerializeField] public MainMenuUIManager MainMenuUIManager { get; private set; }
+    [field: SerializeField] public TutorialHintUIManager TutorialHintUIManager { get; private set; }
     //[field: SerializeField] public LevelMenuUIManager LevelMenuUIManager { get; private set; }
     [field: SerializeField] public PlayerPairActManager PlayerActManager { get; private set; }
     
@@ -54,7 +55,6 @@ public class PairingSceneManager : MonoBehaviour
     private void Start()
     {
         MainMenuUIManager.InitMainMenuUI();
-        //LevelMenuUIManager.InitLevelButton();
         PairManager.InitSetup();
         PairUIManager.InitPairUI();
         PlayerActManager.ResetPlayersPosition();
@@ -65,8 +65,9 @@ public class PairingSceneManager : MonoBehaviour
     {
         MainMenuUIManager.SetStartEvent(true, StartPairing);
         MainMenuUIManager.SetQuitEvent(true, QuitGame);
-
-        //LevelMenuUIManager.OnLevelChoosed += SetLevel;
+        
+        TutorialHintUIManager.BindYseBtn(StartTutorial);
+        TutorialHintUIManager.BindNoBtn(StartNormalGame);
 
         PairManager.OnBackToLastStage += CancelPairing;
         PairManager.OnDeviceChangeReady += ChangeReadyEvent;
@@ -170,7 +171,7 @@ public class PairingSceneManager : MonoBehaviour
 
     
     // Disable input -> Clear UI -> Player animation -> camera zoom out & UI animation
-    private void StartGame()
+    private async void StartGame()
     {
         // Prevent call start game twice
         if(underReadyProgress) return;
@@ -183,19 +184,35 @@ public class PairingSceneManager : MonoBehaviour
         OnAllPlayerReady?.Invoke();
         
         // Arrange start game animation
-        DelayDo(PairUIManager.ActiveStartGroup, 0.2f);
+        await AddTask(.2f, PairUIManager.ActiveStartGroup);
 
+        await Task.Delay(800);
         for (var i = 0; i < PairManager.PairedUnit.Count; i++)
         {
             var player = PairManager.PairedUnit[i];
-            DelayDo(PlayerActManager.SetPlayerReadyAni, player.CharacterIndex, 1 + i * 0.25f);
+            await AddTask( i * 0.25f, player.CharacterIndex, PlayerActManager.SetPlayerReadyAni);
         }
         
-        DelayDo(PairUIManager.PlayStartAni, 3f);
-
-        DelayDo(ChangeScene, 5f);
+        await AddTask(1.5f, PairUIManager.PlayStartAni);
+        
+        await AddTask(1.5f, () => TutorialHintUIManager.ShowUI() );
+        //DelayDo(ChangeScene, 2f);
     }
 
+
+    private void StartTutorial()
+    {
+        targetScene = SceneIndex.Tutorial;
+        TutorialHintUIManager.HindUI(ChangeScene);
+    }
+
+
+    private void StartNormalGame()
+    {
+        targetScene = SceneIndex.FirstLevel1;
+        TutorialHintUIManager.HindUI(ChangeScene);
+    }
+    
 
     private void ChangeScene()
     {
@@ -305,6 +322,22 @@ public class PairingSceneManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         
         onComplete?.Invoke(param1);
+    }
+    
+    #endregion
+    
+    # region Task Function
+
+    private async Task AddTask(float delay, Action onComplete)
+    {
+        await Task.Delay((int)(delay * 1000));
+        onComplete?.Invoke();
+    }
+    
+    private async Task AddTask<T>(float delay, T param, Action<T> onComplete)
+    {
+        await Task.Delay((int)(delay * 1000));
+        onComplete?.Invoke(param);
     }
     
     #endregion

@@ -16,7 +16,7 @@ public class LevelMenuUIManager : MonoBehaviour
     
     private EventSystem EventSystem => EventSystem.current;
 
-    public event Action<SceneIndex> OnLevelChoosed; 
+    public event Action<SceneIndex> OnLevelChosed; 
 
 
     public void InitLevelButton()
@@ -34,7 +34,7 @@ public class LevelMenuUIManager : MonoBehaviour
             if (!RectTransformUtility.RectangleContainsScreenPoint(levelPanel, btn.transform.position))
                 btn.gameObject.SetActive(false);
             
-            btn.onClick.AddListener(() => OnLevelChoosed?.Invoke(level.sceneIndex));
+            btn.onClick.AddListener(() => OnLevelChosed?.Invoke(level.sceneIndex));
         }
     }
     
