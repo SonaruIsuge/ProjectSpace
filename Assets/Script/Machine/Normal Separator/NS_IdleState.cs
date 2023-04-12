@@ -33,7 +33,7 @@ public class NS_IdleState : INormalSeparatorState
 
     private void DetectItemInput()
     {
-        var objects = new Collider[5];
+        var objects = new Collider[50];
         Physics.OverlapSphereNonAlloc(Machine.InputPoint.position, Machine.InputDetectRange, objects);
         
         var minDistance = Mathf.Infinity;
