@@ -77,6 +77,12 @@ public enum VFXType
 public enum SFXType
 {
     PlayerMove,
+    PlayerFlying,
+    ItemSeparate,
+    ItemRecycle,
+    Warning,
+    ButtonCheck,
+    ButtonCancel,
 }
 
 
