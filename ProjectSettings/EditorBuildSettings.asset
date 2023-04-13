@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PairingScene.unity
     guid: d376bbb9b6c461a42bb1daa99e3efb99
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: ee1cca50631a4ae47be6d628fdca97a3
+  - enabled: 1
     path: Assets/Scenes/LevelOne.unity
     guid: f164a361dac88604a85fc7d04c8a37ec
   - enabled: 1

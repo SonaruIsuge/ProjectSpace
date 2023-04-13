@@ -13,10 +13,11 @@ public class AudioManager : MonoBehaviour
     private const string BGM_VOLUME = "BGMVolume";
     private const string SFX_VOLUME = "SFXVolume";
 
-    public void SpawnSFX(AudioClip clip, bool untilPlayOver = false)
+    public void SpawnSFX(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
     {
         if(untilPlayOver && sfxAudioSource.isPlaying) return;
-        
+
+        if (stopNowPlay && sfxAudioSource.isPlaying) sfxAudioSource.Stop();
         sfxAudioSource.PlayOneShot(clip);
     }
     

@@ -58,6 +58,8 @@ public class PairingSceneManager : MonoBehaviour
         PairManager.InitSetup();
         PairUIManager.InitPairUI();
         PlayerActManager.ResetPlayersPosition();
+
+        FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
     }
 
 
@@ -101,6 +103,8 @@ public class PairingSceneManager : MonoBehaviour
 
     private async void StartPairing()
     {
+        FXController.Instance.InitSFX(SFXType.ButtonCheck);
+        
         var hideUIEnd = false;
         MainMenuUIManager.HideMainMenu(() => hideUIEnd = true);
         while (!hideUIEnd) await Task.Yield();
@@ -113,7 +117,6 @@ public class PairingSceneManager : MonoBehaviour
         PairManager.StartListenUnpairDevice();
         PairUIManager.EnableOriginPairUI(true);
         
-        FXController.Instance.ChangeBGM(BGMType.ChooseCharacter);
 
         //UpdateEvent -= LevelChooseUpdate;
         UpdateEvent += PairingUpdate;
@@ -122,6 +125,8 @@ public class PairingSceneManager : MonoBehaviour
 
     private void QuitGame()
     {
+        FXController.Instance.InitSFX(SFXType.ButtonCancel);
+        
         Application.Quit();
     }
 
@@ -202,6 +207,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void StartTutorial()
     {
+        FXController.Instance.InitSFX(SFXType.ButtonCheck);
         targetScene = SceneIndex.Tutorial;
         TutorialHintUIManager.HindUI(ChangeScene);
     }
@@ -209,6 +215,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void StartNormalGame()
     {
+        FXController.Instance.InitSFX(SFXType.ButtonCancel);
         targetScene = SceneIndex.FirstLevel1;
         TutorialHintUIManager.HindUI(ChangeScene);
     }

@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb92408c1cc44c04940ff7a4db077ee1, type: 3}
   m_Name: SFX Container
   m_EditorClassIdentifier: 
-  keys: 00000000
+  keys: 010000000200000003000000040000000500000006000000
   values:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 57e7590200c3b454ea5cc3fa6376573e, type: 3}
+  - {fileID: 8300000, guid: ac251ffff60d01044886cadc8c9b5e04, type: 3}
+  - {fileID: 8300000, guid: 02ea59ecf7703724da46f952a0beca72, type: 3}
+  - {fileID: 8300000, guid: 0bde8e1807cc5664aabb2b18047e6dca, type: 3}
+  - {fileID: 8300000, guid: beeb1817522edef49beaf3c49919a3d3, type: 3}
+  - {fileID: 8300000, guid: a58609bdeb8b8ab4ea8781e88774e3ee, type: 3}

@@ -150,8 +150,12 @@ public class DevicePairUnit
         var nowState = (int)CurrentState;
         var newState = Mathf.Clamp(nowState + addState, minState, maxState);
         CurrentState = (PairUnitState)newState;
-        
-        if(nowState != newState) DealCurrentState();
+
+        if (nowState != newState)
+        {
+            FXController.Instance.InitSFX(nextState ? SFXType.ButtonCheck : SFXType.ButtonCancel);
+            DealCurrentState();
+        }
     }
 
 

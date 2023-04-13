@@ -33,6 +33,7 @@ public class NoTimeHint : MonoBehaviour
         
         for (var i = 0; i < flashTimes; i++)
         {
+            FXController.Instance.InitSFX(SFXType.Warning);
             await FadeIn(hintTween);
             await FadeOut(hintTween);
         }

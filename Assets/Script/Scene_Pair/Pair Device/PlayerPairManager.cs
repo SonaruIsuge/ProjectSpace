@@ -114,6 +114,7 @@ public class PlayerPairManager : MonoBehaviour
         {
             foreach (var _ in PairedUnit.Where(unit => unit.PressReady))
             {
+                FXController.Instance.InitSFX(SFXType.ButtonCheck);
                 EnableFinalCheck = true;
                 return;
             }
@@ -123,6 +124,7 @@ public class PlayerPairManager : MonoBehaviour
         {
             foreach (var _ in PairedUnit.Where(unit => unit.PressCancel))
             {
+                FXController.Instance.InitSFX(SFXType.ButtonCancel);
                 EnableFinalCheck = false;
                 return;
             }
