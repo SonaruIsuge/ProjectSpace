@@ -52,9 +52,17 @@ public class Player : MonoBehaviour, IGravityAffectable
     public bool UnderGravity { get; set; }
     public bool IgnoreGravity => PlayerInput.JetDirection != 0;
     public bool IsActive { get; private set; }
+
+    private bool enableMove;
+    private bool enableJet;
+    private bool enableInteract;
     
      
     public void SetActive(bool active) => IsActive = active;
+
+    public void EnableMove(bool enable) => enableMove = enable;
+    public void EnableJet(bool enable) => enableJet = enable;
+    public void EnableInteract(bool enable) => enableInteract = enable;
      
 
     // For debug use
@@ -69,6 +77,9 @@ public class Player : MonoBehaviour, IGravityAffectable
     {
         //Joint = null;
         IsActive = false;
+        enableMove = true;
+        enableJet = true;
+        enableInteract = true;
 
         PlayerInput = new PlayerInput(this);
         PlayerMovement = new RbOnlyMove(this);
@@ -98,6 +109,9 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void Move(Vector3 movement)
     {
+        if (!enableMove) movement = Vector3.zero;
+        else if (!enableJet) movement = Vector3.Scale(movement, new Vector3(1, 0, 1));
+        
         var speed = IsGround ? MoveSpeedInGround : MoveSpeedInSpace;
         PlayerMovement.Move(movement, speed, JetPackAcceleration, MaxJetPackVelocity);
         PlayerMovement.CalcInertia(!UnderGravity);
@@ -110,6 +124,8 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void DetectInteract()
     {
+        if(!enableInteract) return;
+        
         PlayerInteractController.UpdateInteract();
         
         if(PlayerInput.TapInteract) PlayerInteractController.Interact(this, InteractType.Tap);

@@ -103,3 +103,11 @@ public enum SceneIndex
     FirstLevel1 = 2,
     None
 }
+
+
+public enum TutorialCondition
+{
+    None,
+    PlayerJet, 
+    ItemRecycled
+}

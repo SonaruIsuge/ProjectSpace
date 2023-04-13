@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -67,7 +69,6 @@ public class MachineManager : MonoBehaviour
             machine.SetActive(true);
         }
 
-        if(normalSeparatorMachine && normalSeparatorMachine.TryGetComponent<CatSeparatorWander>(out var catWander)) catWander.Init();
     }
 
 
@@ -75,6 +76,18 @@ public class MachineManager : MonoBehaviour
     {
         return machineTypeDict.ContainsKey(type) ? machineTypeDict[type] : null;
     }
+
+
+    public void EnableRecycle(bool enable)
+    {
+        foreach(var machine in allMachine.Where(m => m is RecycleMachine)) machine.SetActive(enable);
+    }
+
+
+    public void EnableSeparator(bool enable)
+    {
+        if(normalSeparatorMachine) normalSeparatorMachine.SetActive(enable);   
+    }  
 
 
     private void Update()

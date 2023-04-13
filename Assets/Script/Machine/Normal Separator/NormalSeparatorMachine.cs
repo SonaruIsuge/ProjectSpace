@@ -29,7 +29,8 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
     [field: Header("UI for Debug")]
     [field: SerializeField] public RectTransform ProgressBg { get; private set; }
     [field: SerializeField] public Image Progress { get; private set; }
-    
+
+    public event Action OnSeparatorSetUp;
     public event Action<Item> OnItemSeparated;
     public event Action<Item> OnNewItemOutput;
 
@@ -53,6 +54,8 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
             { MachineStateType.Broken, new NS_BrokenState(this) },
         };
         ChangeState(MachineStateType.Idle);
+        
+        OnSeparatorSetUp?.Invoke();
     }
 
 

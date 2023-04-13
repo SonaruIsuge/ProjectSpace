@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(NavMeshAgent))]
 public class CatSeparatorWander : MonoBehaviour
 {
+    private NormalSeparatorMachine machine;
     [SerializeField] private List<Vector3> destinationList;
     [SerializeField] private Transform moveVfx;
     [SerializeField] private float stopTime;
@@ -36,6 +37,9 @@ public class CatSeparatorWander : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshPath = new NavMeshPath();
+        
+        machine = GetComponent<NormalSeparatorMachine>();
+        if (machine) machine.OnSeparatorSetUp += Init;
     }
 
 
@@ -64,7 +68,7 @@ public class CatSeparatorWander : MonoBehaviour
         await Task.Delay((int)(stopTime * 1000));
         
         var dest = GetRandomDestination();
-        navMeshAgent.SetDestination(dest);
+        if(navMeshAgent) navMeshAgent.SetDestination(dest);
         moveVfx.gameObject.SetActive(true);
         stopping = false;
     }
