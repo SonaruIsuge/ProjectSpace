@@ -6,6 +6,7 @@ public class TutorialView : MonoBehaviour
 {
     [SerializeField] private GameObject textFrame;
     [SerializeField] private TMP_Text textArea;
+    [SerializeField] private UITweenBase textTween;
 
 
     public void SetTextArea(string text)
@@ -17,11 +18,17 @@ public class TutorialView : MonoBehaviour
     public void ShowTextFrame()
     {
         textFrame.SetActive(true);
+        textTween.ResetToBegin();
+        textTween.TweenTo();
     }
 
 
     public void HideTextFrame()
     {
-        textFrame.SetActive(false);
+        textTween.TweenFrom(() =>
+        {
+            textFrame.SetActive(false);
+        });
+        
     }
 }

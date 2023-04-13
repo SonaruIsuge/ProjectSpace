@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
         // start tutorial
         foreach (var tutorial in tutorialList)
         {
-            tutorialView.SetTextArea(tutorial.hintText);
+            tutorial.onStart.AddListener(() => tutorialView.SetTextArea(tutorial.hintText) );
             tutorial.onStart.AddListener(tutorialView.ShowTextFrame);
             tutorial.onComplete.AddListener(tutorialView.HideTextFrame);
             
