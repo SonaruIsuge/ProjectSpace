@@ -16,8 +16,6 @@ public class NoTimeHint : MonoBehaviour
     private void Start()
     {
         hintPanel.SetActive(false);
-        hintPanelTween.ResetToBegin();
-        hintTween.ResetToBegin();
     }
 
 
@@ -28,6 +26,8 @@ public class NoTimeHint : MonoBehaviour
         isFlash = true;
         
         hintPanel.SetActive(true);
+        hintPanelTween.ResetToBegin();
+        hintTween.ResetToBegin();
         
         await FadeIn(hintPanelTween);
         
