@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 
@@ -24,9 +26,15 @@ public class GameManager : MonoBehaviour
     [Header("Hint Scripts")]
     [SerializeField] private RotateCamHintUI rotateCamHintUI;
     [SerializeField] private ItemDestinationHint curveHint;
+    [SerializeField] private NoTimeHint noTimeHint;
+
+    [Header("Game component")] 
+    [SerializeField] private Volume volume;
+    private Vignette vignette;
     
     private SimpleTimer gameTimer;
     private bool startGameProgress;
+    private bool warningHasShowed;
 
     public static event Action OnGameStart;
     public static event Action<bool> OnGameOver;
@@ -46,7 +54,10 @@ public class GameManager : MonoBehaviour
 
         startGameProgress = false;
 
-        //curveHint = GetComponent<ItemDestinationHint>();
+        warningHasShowed = false;
+        
+        volume.profile.TryGet(typeof(Vignette), out vignette);
+        if (vignette) vignette.intensity.value = 0;
     }
 
 
@@ -122,7 +133,17 @@ public class GameManager : MonoBehaviour
         
         uiManager.UpdateItemRemain(itemManager.RemainItemNum);
         uiManager.UpdateTimeRemain(gameTimer.Remain, gameTimer.Remain01);
+    
         
+        // show warning
+        if (gameTimer.Remain <= 60 && !warningHasShowed)
+        {
+            warningHasShowed = true;
+            if(noTimeHint) noTimeHint.Flash();
+            if (vignette) vignette.intensity.value = 0.256f;
+        }
+        
+        // detect game over
         if(gameTimer.IsFinish) OnGameOver?.Invoke(false);
         else if(itemManager.RemainItemNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke(true);
     }
