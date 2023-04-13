@@ -24,6 +24,9 @@ public class MachineManager : MonoBehaviour
     private bool isStart;
     public void SetStart(bool start) => isStart = start;
 
+    private CatSeparatorWander wanderSeparator;
+    
+
     private void Awake()
     {
         allMachine = new List<IMachine>
@@ -63,6 +66,8 @@ public class MachineManager : MonoBehaviour
             machine.SetUp();
             machine.SetActive(true);
         }
+
+        if(normalSeparatorMachine && normalSeparatorMachine.TryGetComponent<CatSeparatorWander>(out var catWander)) catWander.Init();
     }
 
 
