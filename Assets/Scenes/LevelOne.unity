@@ -7399,6 +7399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimeLimit: 300
+  gameBGM: 1
   playerManager: {fileID: 46067045}
   machineManager: {fileID: 753427749}
   itemManager: {fileID: 118762778}

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game Data")] 
     [SerializeField] private float gameTimeLimit;
+    [SerializeField] private BGMType gameBGM;
     
     [Header("Other Managers")]
     [SerializeField] private PlayerManager playerManager;
@@ -185,7 +186,7 @@ public class GameManager : MonoBehaviour
         
         OnGameStart?.Invoke();
         
-        FXController.Instance.ChangeBGM(BGMType.MainGamePlay);
+        FXController.Instance.ChangeBGM(gameBGM);
     }
 
 

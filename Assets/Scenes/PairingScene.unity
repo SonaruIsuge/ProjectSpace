@@ -2987,7 +2987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   productsContainer: {fileID: 11400000, guid: 1449046001c87f743bfb85abc20c639c, type: 2}
   recycleRule: {fileID: 11400000, guid: 980547bb5aa5b214eb97f99e8c7d58d9, type: 2}
-  recycleHint: {fileID: 11400000, guid: fa07b1f859cdd1d47a9538ba863e9597, type: 2}
+  recycleHint: {fileID: 11400000, guid: 2f9dbe3d156cc4d47a1357e8905f6033, type: 2}
   SelectItemMat: {fileID: 2100000, guid: bf2c8e3865bb76f46a24f0fcb1be18dd, type: 2}
 --- !u!4 &1800845931
 Transform:
