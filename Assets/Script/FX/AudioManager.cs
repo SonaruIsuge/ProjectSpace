@@ -36,6 +36,14 @@ public class AudioManager : MonoBehaviour
         if (stopNowPlay && playerAudioSources[index].isPlaying) playerAudioSources[index].Stop();
         playerAudioSources[index].PlayOneShot(clip);
     }
+
+
+    public void StopPlayerSfx(int index)
+    {
+        if(index < 0 || index >= playerAudioSources.Count) return;
+        if(playerAudioSources[index].clip == null) return;
+        playerAudioSources[index].clip = null;
+    }
     
     
     public async void PlayBGM(AudioClip clip, float fadeTime)

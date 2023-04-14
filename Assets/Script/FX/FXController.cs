@@ -58,6 +58,12 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     }
 
 
+    public void StopPlayerSfx(int index)
+    {
+        AudioManager.StopPlayerSfx(index);
+    }
+
+
     public AudioClip ChangeBGM(BGMType type, float fadeTime = 0f)
     {
         if (bgmDict == null || !bgmDict.ContainsKey(type)) return null;

@@ -54,7 +54,9 @@ public class RbOnlyMove : IPlayerMove
         
         targetPlayer.JetVFX.SetActive(rb.velocity.y >= -0.1f && !targetPlayer.IsGround);
         targetPlayer.MoveVFX.SetActive(targetPlayer.IsGround && moveVelocity.sqrMagnitude > 0);
+        
         if(currentJetVelocity > 0 && !targetPlayer.IsGround) FXController.Instance.InitPlayerSfx(SFXType.PlayerFlying, targetPlayer.PlayerIndex, true);
+        else FXController.Instance.StopPlayerSfx(targetPlayer.PlayerIndex);
         
         if(!targetPlayer.IsGround) needLandVFX = true;
         if (targetPlayer.IsGround && needLandVFX)
