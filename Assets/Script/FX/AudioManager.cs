@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -8,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource bgmAudioSource;
     [SerializeField] private AudioSource sfxAudioSource;
+
+    private Queue<AudioSource> audioSourcePool;
 
     private const string MAIN_VOLUME = "MainVolume";
     private const string BGM_VOLUME = "BGMVolume";

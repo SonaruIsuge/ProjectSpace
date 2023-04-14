@@ -58,6 +58,8 @@ public class TutorialManager : MonoBehaviour
             
             tutorial.SetConditionFunc(conditionFuncDict[tutorial.triggerCondition]);
             await tutorial.StartTutorial();
+            
+            tutorial.ResetEvents();
         }
     }
 
@@ -144,5 +146,13 @@ public class TutorialFragment
         }
 
         onComplete?.Invoke();
+    }
+
+
+    public void ResetEvents()
+    {
+        onStart.RemoveAllListeners();
+        onUpdate.RemoveAllListeners();
+        onComplete.RemoveAllListeners();
     }
 }
