@@ -9,27 +9,50 @@ public class GameStartView : MonoBehaviour
 {
     [SerializeField] private RawImage leftDoor;
     [SerializeField] private RawImage rightDoor;
+    [SerializeField] private RawImage ready;
+    [SerializeField] private RawImage go;
 
-    private UITweenBase leftDoorTween;
-    private UITweenBase rightDoorTween;
+    private List<UITweenBase> allStartTween;
 
     private void Awake()
     {
-        leftDoorTween = leftDoor.GetComponent<UITweenBase>();
-        rightDoorTween = rightDoor.GetComponent<UITweenBase>();
+        allStartTween = new List<UITweenBase>
+        {
+            leftDoor.GetComponent<UITweenBase>(),
+            rightDoor.GetComponent<UITweenBase>(),
+        };
+
+        if (ready) allStartTween.Add(ready.GetComponent<UITweenBase>());
+        if(go) allStartTween.Add(go.GetComponent<UITweenBase>());
     } 
 
 
     public void ResetTween()
     {
-        leftDoorTween.ResetToBegin();
-        rightDoorTween.ResetToBegin();
+        foreach (var tween in allStartTween)
+        {
+            tween.ResetToBegin();
+        }
     }
 
 
-    public void ShowAni(Action onAniComplete = null)
+    public async Task ShowAni(Action onAniComplete = null)
     {
-        leftDoorTween.TweenTo();
-        rightDoorTween.TweenTo(onAniComplete);
+        var aniOver = false;
+        for (var i = 0; i < allStartTween.Count; i++)
+        {
+            var tween = allStartTween[i];
+            tween.TweenTo(i == allStartTween.Count - 1 ? () =>
+                {
+                    onAniComplete?.Invoke();
+                    aniOver = true;
+                }
+                : () => tween.gameObject.SetActive(false));
+        }
+
+        while (!aniOver)
+        {
+            await Task.Yield();
+        }
     }
 }

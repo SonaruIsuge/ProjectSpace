@@ -68,10 +68,11 @@ public class UIManager : MonoBehaviour
         gameStartView.gameObject.SetActive(true);
         gameStartView.ResetTween();
         await Task.Delay((int)(delay * 1000));
-        gameStartView.ShowAni(() =>
+        await gameStartView.ShowAni(() =>
         {
             onComplete?.Invoke();
             gameOverView.gameObject.SetActive(false);
+            gameStartView.gameObject.SetActive(false);
         });
     }
 

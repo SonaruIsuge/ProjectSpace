@@ -118,10 +118,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        foreach (var _ in playerManager.ActivePlayers.Where(p => p.PlayerInput.TapInteract))
-            startGameProgress = true;
-        
-        if(!startGameProgress) return;   
+        UpdateGame();
+    }
+
+
+    private void UpdateGame()
+    {
+        if(!startGameProgress) return;
         
         playerManager.SetWorldRotate(cameraController.CurrentRotate);
         
