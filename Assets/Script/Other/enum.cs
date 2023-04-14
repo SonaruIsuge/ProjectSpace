@@ -83,6 +83,8 @@ public enum SFXType
     Warning,
     ButtonCheck,
     ButtonCancel,
+    ButtonChange,
+    MachineOutput,
 }
 
 
@@ -90,6 +92,8 @@ public enum BGMType
 {
     ChooseCharacter,
     MainGamePlay,
+    MissionComplete,
+    MissionFail
 }
 
 

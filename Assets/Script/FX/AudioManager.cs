@@ -42,9 +42,9 @@ public class AudioManager : MonoBehaviour
     {
         var timer = 0f;
         audioMixer.GetFloat(BGM_VOLUME, out var currentVolume);
+        currentVolume = Mathf.Pow(10, currentVolume / 20);
         var originVolume = currentVolume;
         
-        currentVolume = Mathf.Pow(10, currentVolume / 20);
         while (timer < fadeTime)
         {
             timer += Time.deltaTime;

@@ -13,6 +13,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private MachineManager machineManager;
     [SerializeField] private ItemManager itemManager;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private TutorialView tutorialView;
     
     // need hint ui
@@ -39,6 +40,8 @@ public class TutorialManager : MonoBehaviour
             { TutorialCondition.PlayerJet, PlayerFly },
             { TutorialCondition.ItemRecycled , ItemRecycled }
         };
+
+        uiManager.OnPressNextLevel += NextLevel;
     }
 
 
@@ -66,6 +69,13 @@ public class TutorialManager : MonoBehaviour
             
             tutorial.ResetEvents();
         }
+    }
+
+
+    private void NextLevel()
+    {
+        var data = GameFlowManager.Instance.SceneData;
+        GameFlowManager.Instance.LoadScene((int)SceneIndex.FirstLevel1, data);
     }
 
 

@@ -8,7 +8,7 @@ public class SelectBox : MonoBehaviour
 {
     [SerializeField] private float flashSpace;
     private GameObject CurrentSelected => EventSystem.current.currentSelectedGameObject;
-    //private GameObject nowRecordSelected;
+    private GameObject nowRecordSelected;
     private RawImage image;
 
 
@@ -20,13 +20,21 @@ public class SelectBox : MonoBehaviour
 
     private void OnEnable()
     {
-        //nowRecordSelected = null;
+        nowRecordSelected = CurrentSelected;
     }
 
 
     private void Update()
     {
-        if(CurrentSelected) transform.position = CurrentSelected.transform.position;
+        if (CurrentSelected)
+        {
+            if (nowRecordSelected != CurrentSelected)
+            {
+                if(nowRecordSelected) FXController.Instance.InitSfx(SFXType.ButtonChange);
+                nowRecordSelected = CurrentSelected;
+            }
+            transform.position = CurrentSelected.transform.position;
+        }
     }
 
 

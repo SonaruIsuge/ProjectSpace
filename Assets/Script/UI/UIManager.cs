@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     public event Action OnPressBackToPair;
     public event Action OnPressReplay;
+    public event Action OnPressNextLevel; 
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class UIManager : MonoBehaviour
     {
         gameOverView.BindReplayButton(() => OnPressReplay?.Invoke() );
         gameOverView.BindQuitButton( () => OnPressBackToPair?.Invoke() );
+        gameOverView.BindNextLevelButton(() => OnPressNextLevel?.Invoke() );
     }
 
 

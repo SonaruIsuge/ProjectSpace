@@ -203,6 +203,8 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
 
         uiManager.SetGameOverUI(isWin, gameTimeLimit - gameTimer.Remain);
+        var bgm = isWin ? BGMType.MissionComplete : BGMType.MissionFail;
+        FXController.Instance.ChangeBGM(bgm, 1f);
     }
 
 

@@ -1446,7 +1446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b78307824b5736c419f0a4e396daadd1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: afd1933f1de8d644f9d91a597f6c5124, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1775,6 +1775,7 @@ MonoBehaviour:
   playerManager: {fileID: 46067045}
   machineManager: {fileID: 753427749}
   itemManager: {fileID: 118762778}
+  uiManager: {fileID: 1614335365}
   tutorialView: {fileID: 47107984}
   separatorMachineHintPoint: {fileID: 254937711}
   timeHintPoint: {fileID: 1721806425}

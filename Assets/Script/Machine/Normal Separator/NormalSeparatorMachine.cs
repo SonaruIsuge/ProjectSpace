@@ -139,6 +139,9 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         
         CurrentProcessingItem = null;
         IsWorking = false;
+
+        FXController.Instance.InitSfx(SFXType.MachineOutput);
+        
         OnNewItemOutput?.Invoke(outputItem); 
         outputItem.AddItem();
     }
