@@ -38,11 +38,21 @@ public class FXController : TSingletonMonoBehaviour<FXController>
     }
 
 
-    public AudioClip InitSFX(SFXType type, bool untilPlayOver = false, bool stopNowPlay = false)
+    public AudioClip InitSfx(SFXType type, bool untilPlayOver = false, bool stopNowPlay = false)
     {
         if (sfxDict == null || !sfxDict.ContainsKey(type)) return null;
         var sfx = sfxDict[type];
-        AudioManager.SpawnSFX(sfx, untilPlayOver, stopNowPlay);
+        AudioManager.SpawnSfx(sfx, untilPlayOver, stopNowPlay);
+        
+        return sfx;
+    }
+    
+    
+    public AudioClip InitPlayerSfx(SFXType type, int index, bool untilPlayOver = false, bool stopNowPlay = false)
+    {
+        if (sfxDict == null || !sfxDict.ContainsKey(type)) return null;
+        var sfx = sfxDict[type];
+        AudioManager.SpawnPlayerSfx(sfx, index, untilPlayOver, stopNowPlay);
         
         return sfx;
     }

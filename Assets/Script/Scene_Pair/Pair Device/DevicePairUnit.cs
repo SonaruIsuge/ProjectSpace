@@ -153,7 +153,7 @@ public class DevicePairUnit
 
         if (nowState != newState)
         {
-            FXController.Instance.InitSFX(nextState ? SFXType.ButtonCheck : SFXType.ButtonCancel);
+            FXController.Instance.InitSfx(nextState ? SFXType.ButtonCheck : SFXType.ButtonCancel);
             DealCurrentState();
         }
     }

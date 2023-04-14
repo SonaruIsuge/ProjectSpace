@@ -103,7 +103,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private async void StartPairing()
     {
-        FXController.Instance.InitSFX(SFXType.ButtonCheck);
+        FXController.Instance.InitSfx(SFXType.ButtonCheck);
         
         var hideUIEnd = false;
         MainMenuUIManager.HideMainMenu(() => hideUIEnd = true);
@@ -125,7 +125,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void QuitGame()
     {
-        FXController.Instance.InitSFX(SFXType.ButtonCancel);
+        FXController.Instance.InitSfx(SFXType.ButtonCancel);
         
         Application.Quit();
     }
@@ -207,7 +207,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void StartTutorial()
     {
-        FXController.Instance.InitSFX(SFXType.ButtonCheck);
+        FXController.Instance.InitSfx(SFXType.ButtonCheck);
         targetScene = SceneIndex.Tutorial;
         TutorialHintUIManager.HindUI(ChangeScene);
     }
@@ -215,7 +215,7 @@ public class PairingSceneManager : MonoBehaviour
 
     private void StartNormalGame()
     {
-        FXController.Instance.InitSFX(SFXType.ButtonCancel);
+        FXController.Instance.InitSfx(SFXType.ButtonCancel);
         targetScene = SceneIndex.FirstLevel1;
         TutorialHintUIManager.HindUI(ChangeScene);
     }

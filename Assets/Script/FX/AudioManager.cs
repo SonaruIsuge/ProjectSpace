@@ -10,45 +10,31 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private AudioSource bgmAudioSource;
     [SerializeField] private AudioSource sfxAudioSource;
+    [SerializeField] private List<AudioSource> playerAudioSources;
 
-    [SerializeField] private PoolableAudioSource poolAbleAudioPrefab;
-    private Queue<PoolableAudioSource> audioSourcePool;
 
     private const string MAIN_VOLUME = "MainVolume";
     private const string BGM_VOLUME = "BGMVolume";
     private const string SFX_VOLUME = "SFXVolume";
 
 
-    private void Awake()
-    {
-        audioSourcePool = new Queue<PoolableAudioSource>();
-        audioSourcePool.Enqueue(poolAbleAudioPrefab);
-    }
-
-
-    // public void SpawnSFX(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
-    // {
-    //     if(untilPlayOver && sfxAudioSource.isPlaying) return;
-    //
-    //     if (stopNowPlay && sfxAudioSource.isPlaying) sfxAudioSource.Stop();
-    //     
-    //     if (audioSourcePool.Count == 0)
-    //     {
-    //         var newAudioSource = Instantiate(poolAbleAudioPrefab);
-    //         newAudioSource.Init(audioSourcePool);
-    //     }
-    //
-    //     var useAudio = audioSourcePool.Dequeue();
-    //     useAudio.Play(clip);
-    // }
-
-
-    public void SpawnSFX(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
+    public void SpawnSfx(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
     {
         if(untilPlayOver && sfxAudioSource.isPlaying) return;
     
         if (stopNowPlay && sfxAudioSource.isPlaying) sfxAudioSource.Stop();
         sfxAudioSource.PlayOneShot(clip);
+    }
+    
+    
+    public void SpawnPlayerSfx(AudioClip clip, int index, bool untilPlayOver = false, bool stopNowPlay = false)
+    {
+        if(index < 0 || index >= playerAudioSources.Count) return;
+        
+        if(untilPlayOver && playerAudioSources[index].isPlaying) return;
+    
+        if (stopNowPlay && playerAudioSources[index].isPlaying) playerAudioSources[index].Stop();
+        playerAudioSources[index].PlayOneShot(clip);
     }
     
     

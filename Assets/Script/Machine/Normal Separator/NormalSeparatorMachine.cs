@@ -116,7 +116,7 @@ public class NormalSeparatorMachine : MonoBehaviour, IMachine, IInteractable
         CurrentProcessingItem.RemoveItem();
 
         FXController.Instance.InitVFX(VFXType.Recycle, InputPoint.position);
-        FXController.Instance.InitSFX(SFXType.ItemSeparate);
+        FXController.Instance.InitSfx(SFXType.ItemSeparate);
         
         OnItemSeparated?.Invoke(inputItem);
     }
