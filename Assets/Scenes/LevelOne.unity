@@ -7487,7 +7487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856f57dcc0967c6408e1bfab01f781ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeLimit: 62
+  gameTimeLimit: 300
   gameBGM: 2
   playerManager: {fileID: 46067045}
   machineManager: {fileID: 753427749}

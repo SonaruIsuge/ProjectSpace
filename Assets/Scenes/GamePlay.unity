@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &16390348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +240,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftDoor: {fileID: 710989302}
   rightDoor: {fileID: 971572868}
+  ready: {fileID: 0}
+  go: {fileID: 0}
 --- !u!1 &23639239
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250ff67fb8384f6a93d6b841751d8890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeAni: {fileID: 0}
   hintPanel: {fileID: 1026705747}
   hintPanelTween: {fileID: 1026705748}
   hintTween: {fileID: 1026705746}
