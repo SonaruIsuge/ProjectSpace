@@ -3538,18 +3538,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &764311662 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1762736987485013616, guid: 1449afaa7d9742e418f5c57afa9b81d7,
-    type: 3}
-  m_PrefabInstance: {fileID: 905544406}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &822929066
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7289,8 +7277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856f57dcc0967c6408e1bfab01f781ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeLimit: 300
-  gameBGM: 1
+  gameTimeLimit: 70
+  gameBGM: 2
   playerManager: {fileID: 46067045}
   machineManager: {fileID: 753427749}
   itemManager: {fileID: 118762778}
@@ -7299,7 +7287,6 @@ MonoBehaviour:
   rotateCamHintUI: {fileID: 0}
   curveHint: {fileID: 1856705837}
   noTimeHint: {fileID: 1614335367}
-  volume: {fileID: 764311662}
 --- !u!224 &1856705840
 RectTransform:
   m_ObjectHideFlags: 0

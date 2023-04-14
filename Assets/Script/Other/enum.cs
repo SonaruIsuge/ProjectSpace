@@ -90,10 +90,12 @@ public enum SFXType
 
 public enum BGMType
 {
+    None,
     ChooseCharacter,
     MainGamePlay,
     MissionComplete,
-    MissionFail
+    MissionFail,
+    FastGamePlay
 }
 
 

@@ -31,6 +31,7 @@ public class NoTimeHint : MonoBehaviour
         
         await FadeIn(hintPanelTween);
         
+        FXController.Instance.ChangeBGM(BGMType.None);
         for (var i = 0; i < flashTimes; i++)
         {
             FXController.Instance.InitSfx(SFXType.Warning);
@@ -40,7 +41,8 @@ public class NoTimeHint : MonoBehaviour
         
         await FadeOut(hintPanelTween);
         hintPanel.SetActive(false);
-        
+
+        FXController.Instance.ChangeBGM(BGMType.FastGamePlay);
         isFlash = false;
     }
 
