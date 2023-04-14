@@ -29,10 +29,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemDestinationHint curveHint;
     [SerializeField] private NoTimeHint noTimeHint;
 
-    [Header("Game component")] 
-    [SerializeField] private Volume volume;
-    private Vignette vignette;
-    
     private SimpleTimer gameTimer;
     private bool startGameProgress;
     private bool warningHasShowed;
@@ -56,9 +52,6 @@ public class GameManager : MonoBehaviour
         startGameProgress = false;
 
         warningHasShowed = false;
-        
-        volume.profile.TryGet(typeof(Vignette), out vignette);
-        if (vignette) vignette.intensity.value = 0;
     }
 
 
@@ -141,7 +134,6 @@ public class GameManager : MonoBehaviour
         {
             warningHasShowed = true;
             if(noTimeHint) noTimeHint.Flash();
-            if (vignette) vignette.intensity.value = 0.256f;
         }
         
         // detect game over
@@ -203,8 +195,8 @@ public class GameManager : MonoBehaviour
         await Task.Delay(1000);
 
         uiManager.SetGameOverUI(isWin, gameTimeLimit - gameTimer.Remain);
-        var bgm = isWin ? BGMType.MissionComplete : BGMType.MissionFail;
-        FXController.Instance.ChangeBGM(bgm, 1f);
+        //var bgm = isWin ? BGMType.MissionComplete : BGMType.MissionFail;
+        //FXController.Instance.ChangeBGM(bgm, 1f);
     }
 
 
