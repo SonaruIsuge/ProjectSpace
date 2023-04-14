@@ -41,8 +41,16 @@ public class AudioManager : MonoBehaviour
     public void StopPlayerSfx(int index)
     {
         if(index < 0 || index >= playerAudioSources.Count) return;
-        if(playerAudioSources[index].clip == null) return;
+        if(!playerAudioSources[index].clip) return;
         playerAudioSources[index].clip = null;
+    }
+
+
+    public void StopSfx()
+    {
+        if(!sfxAudioSource.clip) return;
+        sfxAudioSource.Stop();
+        sfxAudioSource.clip = null;
     }
     
     

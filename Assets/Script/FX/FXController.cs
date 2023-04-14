@@ -56,11 +56,17 @@ public class FXController : TSingletonMonoBehaviour<FXController>
         
         return sfx;
     }
-
+    
 
     public void StopPlayerSfx(int index)
     {
         AudioManager.StopPlayerSfx(index);
+    }
+
+
+    public void StopSfx()
+    {
+        AudioManager.StopSfx();
     }
 
 

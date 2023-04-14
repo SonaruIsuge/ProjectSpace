@@ -85,6 +85,7 @@ public enum SFXType
     ButtonCancel,
     ButtonChange,
     MachineOutput,
+    Speaking,
 }
 
 

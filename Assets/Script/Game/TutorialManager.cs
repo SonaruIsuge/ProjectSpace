@@ -62,7 +62,9 @@ public class TutorialManager : MonoBehaviour
         {
             tutorial.onStart.AddListener(() => tutorialView.SetTextArea(tutorial.hintText) );
             tutorial.onStart.AddListener(tutorialView.ShowTextFrame);
+            tutorial.onStart.AddListener(TutorialSpeak);
             tutorial.onComplete.AddListener(tutorialView.HideTextFrame);
+            tutorial.onComplete.AddListener(TutorialStopSpeak);
             
             tutorial.SetConditionFunc(conditionFuncDict[tutorial.triggerCondition]);
             await tutorial.StartTutorial();
@@ -76,6 +78,18 @@ public class TutorialManager : MonoBehaviour
     {
         var data = GameFlowManager.Instance.SceneData;
         GameFlowManager.Instance.LoadScene((int)SceneIndex.FirstLevel1, data);
+    }
+
+
+    private void TutorialSpeak()
+    {
+        FXController.Instance.InitSfx(SFXType.Speaking, false, true);
+    }
+
+
+    private void TutorialStopSpeak()
+    {
+        FXController.Instance.StopSfx();
     }
 
 
