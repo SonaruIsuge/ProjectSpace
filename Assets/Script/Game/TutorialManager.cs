@@ -14,9 +14,14 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private MachineManager machineManager;
     [SerializeField] private ItemManager itemManager;
     [SerializeField] private TutorialView tutorialView;
+    
+    // need hint ui
+    [SerializeField] private Transform separatorMachineHintPoint;
+    [SerializeField] private RectTransform timeHintPoint;
 
     [SerializeField] private List<TutorialFragment> tutorialList;
 
+    private Camera MainCam => Camera.main;
     private int currentRemain;
     private Dictionary<TutorialCondition, Func<bool>> conditionFuncDict;
 
@@ -94,6 +99,26 @@ public class TutorialManager : MonoBehaviour
     public void EnableSeparator() => machineManager.EnableSeparator(true);
 
 
+    public void ShowTimeHint()
+    {
+        tutorialView.ShowHintArrow(timeHintPoint.anchoredPosition);
+    }
+
+
+    public void ShowSeparatorHint()
+    {
+        var uiPos = MainCam.WorldToScreenPoint(separatorMachineHintPoint.position);
+        tutorialView.ShowHintArrow(uiPos);
+    }
+
+
+    public void HindHintArrow()
+    {
+        tutorialView.HindHintArrow();
+    }
+
+
+    // Conditions
     public void RecordRemainRubbish() => currentRemain = itemManager.RemainItemNum;
 
     private bool PlayerFly() => playerManager.ActivePlayers.Any(player => player.PlayerInput.JetDirection > 0);

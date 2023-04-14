@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -10,16 +11,42 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource bgmAudioSource;
     [SerializeField] private AudioSource sfxAudioSource;
 
-    private Queue<AudioSource> audioSourcePool;
+    [SerializeField] private PoolableAudioSource poolAbleAudioPrefab;
+    private Queue<PoolableAudioSource> audioSourcePool;
 
     private const string MAIN_VOLUME = "MainVolume";
     private const string BGM_VOLUME = "BGMVolume";
     private const string SFX_VOLUME = "SFXVolume";
 
+
+    private void Awake()
+    {
+        audioSourcePool = new Queue<PoolableAudioSource>();
+        audioSourcePool.Enqueue(poolAbleAudioPrefab);
+    }
+
+
+    // public void SpawnSFX(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
+    // {
+    //     if(untilPlayOver && sfxAudioSource.isPlaying) return;
+    //
+    //     if (stopNowPlay && sfxAudioSource.isPlaying) sfxAudioSource.Stop();
+    //     
+    //     if (audioSourcePool.Count == 0)
+    //     {
+    //         var newAudioSource = Instantiate(poolAbleAudioPrefab);
+    //         newAudioSource.Init(audioSourcePool);
+    //     }
+    //
+    //     var useAudio = audioSourcePool.Dequeue();
+    //     useAudio.Play(clip);
+    // }
+
+
     public void SpawnSFX(AudioClip clip, bool untilPlayOver = false, bool stopNowPlay = false)
     {
         if(untilPlayOver && sfxAudioSource.isPlaying) return;
-
+    
         if (stopNowPlay && sfxAudioSource.isPlaying) sfxAudioSource.Stop();
         sfxAudioSource.PlayOneShot(clip);
     }
