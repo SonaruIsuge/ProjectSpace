@@ -4100,6 +4100,7 @@ GameObject:
   - component: {fileID: 988701125}
   - component: {fileID: 988701126}
   - component: {fileID: 988701127}
+  - component: {fileID: 988701128}
   m_Layer: 5
   m_Name: Time Text BG
   m_TagString: Untagged
@@ -4167,6 +4168,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &988701128
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988701124}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d4e8c06d05264b24289c380944e7d594, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &990112965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4973,7 +4994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
-  delay: 2
+  delay: 1.5
   easeType: 0
   from: 0
   to: 1
@@ -5064,8 +5085,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 801a15306b064d0083db4b5108e2546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
-  delay: 3.5
+  duration: 0.6
+  delay: 3
   easeType: 0
   from: 0
   to: 1
@@ -6449,6 +6470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250ff67fb8384f6a93d6b841751d8890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeAni: {fileID: 988701128}
   hintPanel: {fileID: 185030500}
   hintPanelTween: {fileID: 185030507}
   hintTween: {fileID: 14179954}
@@ -7465,7 +7487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856f57dcc0967c6408e1bfab01f781ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTimeLimit: 300
+  gameTimeLimit: 62
   gameBGM: 2
   playerManager: {fileID: 46067045}
   machineManager: {fileID: 753427749}

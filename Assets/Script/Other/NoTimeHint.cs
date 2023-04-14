@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NoTimeHint : MonoBehaviour
 {
+    [SerializeField] private Animator timeAni;
     [SerializeField] private GameObject hintPanel;
     [SerializeField] private UICanvasGroupTween hintPanelTween;
     [SerializeField] private UICanvasGroupTween hintTween;
@@ -24,7 +25,8 @@ public class NoTimeHint : MonoBehaviour
     {
         if(isFlash) return;
         isFlash = true;
-        
+
+        timeAni.enabled = true;
         hintPanel.SetActive(true);
         hintPanelTween.ResetToBegin();
         hintTween.ResetToBegin();
