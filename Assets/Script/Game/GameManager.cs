@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
     private void ReStartGame()
     {
         var data = GameFlowManager.Instance.SceneData;
-        GameFlowManager.Instance.LoadScene(1, data);
+        GameFlowManager.Instance.LoadScene((int)SceneIndex.FirstLevel1, data);
     }
 
     private void BackToPair()
