@@ -223,4 +223,14 @@ public class GameManager : MonoBehaviour
         var machine = machineManager.GetMachineByType(DataManager.Instance.GetRecycleType(item.ItemData.type));
         await curveHint.SpawnCurve(player.HeadPoint.position, machine.position);
     }
+    
+    
+    /// <summary>
+    /// <para>Force stop game timer.</para>
+    /// Need to call after `GameStart()` function was called.
+    /// </summary>
+    public void StopTime()
+    {
+        gameTimer.Pause();
+    }
 }
