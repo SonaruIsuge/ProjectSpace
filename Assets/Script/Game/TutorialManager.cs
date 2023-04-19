@@ -47,7 +47,7 @@ public class TutorialManager : MonoBehaviour
 
     private async void StartTutorial()
     {
-        gameManager.StopTime();
+        gameManager.SetEnableTimeOut(false);
         // disable all player and machine feature at start
         foreach (var player in playerManager.ActivePlayers)
         {

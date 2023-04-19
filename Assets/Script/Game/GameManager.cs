@@ -1,14 +1,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using SonaruUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -30,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NoTimeHint noTimeHint;
 
     private SimpleTimer gameTimer;
+    private bool enableTimeOutGameOver;
     private bool startGameProgress;
     private bool warningHasShowed;
 
@@ -48,7 +45,8 @@ public class GameManager : MonoBehaviour
         
         gameTimer = new SimpleTimer(gameTimeLimit);
         gameTimer.Pause();
-
+        enableTimeOutGameOver = true;
+        
         startGameProgress = false;
 
         warningHasShowed = false;
@@ -140,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
         
         // detect game over
-        if(gameTimer.IsFinish) OnGameOver?.Invoke(false);
+        if(gameTimer.IsFinish && enableTimeOutGameOver) OnGameOver?.Invoke(false);
         else if(itemManager.RemainItemNum == 0 && !machineManager.SeparatorWorking && !IsGameOver) OnGameOver?.Invoke(true);
     }
 
@@ -232,5 +230,15 @@ public class GameManager : MonoBehaviour
     public void StopTime()
     {
         gameTimer.Pause();
+    }
+
+
+    /// <summary>
+    /// If set false, game will not over after time out. Default is true.
+    /// </summary>
+    /// <param name="enable">If enable time out as game over condition</param>
+    public void SetEnableTimeOut(bool enable)
+    {
+        enableTimeOutGameOver = enable;
     }
 }
