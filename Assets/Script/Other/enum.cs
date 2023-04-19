@@ -8,6 +8,13 @@ public enum InteractType
 }
 
 
+public enum PlayerEquipment
+{
+    Claw,
+    Shovel
+}
+
+
 public enum ItemSize
 {
     Small,

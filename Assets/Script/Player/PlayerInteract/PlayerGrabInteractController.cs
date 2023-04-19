@@ -15,7 +15,7 @@ public class PlayerGrabInteractController : IPlayerInteract
     public IInteractable CurrentInteract { get; private set; }
     private Transform interactPoint => targetPlayer.InteractPoint;
     private float interactRange => targetPlayer.InteractRange;
-
+    public bool Enable { get; private set; }
     
     private Transform ClawTransform => targetPlayer.ClawTransform;
     private Vector3 clawLocalOriginPos;
@@ -28,6 +28,7 @@ public class PlayerGrabInteractController : IPlayerInteract
     
     public PlayerGrabInteractController(Player player)
     {
+        Enable = true;
         targetPlayer = player;
         CurrentDetect = null;
         CurrentInteract = null;
@@ -37,8 +38,21 @@ public class PlayerGrabInteractController : IPlayerInteract
     }
     
     
+    public void EnableInteract(bool enable)
+    {
+        Enable = enable;
+        if (!enable)
+        {
+            currentDetectCollider = null;
+            SetCurrentInteract(null);
+        }
+    }
+    
+    
     public void UpdateInteract()
     {
+        if(!Enable) return;
+        
         CurrentDetect?.OnDeselect();
         DetectInteractable(interactPoint.position, interactRange);
         CurrentDetect?.OnSelect();
@@ -47,7 +61,7 @@ public class PlayerGrabInteractController : IPlayerInteract
         clawLineRenderer.SetPosition(1, ClawPos);
     }
     
-    
+
     public void SetCurrentInteract(IInteractable interactable)
     {
         CurrentInteract = interactable;

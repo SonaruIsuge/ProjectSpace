@@ -7,6 +7,12 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour, IGravityAffectable
 {
     public int PlayerIndex { get; private set; }
+    
+    [Header("Equipment")] 
+    [SerializeField] private PlayerEquipment currentEquip;
+    [SerializeField] private GameObject clawObj;
+    [SerializeField] private GameObject shovelObj;
+    
     [field: Header("Component")]
     [field: SerializeField] public CharacterController Cc { get; private set; } // Will remove this after rigidbody only test finish.
     [field: SerializeField] public Rigidbody Rb { get; private set; }
@@ -62,7 +68,12 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void EnableMove(bool enable) => enableMove = enable;
     public void EnableJet(bool enable) => enableJet = enable;
-    public void EnableInteract(bool enable) => enableInteract = enable;
+
+    public void EnableInteract(bool enable)
+    {
+        PlayerInteractController.EnableInteract(enable);
+        enableInteract = enable;   
+    }
      
 
     // For debug use
@@ -85,6 +96,8 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerMovement = new RbOnlyMove(this);
         PlayerGravityController = new RbOnlyGravity(this);
         PlayerInteractController = new PlayerGrabInteractController(this);
+
+        currentEquip = PlayerEquipment.Claw;
     }
 
 
@@ -124,7 +137,11 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void DetectInteract()
     {
-        if(!enableInteract) return;
+        if (!enableInteract)
+        {
+            
+            return;
+        }
         
         PlayerInteractController.UpdateInteract();
         
@@ -141,6 +158,25 @@ public class Player : MonoBehaviour, IGravityAffectable
         Rb.angularVelocity = Vector3.zero;
         
         PlayerGravityController.AddGravity(false, GroundCheckPoint.position, 0, gravityInitialVelocity);
+    }
+
+
+    public void SwitchEquipment()
+    {
+        if(PlayerInteractController.CurrentInteract is Item) return;
+
+        if (currentEquip == PlayerEquipment.Claw)
+        {
+            currentEquip = PlayerEquipment.Shovel;
+            ResetClaw(false);
+            ResetShovel(true);
+        }
+        else if (currentEquip == PlayerEquipment.Shovel)
+        {
+            currentEquip = PlayerEquipment.Claw;
+            ResetClaw(true);
+            ResetShovel(false);
+        }
     }
 
 
@@ -165,5 +201,18 @@ public class Player : MonoBehaviour, IGravityAffectable
         
         FXController.Instance.InitVFX(VFXType.PlayerCollision, collision.GetContact(0).point);
         spawnCollisionVFX = true;
+    }
+
+
+    private void ResetClaw(bool enable)
+    {
+        clawObj.SetActive(enable);
+        PlayerInteractController.EnableInteract(enable);
+    }
+
+
+    private void ResetShovel(bool enable)
+    {
+        shovelObj.SetActive(enable);
     }
 }

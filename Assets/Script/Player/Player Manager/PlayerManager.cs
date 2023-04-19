@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.InputSystem.Users;
 
 
 public class PlayerManager : MonoBehaviour
@@ -77,6 +75,9 @@ public class PlayerManager : MonoBehaviour
             
             // player update
             player.Move(playerMoveVelocity);
+            
+            if(player.PlayerInput.SwitchEquipment) player.SwitchEquipment();
+            
             player.DetectInteract();
             
             // World turns in the opposite direction of the camera

@@ -8,6 +8,7 @@ public class PlayerInteractController : IPlayerInteract
     
     public IInteractable CurrentDetect { get; private set; }
     public IInteractable CurrentInteract { get; private set; }
+    public bool Enable { get; private set; }
 
     private Transform interactPoint => targetPlayer.InteractPoint;
     private float interactRange => targetPlayer.InteractRange;
@@ -23,6 +24,8 @@ public class PlayerInteractController : IPlayerInteract
 
     public void UpdateInteract()
     {
+        if(!Enable) return;
+        
         CurrentDetect?.OnDeselect();
         DetectInteractable(interactPoint.position, interactRange);
         CurrentDetect?.OnSelect();
@@ -31,10 +34,17 @@ public class PlayerInteractController : IPlayerInteract
     
     public void Interact(Player interactPlayer, InteractType interactType)
     {
+        if(!Enable) return;
+        
         CurrentInteract?.Interact(interactPlayer, interactType);
         CurrentDetect?.Interact(interactPlayer, interactType);
     }
 
+
+    public void EnableInteract(bool enable)
+    {
+        Enable = enable;
+    }
 
     public void SetCurrentInteract(IInteractable interactable)
     {
