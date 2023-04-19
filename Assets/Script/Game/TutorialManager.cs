@@ -54,6 +54,7 @@ public class TutorialManager : MonoBehaviour
             player.EnableMove(false);
             player.EnableJet(false);
             player.EnableInteract(false);
+            player.EnableSwitchEquipment(false);
         }
         machineManager.EnableRecycle(false);
         machineManager.EnableSeparator(false);

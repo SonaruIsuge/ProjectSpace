@@ -62,18 +62,19 @@ public class Player : MonoBehaviour, IGravityAffectable
     private bool enableMove;
     private bool enableJet;
     private bool enableInteract;
+    private bool enableSwitchEquipment;
     
      
     public void SetActive(bool active) => IsActive = active;
 
     public void EnableMove(bool enable) => enableMove = enable;
     public void EnableJet(bool enable) => enableJet = enable;
-
     public void EnableInteract(bool enable)
     {
         PlayerInteractController.EnableInteract(enable);
         enableInteract = enable;   
     }
+    public void EnableSwitchEquipment(bool enable) => enableSwitchEquipment = enable;
      
 
     // For debug use
@@ -137,12 +138,8 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void DetectInteract()
     {
-        if (!enableInteract)
-        {
-            
-            return;
-        }
-        
+        // if (!enableInteract) return;
+
         PlayerInteractController.UpdateInteract();
         
         if(PlayerInput.TapInteract) PlayerInteractController.Interact(this, InteractType.Tap);
@@ -163,6 +160,7 @@ public class Player : MonoBehaviour, IGravityAffectable
 
     public void SwitchEquipment()
     {
+        if(!enableSwitchEquipment) return;
         if(PlayerInteractController.CurrentInteract is Item) return;
 
         if (currentEquip == PlayerEquipment.Claw)
