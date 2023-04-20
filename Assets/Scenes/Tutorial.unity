@@ -1918,6 +1918,34 @@ MonoBehaviour:
         m_Calls: []
   - waitTime: 2
     triggerCondition: 0
+    duringTime: 3
+    hintText: 'You can also use a shovel to collect trash.
+
+      ( press <sprite=1>
+      ) '
+    onStart:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 321556882}
+          m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+          m_MethodName: EnableShovel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - waitTime: 2
+    triggerCondition: 0
     duringTime: 4
     hintText: Then the star will guide you which recycle machine you should put into.
     onStart:
@@ -4880,6 +4908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftDoor: {fileID: 1597496226}
   rightDoor: {fileID: 1965790253}
+  ready: {fileID: 0}
+  go: {fileID: 0}
 --- !u!114 &1523588342
 MonoBehaviour:
   m_ObjectHideFlags: 0

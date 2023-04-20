@@ -119,6 +119,12 @@ public class TutorialManager : MonoBehaviour
     }
 
 
+    public void EnableShovel()
+    {
+        foreach (var player in playerManager.ActivePlayers) player.EnableSwitchEquipment(true);
+    }
+
+
     public void EnableRecycle() => machineManager.EnableRecycle(true);
     
     
