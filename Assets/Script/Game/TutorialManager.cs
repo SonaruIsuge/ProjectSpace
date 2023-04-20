@@ -38,7 +38,8 @@ public class TutorialManager : MonoBehaviour
         {
             { TutorialCondition.None, null },
             { TutorialCondition.PlayerJet, PlayerFly },
-            { TutorialCondition.ItemRecycled , ItemRecycled }
+            { TutorialCondition.ItemRecycled , ItemRecycled },
+            { TutorialCondition.EquipSwitch , EquipSwitch }
         };
 
         uiManager.OnPressNextLevel += NextLevel;
@@ -155,8 +156,9 @@ public class TutorialManager : MonoBehaviour
 
     private bool PlayerFly() => playerManager.ActivePlayers.Any(player => player.PlayerInput.JetDirection > 0);
 
-
     private bool ItemRecycled() => itemManager.RemainItemNum < currentRemain;
+    
+    private bool EquipSwitch() => playerManager.ActivePlayers.Any(player => player.PlayerInput.SwitchEquipment);
 }
 
 

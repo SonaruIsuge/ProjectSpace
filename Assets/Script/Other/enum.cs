@@ -129,5 +129,6 @@ public enum TutorialCondition
 {
     None,
     PlayerJet, 
-    ItemRecycled
+    ItemRecycled,
+    EquipSwitch
 }

@@ -1918,7 +1918,7 @@ MonoBehaviour:
         m_Calls: []
   - waitTime: 2
     triggerCondition: 0
-    duringTime: 3
+    duringTime: 4
     hintText: 'You can also use a shovel to collect trash.
 
       ( press <sprite=1>
@@ -1938,6 +1938,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    onUpdate:
+      m_PersistentCalls:
+        m_Calls: []
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - waitTime: 2
+    triggerCondition: 3
+    duringTime: 3
+    hintText: Good job!
+    onStart:
+      m_PersistentCalls:
+        m_Calls: []
     onUpdate:
       m_PersistentCalls:
         m_Calls: []
