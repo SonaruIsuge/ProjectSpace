@@ -1922,7 +1922,7 @@ MonoBehaviour:
     hintText: 'You can also use a shovel to collect trash.
 
       ( press <sprite=1>
-      ) '
+      to switch between claw and shovel)'
     onStart:
       m_PersistentCalls:
         m_Calls:
