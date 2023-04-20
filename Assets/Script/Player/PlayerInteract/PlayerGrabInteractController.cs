@@ -41,11 +41,11 @@ public class PlayerGrabInteractController : IPlayerInteract
     public void EnableInteract(bool enable)
     {
         Enable = enable;
-        if (!enable)
-        {
-            currentDetectCollider = null;
-            SetCurrentInteract(null);
-        }
+        if (enable) return;
+        
+        CurrentDetect?.OnDeselect();
+        currentDetectCollider = null;
+        SetCurrentInteract(null);
     }
     
     
