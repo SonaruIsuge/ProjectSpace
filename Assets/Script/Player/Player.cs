@@ -92,6 +92,7 @@ public class Player : MonoBehaviour, IGravityAffectable
         enableMove = true;
         enableJet = true;
         enableInteract = true;
+        enableSwitchEquipment = true;
 
         PlayerInput = new PlayerInput(this);
         PlayerMovement = new RbOnlyMove(this);
