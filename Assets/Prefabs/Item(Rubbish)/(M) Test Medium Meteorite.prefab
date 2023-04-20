@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6945429875257657515}
   m_Layer: 0
   m_Name: (M) Test Medium Meteorite
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 0}
-  carryPlayers: []
+  <CarryPlayers>k__BackingField: []
 --- !u!1001 &8405977339562373921
 PrefabInstance:
   m_ObjectHideFlags: 0

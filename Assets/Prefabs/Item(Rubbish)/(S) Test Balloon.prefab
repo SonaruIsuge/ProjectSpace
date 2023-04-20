@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4534349453613819595}
   m_Layer: 0
   m_Name: (S) Test Balloon
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 940366b5005bdf94a94b56c255207fea, type: 2}
-  carryPlayers: []
+  <CarryPlayers>k__BackingField: []
 --- !u!114 &4534349453613819595
 MonoBehaviour:
   m_ObjectHideFlags: 0

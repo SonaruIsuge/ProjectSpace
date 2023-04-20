@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2409702401408018251}
   m_Layer: 0
   m_Name: (S) Test Energy
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: d9d799e39bd39f441b26fc939bc9a590, type: 2}
-  carryPlayers: []
+  <CarryPlayers>k__BackingField: []
 --- !u!1001 &7267386420307988868
 PrefabInstance:
   m_ObjectHideFlags: 0

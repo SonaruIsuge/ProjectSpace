@@ -134,6 +134,8 @@ public class Player : MonoBehaviour, IGravityAffectable
         PlayerAnimator.SetBool("IsGround", IsGround);
         PlayerAnimator.SetBool("Move", Vector3.Scale(movement, new Vector3(1, 0, 1)) != Vector3.zero);
         PlayerAnimator.SetFloat("MoveSpeed", PlayerInput.Run && IsGround ? 4 : 2);
+
+        UpdateRbInShovelState(movement.y);
     }
 
 
@@ -175,7 +177,17 @@ public class Player : MonoBehaviour, IGravityAffectable
             currentEquip = PlayerEquipment.Claw;
             ResetClaw(true);
             ResetShovel(false);
+            Rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
         }
+    }
+
+
+    private void UpdateRbInShovelState(float jetInput)
+    {
+        if(currentEquip != PlayerEquipment.Shovel) return;
+        // if in ground and not fly input -> y position constraint
+        if (IsGround && jetInput == 0) Rb.constraints |= RigidbodyConstraints.FreezePositionY;
+        else Rb.constraints &= ~RigidbodyConstraints.FreezePositionY;
     }
 
 
