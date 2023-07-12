@@ -9,6 +9,7 @@ public class PairingSceneUIManager : MonoBehaviour
 {
     [SerializeField] private Transform pairUIRoot;
     [SerializeField] private string pairHintText;
+    [SerializeField] private string readyHintText;
     [SerializeField] private string finalCheckHintText;
     [SerializeField] private TMP_Text pairHint;
     [SerializeField] private RawImage finalCheckHintImage;
@@ -21,7 +22,9 @@ public class PairingSceneUIManager : MonoBehaviour
     [SerializeField] private Transform startUIRoot;
     [SerializeField] private List<UITweenBase> startAniTween;
 
+    /// From 1 -> To 0
     private UITweenBase finalCheckImageTween;
+    /// From 1 -> To 0
     private UITweenBase pairHintTween;
     private UITweenBase allReadyPanelTween;
     
@@ -70,7 +73,14 @@ public class PairingSceneUIManager : MonoBehaviour
 
     public void PlayerPair(DevicePairUnit unit)
     {
-        if(pairedNum == 0) pairHintTween.TweenTo();
+        if (pairedNum == 0)
+            // pairHintTween.TweenTo(() => {
+            //     pairHint.text = readyHintText;
+            //     pairHintTween.TweenFrom();
+            //     finalCheckImageTween.TweenFrom();
+            // });
+            UpdateHintPanel(readyHintText, false, true);
+        
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(false);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(true);
         pairedNum++;
@@ -82,7 +92,13 @@ public class PairingSceneUIManager : MonoBehaviour
         allPreparePair[unit.CharacterIndex].gameObject.SetActive(true);
         allStartGameIcons[unit.CharacterIndex].gameObject.SetActive(false);
         pairedNum--;
-        if(pairedNum == 0) pairHintTween.TweenFrom();
+        if (pairedNum == 0)
+            // pairHintTween.TweenTo(() => {
+            //     pairHint.text = pairHintText;
+            //     pairHintTween.TweenFrom();
+            //     finalCheckImageTween.TweenTo();
+            // });
+            UpdateHintPanel(pairHintText, true, false);
     }
 
 
@@ -90,15 +106,22 @@ public class PairingSceneUIManager : MonoBehaviour
     {
         if (activeFinalCheck)
         {
-            pairHintTween.TweenFrom();
-            finalCheckImageTween.TweenFrom();
-            pairHint.text = finalCheckHintText;
-            finalCheckHintImage.gameObject.SetActive(true);
+            UpdateHintPanel(finalCheckHintText, true, true);
+            // finalCheckImageTween.TweenTo();
+            // pairHintTween.TweenTo(() =>
+            // {
+            //     pairHint.text = finalCheckHintText;
+            //     pairHintTween.TweenFrom();
+            //     finalCheckImageTween.TweenFrom();
+            // });
+            // finalCheckImageTween.TweenFrom();
+            // pairHint.text = finalCheckHintText;
         }
         else
         {
-            pairHintTween.TweenTo(() => pairHint.text = pairHintText);
-            finalCheckImageTween.TweenTo( () => finalCheckHintImage.gameObject.SetActive(false));
+            // pairHintTween.TweenTo(() => pairHint.text = pairHintText);
+            // finalCheckImageTween.TweenTo();
+            UpdateHintPanel(readyHintText, true, true);
         }
     }
 
@@ -107,8 +130,12 @@ public class PairingSceneUIManager : MonoBehaviour
     {
         if(allReadyPanelShow == isAllReady) return;
 
-        if (isAllReady) allReadyPanelTween.TweenTo();
-        else allReadyPanelTween.TweenFrom();
+        if (isAllReady) allReadyPanelTween.TweenTo(() => UpdateHintPanel("", true, false));
+        else
+        {
+            allReadyPanelTween.TweenFrom();
+            UpdateHintPanel(finalCheckHintText, false, true);
+        }
         
         allReadyPanelShow = isAllReady;
     }
@@ -136,5 +163,21 @@ public class PairingSceneUIManager : MonoBehaviour
         {
             tween.TweenTo();
         }
+    }
+
+
+    private void UpdateHintPanel(string newHint, bool nowHasImage, bool showImage)
+    {
+        if(nowHasImage) finalCheckImageTween.TweenTo(() =>
+        {
+            if(!showImage) finalCheckHintImage.gameObject.SetActive(false);
+        });
+        pairHintTween.TweenTo(() =>
+        {
+            pairHint.text = newHint;
+            if(!nowHasImage && showImage) finalCheckHintImage.gameObject.SetActive(true);
+            pairHintTween.TweenFrom();
+            if(showImage) finalCheckImageTween.TweenFrom();
+        });
     }
 }

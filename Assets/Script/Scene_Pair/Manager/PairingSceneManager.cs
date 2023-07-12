@@ -289,7 +289,7 @@ public class PairingSceneManager : MonoBehaviour
     private void EnableFinalCheckEvent(bool enableFinalCheck)
     {
         PairUIManager.ShowAllReadyPanel(enableFinalCheck);
-        PairUIManager.ToggleFinalCheckHint(!enableFinalCheck);
+        //PairUIManager.ToggleFinalCheckHint(!enableFinalCheck);
         
         if(enableFinalCheck) PairManager.StopListenUnpairDevice();
         else PairManager.StartListenUnpairDevice();
