@@ -526,7 +526,7 @@ Material:
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineMaskColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Outline_Color: {r: 0.35978106, g: 0.42831072, b: 0.5188679, a: 1}
+    - _Outline_Color: {r: 0.296796, g: 0.3390539, b: 0.3962264, a: 1}
     - _RimLightColor: {r: 0.6023496, g: 0.9056604, b: 0.8680311, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
