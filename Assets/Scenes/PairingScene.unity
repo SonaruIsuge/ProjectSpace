@@ -3514,6 +3514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pairUIRoot: {fileID: 7212691727815440412}
   pairHintText: Press Any Button To Join!
+  readyHintText: Ready
   finalCheckHintText: Start the tour
   pairHint: {fileID: 4678668080980743735}
   finalCheckHintImage: {fileID: 2419140544905766154}
