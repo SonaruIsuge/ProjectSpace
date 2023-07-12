@@ -10701,7 +10701,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"0855649bf25909d4980f8fe8369cc1c8","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"547c5502297bff046b855b9e622ed526","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mainTexture
@@ -10850,7 +10850,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":1.0,"time":0.8773022294044495},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":0.46666669845581057,"g":0.8533355593681336,"b":1.0,"a":1.0},"time":0.2823529541492462},{"color":{"r":0.16470587253570558,"g":1.0,"b":0.5955143570899963,"a":1.0},"time":0.4764782190322876}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.24118410050868989},{"alpha":1.0,"time":0.5676508545875549},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     m_Space: 2147483647
   m_Property:
     name: Color
