@@ -250,7 +250,7 @@ Material:
     - _1st_ShadeColor_Feather: 0.0001
     - _1st_ShadeColor_Step: 0.5
     - _2nd_ShadeColor_Feather: 0.0001
-    - _2nd_ShadeColor_Step: 0
+    - _2nd_ShadeColor_Step: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ARSampler_AlphaOn: 0
@@ -439,7 +439,7 @@ Material:
     - _SecondShadeOverridden: 0
     - _SecondShadeVisible: 1
     - _Set_SystemShadowsToBase: 1
-    - _ShadeColor_Step: 0
+    - _ShadeColor_Step: 1
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -516,15 +516,15 @@ Material:
     - _utsVersionY: 8
     - _utsVersionZ: 5
     m_Colors:
-    - _1st_ShadeColor: {r: 0.56590426, g: 0.764151, b: 0.7365401, a: 1}
-    - _2nd_ShadeColor: {r: 0.40250087, g: 0.6320754, b: 0.61147594, a: 1}
+    - _1st_ShadeColor: {r: 0.16831611, g: 0.4528302, b: 0.41377923, a: 1}
+    - _2nd_ShadeColor: {r: 0.28777143, g: 0.4811321, b: 0.46446306, a: 1}
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 0.70211816, g: 0.9245283, b: 0.9034907, a: 1}
+    - _BaseColor: {r: 0.5339444, g: 0.9528302, b: 0.90873694, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.70211816, g: 0.9245283, b: 0.9034907, a: 1}
+    - _Color: {r: 0.5339444, g: 0.95283014, b: 0.90873694, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
