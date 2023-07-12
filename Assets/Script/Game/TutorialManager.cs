@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SonaruUtilities;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -61,6 +62,7 @@ public class TutorialManager : MonoBehaviour
         machineManager.EnableSeparator(false);
 
         // start tutorial
+        TutorialFragment lastTutorial = null;
         foreach (var tutorial in tutorialList)
         {
             tutorial.onStart.AddListener(() => tutorialView.SetTextArea(tutorial.hintText) );
@@ -70,9 +72,11 @@ public class TutorialManager : MonoBehaviour
             //tutorial.onComplete.AddListener(TutorialStopSpeak);
             
             tutorial.SetConditionFunc(conditionFuncDict[tutorial.triggerCondition]);
-            await tutorial.StartTutorial();
+            await tutorial.StartTutorial(lastTutorial);
             
-            tutorial.ResetEvents();
+            //tutorial.ResetEvents();
+
+            lastTutorial = tutorial;
         }
     }
 
@@ -168,12 +172,14 @@ public class TutorialFragment
     public float waitTime;
     public TutorialCondition triggerCondition;
     public float duringTime;
-    [TextArea(2, 5)] public string hintText;
+    [TextArea(4, 8)] public string hintText;
     public UnityEvent onStart;
     public UnityEvent onUpdate;
     public UnityEvent onComplete;
     public Func<bool> endCondition;
 
+    private float repeatTime = 5;
+    private float repeatTimer;
 
     public void SetConditionFunc(Func<bool> func)
     {
@@ -181,19 +187,27 @@ public class TutorialFragment
     }
     
     
-    public async Task StartTutorial()
+    public async Task StartTutorial(TutorialFragment stuckTutorial = null)
     {
+        repeatTimer = 0;
         if (endCondition != null)
         {
             var conditionComplete = (endCondition == null);
             while (!conditionComplete)
             {
+                repeatTimer += Time.deltaTime;
+                if (repeatTimer >= repeatTime && stuckTutorial != null)
+                {
+                    await stuckTutorial.StartTutorial();
+                    repeatTimer = 0;
+                }
+                
                 conditionComplete = endCondition.Invoke();
                 await Task.Yield();
             }
         }
-        
         else await Task.Delay((int)(waitTime * 1000));
+        
         onStart?.Invoke();
         
         float timer = 0;
