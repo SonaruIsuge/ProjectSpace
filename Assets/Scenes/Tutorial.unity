@@ -2007,19 +2007,6 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   - waitTime: 2
-    triggerCondition: 2
-    duringTime: 3
-    hintText: That's right!
-    onStart:
-      m_PersistentCalls:
-        m_Calls: []
-    onUpdate:
-      m_PersistentCalls:
-        m_Calls: []
-    onComplete:
-      m_PersistentCalls:
-        m_Calls: []
-  - waitTime: 2
     triggerCondition: 0
     duringTime: 4
     hintText: Then there is some medium-sized trash that needs to separate first.
