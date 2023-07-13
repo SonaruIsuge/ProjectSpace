@@ -196,7 +196,7 @@ public class TutorialFragment
                 repeatTimer += Time.deltaTime;
                 if (repeatTimer >= repeatTime && stuckTutorial != null)
                 {
-                    await stuckTutorial.StartTutorial();
+                    await stuckTutorial.StartRepeatTutorial(endCondition);
                     repeatTimer = 0;
                 }
                 
@@ -212,6 +212,31 @@ public class TutorialFragment
         while (timer < duringTime)
         {
             onUpdate?.Invoke();
+            timer += Time.deltaTime;
+            await Task.Yield();
+        }
+
+        onComplete?.Invoke();
+    }
+
+
+    public async Task StartRepeatTutorial(Func<bool> condition)
+    {
+        await Task.Delay((int)(waitTime * 1000));
+        
+        onStart?.Invoke();
+        
+        float timer = 0;
+        while (timer < duringTime)
+        {
+            onUpdate?.Invoke();
+
+            if (condition != null)
+            {
+                var conditionComplete = condition.Invoke();
+                if (conditionComplete) break;
+            }
+
             timer += Time.deltaTime;
             await Task.Yield();
         }
