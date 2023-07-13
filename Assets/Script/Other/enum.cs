@@ -121,6 +121,7 @@ public enum SceneIndex
     MainMenu = 0,
     Tutorial = 1,
     FirstLevel1 = 2,
+    Universe = 3,
     None
 }
 
